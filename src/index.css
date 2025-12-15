@@ -98,3 +98,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #ff6b35;
 }
+/* ============================================
+   Semantic Utility Classes
+   ============================================ */
+
+.interactive-text {
+  color: var(--color-eerie-black);
+  transition: color 0.25s ease;
+}
+
+.interactive-text:hover {
+  color: var(--color-premium-orange);
+}
+
+.dark .interactive-text {
+  color: var(--color-mercury);
+}
