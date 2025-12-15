@@ -114,3 +114,6 @@
 .dark .interactive-text {
   color: var(--color-mercury);
 }
+.dark .interactive-text:hover {
+  color: var(--color-premium-orange);
+}
