@@ -117,3 +117,71 @@
 .dark .interactive-text:hover {
   color: var(--color-premium-orange);
 }
+/* ============================================
+   Form Input Focus Styles
+   ============================================ */
+
+/* Focus styles for input containers */
+.input-container-focus {
+  transition: all 0.2s ease-in-out;
+}
+
+.input-container-focus:focus-within {
+  border-color: var(--color-premium-orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+/* Focus styles for date inputs */
+input[type="date"]:focus,
+input[type="text"]:focus {
+  outline: none;
+}
+
+/* Custom date input styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.5);
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  filter: invert(0.4) sepia(1) saturate(5) hue-rotate(345deg);
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  filter: invert(0.6) sepia(1) saturate(5) hue-rotate(345deg);
+}
+/* ============================================
+   Form Error Message Style
+   ============================================ */
+
+.error-message {
+  color: #ef4444; /* red-500 */
+  font-size: 0.75rem; /* text-xs */
+  margin-top: 0.25rem; /* my-1 */
+  margin-bottom: 0.25rem;
+}
+/* ============================================
+   Custom Select Dropdown Styles
+   ============================================ */
+
+/* Scrollbar for location dropdown */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: var(--color-premium-orange);
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #e55a2a;
+}
