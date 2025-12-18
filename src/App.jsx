@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import HomePage from "./components/homePage.jsx";
+import HomePage from "./pages/homePage.jsx";
 
 function App() {
   useEffect(() => {

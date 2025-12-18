@@ -11,15 +11,6 @@ import HeroIntro from "./heroIntro.jsx";
 import LocationInput from "./LocationInput.jsx";
 import DateInput from "./DateInput.jsx";
 
-// Function to format a Date object to YYYY-MM-DD string
-// This is necessary because the DatePicker in DateInput uses dateFormat="yyyy-MM-dd"
-const formatDate = (date) => {
-  if (!date) return "";
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${day}-${month}-${year}`;
-};
 const addDays = (date, days) => {
   if (!date) return null;
   const result = new Date(date);
@@ -31,8 +22,8 @@ const Hero = () => {
   const [differentDropoff, setDifferentDropoff] = useState(false);
   const [formData, setFormData] = useState({
     pickupLocation: "",
-    pickupDate: "", // Stored as DD-MM-YYYY string
-    dropoffDate: "", // Stored as DD-MM-YYYY string
+    pickupDate: null,
+    dropoffDate: null,
     dropoffLocation: "",
   });
   const [errors, setErrors] = useState({});
@@ -63,9 +54,6 @@ const Hero = () => {
     { id: 6, value: "west", label: "West Branch" },
   ];
 
-  // Get today's date in YYYY-MM-DD format
-  const today = formatDate(new Date());
-
   // Handler for text/location inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -83,12 +71,8 @@ const Hero = () => {
   };
 
   const handleDateChange = (date, name) => {
-    const formattedDate = date ? formatDate(date) : "";
-    setFormData((prev) => ({
-      ...prev,
-      [name]: formattedDate,
-    }));
-    // Clear error for this field
+    setFormData((prev) => ({ ...prev, [name]: date }));
+
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -113,8 +97,7 @@ const Hero = () => {
     }
 
     if (formData.pickupDate && formData.dropoffDate) {
-      // Compare dates based on the YYYY-MM-DD string format
-      if (new Date(formData.dropoffDate) <= new Date(formData.pickupDate)) {
+      if (formData.dropoffDate <= formData.pickupDate) {
         newErrors.dropoffDate = content.errors.dropoffDateInvalid;
       }
     }
@@ -130,17 +113,35 @@ const Hero = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (validateForm()) {
+      // Convert Date objects to strings (DD-MM-YYYY) only when submitting
+      const payload = {
+        ...formData,
+        pickupDate: formData.pickupDate
+          ? `${formData.pickupDate.getDate().toString().padStart(2, "0")}-${(
+              formData.pickupDate.getMonth() + 1
+            )
+              .toString()
+              .padStart(2, "0")}-${formData.pickupDate.getFullYear()}`
+          : null,
+        dropoffDate: formData.dropoffDate
+          ? `${formData.dropoffDate.getDate().toString().padStart(2, "0")}-${(
+              formData.dropoffDate.getMonth() + 1
+            )
+              .toString()
+              .padStart(2, "0")}-${formData.dropoffDate.getFullYear()}`
+          : null,
+      };
       // Form is valid, proceed with search
-      console.log("Form submitted:", formData);
+      console.log("Form submitted:", payload);
       // Add your search logic here
     }
   };
 
   // Helper function to convert YYYY-MM-DD string back to Date object for DatePicker's selected prop
-  const parseDate = (dateString) => (dateString ? new Date(dateString) : null);
+  // const parseDate = (dateString) => (dateString ? new Date(dateString) : null);
 
   return (
-    <section className="bg-authentic-white dark:bg-mirage py-40 lg:py-20 px-5 lg:px-14">
+    <section className="bg-mercury dark:bg-mirage py-40 lg:py-20 px-5 lg:px-14">
       <div className="max-w-325 mx-auto flex flex-col lg:flex-row items-center justify-between gap-10  transition-colors duration-300">
         <div className="flex-1 space-y-6">
           <HeroIntro />
@@ -192,12 +193,9 @@ const Hero = () => {
             <DateInput
               label={content.pickupDate}
               name="pickupDate"
-              // ⭐️ FIX: Convert string to Date object for DatePicker's 'selected' prop
-              value={parseDate(formData.pickupDate)}
-              // ⭐️ FIX: Use the new handleDateChange function
+              value={formData.pickupDate}
               onChange={(date) => handleDateChange(date, "pickupDate")}
-              // ⭐️ FIX: Convert string to Date object for DatePicker's 'min' prop
-              min={parseDate(today)}
+              min={new Date()}
             />
           </div>
 
@@ -209,16 +207,12 @@ const Hero = () => {
 
             <DateInput
               label={content.dropoffDate}
-              name="dropoffDate"
-              // ⭐️ FIX: Convert string to Date object for DatePicker's 'selected' prop
-              value={parseDate(formData.dropoffDate)}
-              // ⭐️ FIX: Use the new handleDateChange function
+              value={formData.dropoffDate}
               onChange={(date) => handleDateChange(date, "dropoffDate")}
-              // ⭐️ FIX: Convert string to Date object for DatePicker's 'min' prop. Also ensure it defaults to today if pickupDate isn't set.
               min={
                 formData.pickupDate
-                  ? addDays(parseDate(formData.pickupDate), 1) // Min is pickup date + 1 day
-                  : parseDate(today) // If no pickup date, min is today
+                  ? addDays(formData.pickupDate, 1)
+                  : new Date()
               }
             />
           </div>
