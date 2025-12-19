@@ -185,3 +185,72 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 .overflow-y-auto::-webkit-scrollbar-thumb:hover {
   background: #e55a2a;
 }
+
+/* ============================================
+   Custom Why Choose Us Section Styles
+   ============================================ */
+@layer components {
+  /* الحاوية الرئيسية للقسم */
+  .choose__container {
+    @apply max-w-7xl mx-auto py-20 px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center overflow-hidden;
+  }
+
+  /* تنسيق الصورة - تم إلغاء التموضع المطلق */
+  .choose__image {
+    @apply flex justify-center items-center w-full h-auto;
+  }
+
+  .choose__image img {
+    @apply w-full max-w-125 lg:max-w-full h-auto object-contain rounded-2xl transition-transform duration-500 hover:scale-105;
+  }
+
+  /* تنسيق المحتوى النصي */
+  .choose__content {
+    @apply space-y-8 text-left;
+  }
+
+  .section__header {
+    @apply font-heading text-4xl font-bold text-eerie-black dark:text-authentic-white;
+  }
+
+  .section__description {
+    @apply font-body text-deep-gray dark:text-dark-text-muted text-lg leading-relaxed text-left;
+  }
+
+  /* كروت المميزات */
+  .choose__card {
+    @apply flex items-start gap-4 p-5 rounded-2xl border border-soft-gray dark:border-dark-border 
+           bg-white dark:bg-big-stone transition-all duration-300 
+           hover:shadow-orange dark:hover:shadow-dark-soft;
+  }
+
+  .choose__card span {
+    @apply shrink-0 w-12 h-12 flex items-center justify-center rounded-xl 
+           bg-seashell dark:bg-pickled-bluewood text-premium-orange text-2xl transition-colors duration-300;
+  }
+}
+/* .section__container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 5rem 1rem;
+}
+.choose__image {
+  position: relative;
+  isolation: isolate;
+  grid-area: 1/1/2/3;
+  height: 100%;
+}
+.choose__content {
+  padding-block: 5rem;
+  grid-area: 1/3/2/4;
+}
+.section__description {
+  color: var(--color-eerie-black);
+  text-align: center;
+  line-height: 1.5rem;
+}
+.choose__card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+} */
