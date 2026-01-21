@@ -228,6 +228,21 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     @apply shrink-0 w-12 h-12 flex items-center justify-center rounded-xl 
            bg-seashell dark:bg-pickled-bluewood text-premium-orange text-2xl transition-colors duration-300;
   }
+  .footer__container {
+    @apply max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12;
+  }
+
+  .footer__title {
+    @apply font-heading text-xl font-bold text-eerie-black dark:text-authentic-white mb-6;
+  }
+
+  .footer__link {
+    @apply font-body text-deep-gray dark:text-dark-text-muted hover:text-premium-orange dark:hover:text-neon-orange transition-colors duration-300 block mb-3;
+  }
+
+  .footer__social-icon {
+    @apply w-10 h-10 flex items-center justify-center rounded-full bg-soft-gray dark:bg-big-stone text-eerie-black dark:text-authentic-white hover:bg-premium-orange hover:text-white transition-all duration-300;
+  }
 }
 /* .section__container {
   max-width: 1200px;
