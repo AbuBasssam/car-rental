@@ -1,22 +1,19 @@
-import React from "react";
-import Aos from "aos";
-import "aos/dist/aos.css";
-
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import HomePage from "./pages/homePage.jsx";
+import { Outlet } from "react-router-dom";
 
 function App() {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // animation duration in ms
-      once: true, // run animation only once
+      duration: 1000,
+      once: true,
     });
   }, []);
+
   return (
     <>
-      <HomePage />
+      <Outlet />
     </>
   );
 }
