@@ -1,8 +1,9 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
+import LoadingIndicator from "../utils/LoadingIndicator";
 
 const Loadable = (Component) => {
   const LoadableComponent = (props) => (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingIndicator />}>
       <Component {...props} />
     </Suspense>
   );
