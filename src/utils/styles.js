@@ -58,3 +58,6 @@ dark:text-white`,
   signupButton:
     "inline-block mt-2 w-full cursor-pointer px-4 py-2 rounded-xl font-medium transition-all duration-300 transform hover:-translate-y-0.5 bg-transparent border border-mercury dark:border-orange-500/50 text-eerie-black dark:text-orange-300/90 hover:bg-soft-gray dark:hover:bg-orange-500/10 hover:border-premium-orange dark:hover:border-orange-500 hover:text-premium-orange dark:hover:text-white/90",
 };
+export const componentStyles = {
+  roundedToggle: `absolute top-3 right-6 z-10 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full transition-all duration-300 shadow-sm hover:shadow-md bg-white dark:bg-white/5 hover:bg-soft-gray dark:hover:bg-white/10 border border-soft-gray dark:border-transparent`,
+};
