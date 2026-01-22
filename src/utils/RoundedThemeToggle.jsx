@@ -1,7 +1,7 @@
 import React from "react";
-import { componentStyles } from "../../utils/styles";
+import { componentStyles } from "./styles";
 import { Moon, Sun } from "lucide-react";
-import useTheme from "../../hooks/useTheme";
+import useTheme from "../hooks/useTheme";
 export const RoundedThemeToggle = () => {
   const { isDarkMode, setIsDarkMode } = useTheme();
 
