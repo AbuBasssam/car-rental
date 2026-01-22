@@ -148,7 +148,8 @@ const Hero = () => {
 
           {/* BUTTONS */}
           <div className="flex gap-4" data-aos="fade-up" data-aos-delay="400">
-            <PrimaryButton title="Book Your Ride" />
+            <PrimaryButton type="button">Book Your Ride</PrimaryButton>
+
             <OutlineButton title="Sell Your Car" />
           </div>
         </div>
@@ -235,12 +236,14 @@ const Hero = () => {
           )}
 
           {/* Search button */}
+
           <PrimaryButton
-            title={content.searchButton}
-            className="w-full"
             type="submit"
+            className="w-full"
             onClick={handleSearch}
-          />
+          >
+            {content.searchButton}
+          </PrimaryButton>
         </div>
 
         {/* Divider + Toggle */}

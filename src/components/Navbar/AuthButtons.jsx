@@ -1,17 +1,18 @@
 import PrimaryButton from "../../layouts/primaryButton.jsx";
+import { ROUTES } from "../../routes/paths.js";
 const AuthButtons = ({ isMobile = false, onLogin }) => {
   if (isMobile) {
     return (
       <>
         <a
-          href="#login"
+          href={ROUTES.LOGIN}
           className="font-heading interactive-text transition"
           onClick={onLogin}
         >
           Login
         </a>
         <a
-          href="#register"
+          href={ROUTES.SIGNUP}
           className="font-heading interactive-text transition"
         >
           Register
@@ -23,13 +24,15 @@ const AuthButtons = ({ isMobile = false, onLogin }) => {
   return (
     <>
       <a
-        href="#login"
+        href={ROUTES.LOGIN}
         className="font-heading text-eerie-black interactive-text transition"
         onClick={onLogin}
       >
         Login
       </a>
-      <PrimaryButton title="Register" onClick={() => console.log("Hello")} />
+      <PrimaryButton type="button" onClick={() => console.log("Hello")}>
+        Register
+      </PrimaryButton>
     </>
   );
 };
