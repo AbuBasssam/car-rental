@@ -7,14 +7,14 @@ import MobileMenu from "./MobileMenu";
 import ThemeToggle from "./themeToggle";
 import LanguageSelector from "./languageSelector";
 import AuthButtons from "./AuthButtons";
-import useTheme from "../../hooks/useTheme";
-
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes/paths.js";
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { isDarkMode, setIsDarkMode } = useTheme();
-
+  const navigate = useNavigate();
   const handleLogin = () => {
+    navigate(ROUTES.LOGIN);
     setIsLoggedIn(true);
   };
   const handleLogout = () => {
@@ -30,10 +30,7 @@ const Navbar = () => {
         {/* Desktop Action Buttons section*/}
         <div className="hidden md:flex items-center gap-4">
           <LanguageSelector />
-          <ThemeToggle
-            isDarkMode={isDarkMode}
-            onToggle={() => setIsDarkMode(!isDarkMode)}
-          />
+          <ThemeToggle />
 
           {!isLoggedIn ? (
             <AuthButtons onLogin={handleLogin} />
@@ -45,10 +42,7 @@ const Navbar = () => {
         {/* Mobile Action Buttons section */}
         <div className="flex md:hidden items-center gap-3">
           <LanguageSelector />
-          <ThemeToggle
-            isDarkMode={isDarkMode}
-            onToggle={() => setIsDarkMode(!isDarkMode)}
-          />
+          <ThemeToggle />
 
           <button className="p-2" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? (
