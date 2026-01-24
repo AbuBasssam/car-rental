@@ -1,9 +1,4 @@
-import {
-  AUTH_ENDPOINTS,
-  HTTP_METHODS,
-  REQUEST_CONFIG,
-  axiosInstance,
-} from "../config/apiConfig";
+import { AUTH_ENDPOINTS, axiosInstance } from "../config/apiConfig";
 import { handleApiError, saveUserInfo } from "../utils/authUtils";
 
 /**
