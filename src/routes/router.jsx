@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App.jsx";
 import { ROUTES } from "./paths.js";
 import Loadable from "../utils/Loadable.jsx";
+import { loginAction } from "../actions/loginAction.js";
 
 const HomePage = Loadable(lazy(() => import("../pages/homePage.jsx")));
 const LoginPage = Loadable(lazy(() => import("../pages/Login.jsx")));
@@ -13,7 +14,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: ROUTES.LOGIN, element: <LoginPage /> },
+      { path: ROUTES.LOGIN, element: <LoginPage />, action: loginAction },
     ],
   },
 ]);
