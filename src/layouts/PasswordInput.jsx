@@ -8,6 +8,8 @@ const PasswordInput = ({
   showPassword,
   onTogglePassword,
   placeholder = "Enter your password",
+  required = false,
+  ...props
 }) => {
   return (
     <div className={loginStyles.form.inputContainer}>
@@ -18,11 +20,12 @@ const PasswordInput = ({
         <input
           type={showPassword ? "text" : "password"}
           name="password"
-          value={value}
+          defaultValue={value}
           onChange={onChange}
           placeholder={placeholder}
-          required
+          required={required}
           className={loginStyles.form.input}
+          {...props}
         />
         <div
           className={loginStyles.form.passwordToggle}

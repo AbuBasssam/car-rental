@@ -3,15 +3,9 @@ import { loginStyles } from "../../utils/styles";
 import SignupSection from "./SignupSection";
 import LoginForm from "./LoginForm";
 import LoginHeader from "./LoginHeader";
+import { Form } from "react-router-dom";
 
-const LoginCard = ({
-  isActive,
-  credentials,
-  showPassword,
-  onSubmit,
-  onChange,
-  onTogglePassword,
-}) => {
+const LoginCard = ({ isActive, showPassword, onTogglePassword }) => {
   return (
     <div
       className={`${loginStyles.loginCard.container} ${isActive ? "scale-100 opacity-100" : "scale-90 opacity-0"}`}
@@ -22,13 +16,12 @@ const LoginCard = ({
 
         <LoginHeader />
 
-        <LoginForm
-          credentials={credentials}
-          showPassword={showPassword}
-          onSubmit={onSubmit}
-          onChange={onChange}
-          onTogglePassword={onTogglePassword}
-        />
+        <Form method="post" className={loginStyles.form.container}>
+          <LoginForm
+            showPassword={showPassword}
+            onTogglePassword={onTogglePassword}
+          />
+        </Form>
 
         <SignupSection />
       </div>

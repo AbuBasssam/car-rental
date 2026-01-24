@@ -1,5 +1,4 @@
 import React from "react";
-import { loginStyles } from "../../utils/styles";
 
 import { FaUser } from "react-icons/fa";
 
@@ -9,29 +8,19 @@ import { ForgotPasswordLink } from "./ForgotPasswordLink.jsx";
 
 import FullWidthButton from "../../layouts/FullWidthButton";
 
-const LoginForm = ({
-  credentials,
-  showPassword,
-  onSubmit,
-  onChange,
-  onTogglePassword,
-}) => {
+const LoginForm = ({ showPassword, onTogglePassword }) => {
   return (
-    <form onSubmit={onSubmit} className={loginStyles.form.container}>
+    <>
       <FormInput
         FieldIcon={FaUser}
         type="email"
         name="email"
-        value={credentials.email}
-        onChange={onChange}
         placeholder="Enter your email"
         required
       />
 
       <div>
         <PasswordInput
-          value={credentials.password}
-          onChange={onChange}
           showPassword={showPassword}
           onTogglePassword={onTogglePassword}
         />
@@ -39,7 +28,7 @@ const LoginForm = ({
       </div>
 
       <FullWidthButton type="submit">Login</FullWidthButton>
-    </form>
+    </>
   );
 };
 export default LoginForm;

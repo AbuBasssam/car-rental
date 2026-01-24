@@ -8,6 +8,7 @@ const FormInput = ({
   onChange,
   placeholder,
   required = false,
+  ...props
 }) => {
   const Icon = FieldIcon;
   return (
@@ -19,11 +20,12 @@ const FormInput = ({
         <input
           type={type}
           name={name}
-          value={value}
+          defaultValue={value}
           onChange={onChange}
           placeholder={placeholder}
           required={required}
           className={loginStyles.form.input}
+          {...props}
         />
       </div>
     </div>
