@@ -1,5 +1,10 @@
-import { AUTH_ENDPOINTS, axiosInstance } from "../config/apiConfig";
-import { handleApiError, saveUserInfo } from "../utils/authUtils";
+import { AUTH_ENDPOINTS } from "../config/apiConfig";
+import axiosInstance from "../config/apiConfig";
+import {
+  handleApiError,
+  saveUserInfo,
+  clearUserInfo,
+} from "../utils/authUtils";
 
 /**
  * Authentication Service
@@ -44,7 +49,15 @@ export const signIn = async (credentials) => {
     throw handleAuthError(error);
   }
 };
-
+export const refreshToken = async () => {
+  try {
+    const response = await axiosInstance.post(AUTH_ENDPOINTS.REFRESH_TOKEN);
+    return response.data;
+  } catch (error) {
+    clearUserInfo();
+    throw handleAuthError(error);
+  }
+};
 // ============================================
 // 🔧 ERROR HANDLING
 // ============================================

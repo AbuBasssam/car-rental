@@ -1,5 +1,6 @@
 import { redirect } from "react-router-dom";
-import { signIn, saveUserInfo } from "../services/authService";
+import { signIn } from "../services/authService";
+import { saveUserInfo } from "../utils//authUtils";
 import { validateEmail, validatePassword } from "../utils/validators";
 import { ROUTES } from "../routes/paths";
 

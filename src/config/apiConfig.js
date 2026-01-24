@@ -171,3 +171,5 @@ export const fetchWithTimeout = (
     ),
   ]);
 };
+export default axiosInstance;
+export { refreshToken };
