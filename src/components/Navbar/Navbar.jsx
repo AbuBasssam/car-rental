@@ -8,17 +8,18 @@ import ThemeToggle from "./themeToggle";
 import LanguageSelector from "./languageSelector";
 import AuthButtons from "./AuthButtons";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth.js";
 import { ROUTES } from "../../routes/paths.js";
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, logout: contextLogout } = useAuth();
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate(ROUTES.LOGIN);
-    setIsLoggedIn(true);
   };
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    contextLogout();
+    navigate(ROUTES.HOME);
   };
 
   return (
