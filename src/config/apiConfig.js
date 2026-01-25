@@ -1,6 +1,9 @@
 import axios from "axios";
-import { getCsrfToken } from "../utils/authUtils";
-import { refreshToken } from "../services/authService";
+import { refreshToken, initCsrfToken } from "../services/authService";
+import { getCsrfToken, clearSession } from "../utils/authUtils";
+import { keys } from "../utils/constants";
+import { redirect } from "react-router-dom";
+import { ROUTES } from "../routes/paths";
 
 // ============================================
 // 🌐 API CONFIGURATION
@@ -8,9 +11,102 @@ import { refreshToken } from "../services/authService";
 const isDevelopment = import.meta.env.MODE === "development";
 
 // API Base URL
+
 export const API_BASE_URL = isDevelopment
   ? "https://localhost:7137/api/v1"
   : "https://your-production-api.com/api/v1";
+
+/**
+ * Authentication API endpoints configuration
+ * Defines all authentication-related API endpoints with base URL
+ */
+export const AUTH_ENDPOINTS = {
+  // Authentication
+  SIGN_IN: `${API_BASE_URL}/authentication/signin`,
+  SIGN_UP: `${API_BASE_URL}/authentication/signup`,
+  LOGOUT_OUT: `${API_BASE_URL}/authentication/logout`,
+  REFRESH_TOKEN: `${API_BASE_URL}/authentication/refresh`,
+
+  // Password Management
+
+  FORGOT_PASSWORD: `${API_BASE_URL}/authentication/password-reset`,
+  VERIFY_PASSWORD: `${API_BASE_URL}/authentication/password-reset-verification`,
+  RESET_PASSWORD: `${API_BASE_URL}/authentication/password-reset`,
+  RESEND_PASSWORD_RESET: `${API_BASE_URL}/authentication/password-reset/resend`,
+
+  // Email Verification
+
+  VERIFY_EMAIL: `${API_BASE_URL}/authentication/email-confirmation`,
+  RESEND_VERIFICATION: `${API_BASE_URL}/authentication/email-verification/resend`,
+
+  // Security
+
+  CSRF_TOKEN: `${API_BASE_URL}/authentication/csrf-token`,
+};
+
+/**
+ * Default timeout for API requests in milliseconds
+ * @constant {number}
+ */
+export const REQUEST_TIMEOUT = 30000;
+
+/**
+ * List of endpoints that require CSRF token protection
+ * These endpoints perform state-changing operations that need CSRF validation
+ * @constant {string[]}
+ */
+const CSRF_REQUIRED_ENDPOINTS = [
+  AUTH_ENDPOINTS.SIGN_IN,
+  AUTH_ENDPOINTS.SIGN_UP,
+  AUTH_ENDPOINTS.VERIFY_EMAIL,
+  AUTH_ENDPOINTS.RESEND_VERIFICATION,
+
+  AUTH_ENDPOINTS.FORGOT_PASSWORD,
+  AUTH_ENDPOINTS.VERIFY_PASSWORD,
+  AUTH_ENDPOINTS.RESEND_PASSWORD_RESET,
+];
+
+/**
+ * List of endpoints excluded from CSRF token requirement
+ * These are typically read-only or token initialization endpoints
+ * @constant {string[]}
+ */
+const CSRF_EXCLUDED_ENDPOINTS = [
+  AUTH_ENDPOINTS.CSRF_TOKEN,
+  AUTH_ENDPOINTS.REFRESH_TOKEN,
+];
+
+/**
+ * Determines if a CSRF token is required for the given URL and method.
+ *
+ * @param {string} url - The endpoint URL to check.
+ * @param {string} method - The HTTP method being used.
+ * @returns {boolean} - Returns true if a CSRF token is required; otherwise false.
+ */
+export const requiresCsrfToken = (url, method) => {
+  const isStateMutatingMethod = ["post", "put", "patch", "delete"].includes(
+    method?.toLowerCase(),
+  );
+
+  if (!isStateMutatingMethod) {
+    return false;
+  }
+
+  const isExcluded = CSRF_EXCLUDED_ENDPOINTS.some((endpoint) =>
+    url?.includes(endpoint),
+  );
+
+  if (isExcluded) {
+    return false;
+  }
+
+  // ✅ تحقق من القائمة المطلوبة
+  const isRequired = CSRF_REQUIRED_ENDPOINTS.some((endpoint) =>
+    url?.includes(endpoint),
+  );
+
+  return isRequired;
+};
 
 // ============================================
 // 📡 CREATE AXIOS INSTANCE
@@ -18,30 +114,59 @@ export const API_BASE_URL = isDevelopment
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 30000, // 30 seconds
-  withCredentials: true, // Include cookies in requests
+  timeout: REQUEST_TIMEOUT,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
     "Accept-Language": "en",
     Accept: "application/json",
   },
 });
+
 // ============================================
 // 🔧 REQUEST INTERCEPTOR
 // ============================================
 
+/**
+ * Cached promise for CSRF token initialization
+ * Prevents multiple simultaneous initialization requests
+ * @type {Promise<void>|null}
+ */
+let csrfInitPromise = null;
+
+/**
+ * Ensures CSRF token is available before making protected requests
+ * Prevents race conditions by caching the initialization promise
+ * @returns {Promise<void>} Resolves when CSRF token is guaranteed to be available
+ * @throws {Error} If CSRF token initialization fails
+ */
+const ensureCsrfToken = async () => {
+  if (!csrfInitPromise) {
+    csrfInitPromise = (async () => {
+      try {
+        const token = getCsrfToken();
+        if (!token) {
+          await initCsrfToken();
+        }
+      } catch (error) {
+        csrfInitPromise = null;
+        throw error;
+      }
+    })();
+  }
+  return csrfInitPromise;
+};
 axiosInstance.interceptors.request.use(
-  (config) => {
+  async (config) => {
     // Add CSRF token to state-changing requests
-    if (
-      ["post", "put", "patch", "delete"].includes(config.method?.toLowerCase())
-    ) {
+    const needsCsrf = requiresCsrfToken(config.url, config.method);
+
+    if (needsCsrf) {
+      await ensureCsrfToken();
       const csrfToken = getCsrfToken();
 
       if (csrfToken) {
-        config.headers["X-XSRF-TOKEN"] = csrfToken;
-      } else {
-        console.warn("⚠️ CSRF token not found for", config.method, config.url);
+        config.headers[keys.kCsrfToken] = csrfToken;
       }
     }
 
@@ -60,16 +185,17 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
 // ============================================
 // 🔧 RESPONSE INTERCEPTOR
 // ============================================
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    // ✅ Success response
+    // Success response
     if (isDevelopment) {
       console.log(
-        `✅ ${response.config.method?.toUpperCase()} ${response.config.url}`,
+        `${response.config.method?.toUpperCase()} ${response.config.url}`,
         {
           status: response.status,
           data: response.data,
@@ -108,11 +234,9 @@ axiosInstance.interceptors.response.use(
         // Refresh token failed
         console.error("Token refresh failed:", refreshError);
 
-        // Clear user session
-        localStorage.removeItem("userName");
+        clearSession();
 
-        // redirect to login
-        window.location.href = "/login";
+        redirect(ROUTES.LOGIN);
 
         return Promise.reject(refreshError);
       }
@@ -133,43 +257,5 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-// API Endpoints
-export const AUTH_ENDPOINTS = {
-  // Authentication
-  SIGN_IN: `${API_BASE_URL}/authentication/signin`,
-  SIGN_UP: `${API_BASE_URL}/authentication/signup`,
-  LOGOUT_OUT: `${API_BASE_URL}/authentication/logout`,
-  REFRESH_TOKEN: `${API_BASE_URL}/authentication/refresh`,
-
-  FORGOT_PASSWORD: `${API_BASE_URL}/authentication/password-reset`,
-  VERIFY_PASSWORD: `${API_BASE_URL}/authentication/password-reset-verification`,
-  RESET_PASSWORD: `${API_BASE_URL}/authentication/password-reset`,
-  RESEND_PASSWORD_RESET: `${API_BASE_URL}/authentication/password-reset/resend`,
-
-  VERIFY_EMAIL: `${API_BASE_URL}/authentication/email-confirmation`,
-  RESEND_VERIFICATION: `${API_BASE_URL}/authentication/email-verification/resend`,
-
-  CSRF_TOKEN: `${API_BASE_URL}/authentication/csrf-token`,
-};
-
-// Request Configuration
-
-export const REQUEST_TIMEOUT = 30000; // 30 seconds
-
-/**
- * Create fetch with timeout
- */
-export const fetchWithTimeout = (
-  url,
-  options = {},
-  timeout = REQUEST_TIMEOUT,
-) => {
-  return Promise.race([
-    fetch(url, options),
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Request timeout")), timeout),
-    ),
-  ]);
-};
 export default axiosInstance;
 export { refreshToken };

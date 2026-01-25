@@ -3,7 +3,9 @@ import axiosInstance from "../config/apiConfig";
 import {
   handleApiError,
   saveUserInfo,
-  clearUserInfo,
+  clearSession,
+  isRecoverableError,
+  deleteCsrfToken,
 } from "../utils/authUtils";
 
 /**
@@ -13,12 +15,11 @@ import {
 
 /**
  * Initialize CSRF Token
- * Must be called when app loads to set CSRF cookie
+ * @returns {Promise<void>}
  */
-export const initCsrfToken = async (credentials) => {
+export const initCsrfToken = async () => {
   try {
-    await axiosInstance.get(AUTH_ENDPOINTS.CSRF_TOKEN, credentials);
-    console.log("CSRF token initialized");
+    await axiosInstance.get(AUTH_ENDPOINTS.CSRF_TOKEN);
   } catch (error) {
     console.error("Failed to initialize CSRF token:", error);
   }
@@ -26,69 +27,88 @@ export const initCsrfToken = async (credentials) => {
 
 /**
  * Sign In
+ * Authenticates user with email and password
  * @param {Object} credentials - { email, password }
- * @returns {Promise<Object>} - API response
+ * @returns {Promise<Object>} - API response data
+ * @throws {Error} Custom authentication error
  */
 export const signIn = async (credentials) => {
   try {
-    // ✅ Axios يضيف CSRF token تلقائياً من interceptor
     const response = await axiosInstance.post(
       AUTH_ENDPOINTS.SIGN_IN,
       credentials,
     );
 
-    const { data } = response;
-
-    // ✅ حفظ معلومات المستخدم للعرض فقط
-    if (data.succeeded && data.data) {
-      saveUserInfo(data.data.fullName);
+    // Check if response follows the Response<T> structure
+    if (response.data && response.data.succeeded && response.data.data) {
+      saveUserInfo(response.data.data.fullName);
+      deleteCsrfToken();
     }
 
-    return data;
+    return response.data;
   } catch (error) {
     throw handleAuthError(error);
   }
 };
+
+/**
+ * Refresh Token
+ * Obtains a new access token using the refresh token
+ * @returns {Promise<Object>} - API response data
+ * @throws {Error} Custom authentication error
+ */
 export const refreshToken = async () => {
   try {
     const response = await axiosInstance.post(AUTH_ENDPOINTS.REFRESH_TOKEN);
     return response.data;
   } catch (error) {
-    clearUserInfo();
+    clearSession();
     throw handleAuthError(error);
   }
 };
+
+/**
+ * Log Out
+ * Ends the current user session and clears local data
+ * @returns {Promise<Object>} - API response data
+ * @throws {Error} Custom authentication error
+ */
+export const logOut = async () => {
+  try {
+    const response = await axiosInstance.post(AUTH_ENDPOINTS.LOGOUT_OUT);
+    clearSession();
+    deleteCsrfToken();
+    return response.data;
+  } catch (error) {
+    clearSession();
+    deleteCsrfToken();
+    throw handleAuthError(error);
+  }
+};
+
 // ============================================
 // 🔧 ERROR HANDLING
 // ============================================
 
 /**
- * Handle authentication errors
+ * Handle authentication API errors
+ * Enhanced with Response<T> structure support
+ * @param {Error} error - Axios error object
+ * @returns {Error} Custom error with enhanced details
  */
 function handleAuthError(error) {
-  // Axios error structure
+  const message = handleApiError(error);
+
+  const customError = new Error(message);
+
   if (error.response) {
-    // Server responded with error status
     const { status, data } = error.response;
-
-    // Extract error message
-    const message = data?.message || data?.title || handleApiError(error);
-
-    // Create custom error
-    const customError = new Error(message);
     customError.status = status;
     customError.data = data;
-
-    return customError;
-  } else if (error.request) {
-    // Request made but no response
-    const customError = new Error(
-      "Network error. Please check your connection.",
-    );
-    customError.status = 0;
-    return customError;
-  } else {
-    // Something else happened
-    return error;
+    customError.succeeded = data?.succeeded || false;
+    customError.errors = data?.errors || [];
+    customError.recoverable = isRecoverableError(error);
   }
+
+  return customError;
 }
