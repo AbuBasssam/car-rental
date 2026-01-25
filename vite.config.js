@@ -11,4 +11,10 @@ export default defineConfig({
     strictPort: true,
   },
   plugins: [react(), tailwindcss(), mkcert()],
+  build: {
+    sourcemap: true,
+  },
+  css: {
+    devSourcemap: true,
+  },
 });
