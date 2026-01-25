@@ -1,73 +1,45 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { logOut as logOutService } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import {
-  isAuthenticated,
-  getUserInfo,
-  signOut as signOutService,
-} from "../services/authService";
-import { setupTokenRefreshTimer } from "../utils/authUtils";
 import { ROUTES } from "../routes/paths";
 
-/**
- * useAuth Hook
- * Manages user authentication state.
- *
- * @returns {Object} - { user, isAuthenticated, isLoading, logout }
- */
 export const useAuth = () => {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // check authentication status on mount
-    const checkAuth = () => {
-      if (isAuthenticated()) {
-        const userInfo = getUserInfo();
-        setUser(userInfo);
+  if (!context) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
 
-        // setup auto-refresh for token
-        const timerId = setupTokenRefreshTimer();
+  const { isLoggedIn, isLoading, login, logout, setIsLoading } = context;
 
-        // ✅ تنظيف المؤقت عند unmount
-        return () => {
-          if (timerId) clearTimeout(timerId);
-        };
-      }
-      setIsLoading(false);
-    };
-
-    checkAuth();
-  }, []);
-
-  /**
-   * دالة تسجيل الخروج
-   */
-  const logout = async () => {
+  const handleLogout = async () => {
     try {
       setIsLoading(true);
-      await signOutService();
+
+      // call logout API
+      await logOutService();
+
+      // make user unAuth
+
+      logout();
+
+      navigate(ROUTES.HOME);
     } catch (error) {
       console.error("Logout error:", error);
+
+      logout();
+      navigate(ROUTES.HOME);
     } finally {
-      setUser(null);
       setIsLoading(false);
-      navigate(ROUTES.LOGIN);
     }
   };
 
-  /**
-   * تحديث معلومات المستخدم
-   */
-  const updateUser = (newUserInfo) => {
-    setUser(newUserInfo);
-  };
-
   return {
-    user,
-    isAuthenticated: !!user,
+    isLoggedIn,
     isLoading,
-    logout,
-    updateUser,
+    login,
+    logout: handleLogout,
   };
 };

@@ -1,6 +1,5 @@
 import { redirect } from "react-router-dom";
 import { signIn } from "../services/authService";
-import { saveUserInfo } from "../utils//authUtils";
 import { validateEmail, validatePassword } from "../utils/validators";
 import { ROUTES } from "../routes/paths";
 
@@ -37,11 +36,8 @@ export const loginAction = async ({ request }) => {
 
     // Check if login was successful
     if (response.succeeded && response.data) {
-      // Save user info (fullName only, tokens are in cookies)
-      saveUserInfo(response.data.fullName);
-
-      // Redirect to dashboard
-      return redirect(ROUTES.HOME);
+      // Redirect to Home page
+      return redirect(ROUTES.HOME, { replace: true });
     } else {
       // API returned error
       return {
