@@ -54,5 +54,17 @@
   "pickup_date_required": "Pickup date is required",
   "dropoff_date_required": "Return date is required",
   "dropoff_date_invalid": "Return date must be after pickup date",
-  "dropoff_location_required": "Return location is required"
+  "dropoff_location_required": "Return location is required",
+  "why_choose_us": "Why Choose Us",
+  "why_choose_us_desc": "We provide a premium car rental experience tailored to your needs, focusing on quality, safety, and seamless service.",
+  "modern_car_fleet": "Modern Car Fleet",
+
+  "support_24_per_7": "24/7 Support",
+  "support_24_per_7_desc": "Our dedicated team is available around the clock to assist you.",
+  "competitive_pricing": "Competitive Pricing",
+  "competitive_pricing_desc": "Enjoy the best market rates with full transparency and no hidden fees.",
+  "fully_insured": "Fully Insured",
+  "fully_insured_desc": "Drive with peace of mind knowing all our vehicles are fully covered.",
+  "modern_fleet": "Modern Fleet",
+  "modern_fleet_desc": "Experience the latest car models, meticulously maintained for your safety."
 }

@@ -51,7 +51,18 @@ export const localeKeys = {
   pickupDateRequired: "pickup_date_required",
   dropoffDateRequired: "dropoff_date_required",
   dropoffDateInvalid: "dropoff_date_invalid",
-  dropoffLocationRequired: "dropoff_location_required"
+  dropoffLocationRequired: "dropoff_location_required",
+  whyChooseUs: "why_choose_us",
+  whyChooseUsDesc: "why_choose_us_desc",
+  modernCarFleet: "modern_car_fleet",
+  support_24Per_7: "support_24_per_7",
+  support_24Per_7Desc: "support_24_per_7_desc",
+  competitivePricing: "competitive_pricing",
+  competitivePricingDesc: "competitive_pricing_desc",
+  fullyInsured: "fully_insured",
+  fullyInsuredDesc: "fully_insured_desc",
+  modernFleet: "modern_fleet",
+  modernFleetDesc: "modern_fleet_desc"
 };
 
 /**

@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ScrollReveal from "scrollreveal";
 import chooseImg from "../../assets/choose.png";
 
 import FeatureCard from "./FeatureCard";
 import Header from "../whyChooseUs/Header";
+import localeKeys from "../../utils/localeKeys.js";
 
 import {
   RiCustomerService2Line,
@@ -13,6 +15,8 @@ import {
 } from "react-icons/ri";
 
 const WhyChooseUs = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const sr = ScrollReveal({
       distance: "60px",
@@ -34,23 +38,23 @@ const WhyChooseUs = () => {
   const featuresData = [
     {
       icon: RiCustomerService2Line,
-      title: "24/7 Support",
-      desc: "Our dedicated team is available around the clock to assist you.",
+      title: t(localeKeys.support_24Per_7),
+      desc: t(localeKeys.support_24Per_7Desc),
     },
     {
       icon: RiPriceTag3Line,
-      title: "Competitive Pricing",
-      desc: "Enjoy the best market rates with full transparency and no hidden fees.",
+      title: t(localeKeys.competitivePricing),
+      desc: t(localeKeys.competitivePricingDesc),
     },
     {
       icon: RiShieldCheckLine,
-      title: "Fully Insured",
-      desc: "Drive with peace of mind knowing all our vehicles are fully covered.",
+      title: t(localeKeys.fullyInsured),
+      desc: t(localeKeys.fullyInsuredDesc),
     },
     {
       icon: RiSteering2Line,
-      title: "Modern Fleet",
-      desc: "Experience the latest car models, meticulously maintained for your safety.",
+      title: t(localeKeys.modernFleet),
+      desc: t(localeKeys.modernFleetDesc),
     },
   ];
 
@@ -62,14 +66,18 @@ const WhyChooseUs = () => {
       <div className="choose__container">
         {/* Image Sub-section */}
         <div className="choose__image">
-          <img src={chooseImg} loading="lazy" alt="Modern Car Fleet" />
+          <img
+            src={chooseImg}
+            loading="lazy"
+            alt={t(localeKeys.modernCarFleet)}
+          />
         </div>
 
         {/* Content Sub-section */}
         <div className="choose__content">
           <Header
-            title="Why Choose Us"
-            description="We provide a premium car rental experience tailored to your needs, focusing on quality, safety, and seamless service."
+            title={t(localeKeys.whyChooseUs)}
+            description={t(localeKeys.whyChooseUsDesc)}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
