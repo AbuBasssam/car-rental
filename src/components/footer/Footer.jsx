@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 import FooterColumn from "./FooterColumn";
+import localeKeys from "../../utils/localeKeys.js";
 import {
   RiFacebookCircleLine,
   RiInstagramLine,
@@ -10,11 +12,20 @@ import {
 } from "react-icons/ri";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   const companyLinks = [
-    { label: "About Us", url: "#" },
-    { label: "Our Fleet", url: "#" },
-    { label: "Services", url: "#" },
-    { label: "Privacy Policy", url: "#" },
+    { label: t(localeKeys.aboutUs), url: "#" },
+    { label: t(localeKeys.ourFleet), url: "#" },
+    { label: t(localeKeys.services), url: "#" },
+    { label: t(localeKeys.privacyPolicy), url: "#" },
+  ];
+
+  const quickLinks = [
+    { label: t(localeKeys.howItWorks), url: "#how-it-works" },
+    { label: t(localeKeys.whyChooseUs), url: "#choose" },
+    { label: t(localeKeys.rentACar), url: "#cars" },
+    { label: t(localeKeys.contact), url: "#contact" },
   ];
 
   const contactInfo = [
@@ -26,45 +37,36 @@ const Footer = () => {
   return (
     <footer className="bg-authentic-white dark:bg-mirage border-t border-soft-gray dark:border-dark-border transition-colors duration-300">
       <div className="footer__container">
-        {/* العمود الأول: الهوية والوصف */}
+        {/* First column: Brand and description */}
         <div className="space-y-6">
           <div className="text-2xl font-black text-premium-orange font-heading">
-            Rento
+            {t(localeKeys.appName)}
           </div>
           <p className="footer__link leading-relaxed">
-            Experience the ultimate freedom on the road with our premium car
-            rental services. Quality vehicles, 24/7 support.
+            {t(localeKeys.footerDescription)}
           </p>
           <div className="flex gap-4">
-            <a href="#" className="footer__social-icon">
+            <a href="#" className="footer__social-icon" aria-label="Facebook">
               <RiFacebookCircleLine size={20} />
             </a>
-            <a href="#" className="footer__social-icon">
+            <a href="#" className="footer__social-icon" aria-label="Instagram">
               <RiInstagramLine size={20} />
             </a>
-            <a href="#" className="footer__social-icon">
+            <a href="#" className="footer__social-icon" aria-label="Twitter">
               <RiTwitterXLine size={20} />
             </a>
           </div>
         </div>
 
-        {/* العمود الثاني: روابط سريعة */}
-        <FooterColumn title="Company" links={companyLinks} />
+        {/* Second column: Company links */}
+        <FooterColumn title={t(localeKeys.company)} links={companyLinks} />
 
-        {/* العمود الثالث: أوقات العمل أو روابط إضافية */}
-        <FooterColumn
-          title="Quick Links"
-          links={[
-            { label: "How it works", url: "#how-it-works" },
-            { label: "Why choose us", url: "#choose" },
-            { label: "Rent a car", url: "#cars" },
-            { label: "Contact", url: "#contact" },
-          ]}
-        />
+        {/* Third column: Quick links */}
+        <FooterColumn title={t(localeKeys.quickLinks)} links={quickLinks} />
 
-        {/* العمود الرابع: الاتصال */}
+        {/* Fourth column: Contact */}
         <div>
-          <h4 className="footer__title">Get In Touch</h4>
+          <h4 className="footer__title">{t(localeKeys.getInTouch)}</h4>
           <ul className="space-y-4">
             {contactInfo.map((item, index) => (
               <li
@@ -79,10 +81,11 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* الجزء السفلي: الحقوق */}
+      {/* Bottom: Copyright */}
       <div className="border-t border-soft-gray dark:border-dark-border py-8 text-center">
         <p className="text-sm text-light-text-subtle dark:text-dark-text-muted">
-          © {new Date().getFullYear()} CarRental. All rights reserved.
+          © {new Date().getFullYear()} {t(localeKeys.appName)}.{" "}
+          {t(localeKeys.allRightsReserved)}
         </p>
       </div>
     </footer>

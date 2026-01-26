@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ScrollReveal from "scrollreveal";
 import {
   RiMapPin2Line,
@@ -9,8 +10,11 @@ import {
 
 import { IoCarSport } from "react-icons/io5";
 import StepCard from "./StepCard";
+import localeKeys from "../../utils/localeKeys.js";
 
 const HowItWorks = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const sr = ScrollReveal({
       distance: "60px",
@@ -26,26 +30,26 @@ const HowItWorks = () => {
     {
       id: 1,
       icon: RiMapPin2Line,
-      title: "Choose Location",
-      desc: "Find the nearest branch from our extensive network across the city.",
+      title: t(localeKeys.chooseLocation),
+      desc: t(localeKeys.chooseLocationDesc),
     },
     {
       id: 2,
       icon: RiCalendarCheckLine,
-      title: "Pick-up Date",
-      desc: "Select your preferred date and time with our flexible scheduling system.",
+      title: t(localeKeys.pickupDateStep),
+      desc: t(localeKeys.pickupDateStepDesc),
     },
     {
       id: 3,
       icon: IoCarSport,
-      title: "Select Your Car",
-      desc: "Browse our modern fleet and choose the car that fits your style.",
+      title: t(localeKeys.selectYourCar),
+      desc: t(localeKeys.selectYourCarDesc),
     },
     {
       id: 4,
       icon: RiKey2Line,
-      title: "Comfort Pickup",
-      desc: "Receive your keys at the branch and start your journey with VIP service.",
+      title: t(localeKeys.comfortPickup),
+      desc: t(localeKeys.comfortPickupDesc),
     },
   ];
 
@@ -56,11 +60,8 @@ const HowItWorks = () => {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="section__header mb-4">How It Works</h2>
-          <p className="section__description">
-            Rent your favorite car in three simple steps. We've made the process
-            fast, transparent, and hassle-free.
-          </p>
+          <h2 className="section__header mb-4">{t(localeKeys.howItWorks)}</h2>
+          <p className="section__description">{t(localeKeys.howItWorksDesc)}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">

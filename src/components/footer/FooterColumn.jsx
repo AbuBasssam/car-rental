@@ -1,6 +1,4 @@
-import React from "react";
-
-export const FooterColumn = ({ title, links }) => (
+const FooterColumn = ({ title, links }) => (
   <div>
     <h4 className="footer__title">{title}</h4>
     <ul className="space-y-2">
@@ -14,4 +12,5 @@ export const FooterColumn = ({ title, links }) => (
     </ul>
   </div>
 );
+
 export default FooterColumn;

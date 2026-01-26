@@ -62,7 +62,27 @@ export const localeKeys = {
   fullyInsured: "fully_insured",
   fullyInsuredDesc: "fully_insured_desc",
   modernFleet: "modern_fleet",
-  modernFleetDesc: "modern_fleet_desc"
+  modernFleetDesc: "modern_fleet_desc",
+  howItWorks: "how_it_works",
+  howItWorksDesc: "how_it_works_desc",
+  chooseLocation: "choose_location",
+  chooseLocationDesc: "choose_location_desc",
+  pickupDateStep: "pickup_date_step",
+  pickupDateStepDesc: "pickup_date_step_desc",
+  selectYourCar: "select_your_car",
+  selectYourCarDesc: "select_your_car_desc",
+  comfortPickup: "comfort_pickup",
+  comfortPickupDesc: "comfort_pickup_desc",
+  footerDescription: "footer_description",
+  company: "company",
+  quickLinks: "quick_links",
+  getInTouch: "get_in_touch",
+  allRightsReserved: "all_rights_reserved",
+  aboutUs: "about_us",
+  ourFleet: "our_fleet",
+  services: "services",
+  privacyPolicy: "privacy_policy",
+  rentACar: "rent_a_car"
 };
 
 /**

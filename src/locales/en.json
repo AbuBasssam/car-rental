@@ -66,5 +66,26 @@
   "fully_insured": "Fully Insured",
   "fully_insured_desc": "Drive with peace of mind knowing all our vehicles are fully covered.",
   "modern_fleet": "Modern Fleet",
-  "modern_fleet_desc": "Experience the latest car models, meticulously maintained for your safety."
+  "modern_fleet_desc": "Experience the latest car models, meticulously maintained for your safety.",
+  "how_it_works": "How It Works",
+  "how_it_works_desc": "Rent your favorite car in three simple steps. We've made the process fast, transparent, and hassle-free.",
+
+  "choose_location": "Choose Location",
+  "choose_location_desc": "Find the nearest branch from our extensive network across the city.",
+  "pickup_date_step": "Pick-up Date",
+  "pickup_date_step_desc": "Select your preferred date and time with our flexible scheduling system.",
+  "select_your_car": "Select Your Car",
+  "select_your_car_desc": "Browse our modern fleet and choose the car that fits your style.",
+  "comfort_pickup": "Comfort Pickup",
+  "comfort_pickup_desc": "Receive your keys at the branch and start your journey with VIP service.",
+  "footer_description": "Experience the ultimate freedom on the road with our premium car rental services. Quality vehicles, 24/7 support.",
+  "company": "Company",
+  "quick_links": "Quick Links",
+  "get_in_touch": "Get In Touch",
+  "all_rights_reserved": "All rights reserved",
+  "about_us": "About Us",
+  "our_fleet": "Our Fleet",
+  "services": "Services",
+  "privacy_policy": "Privacy Policy",
+  "rent_a_car": "Rent a Car"
 }
