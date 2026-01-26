@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import { Outlet } from "react-router-dom";
 import { defaultToastConfig } from "./config/toastConfig";
 import "react-toastify/dist/ReactToastify.css";
+import "./i18n";
 
 function App() {
   useEffect(() => {

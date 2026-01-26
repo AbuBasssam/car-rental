@@ -2,6 +2,7 @@ import axios from "axios";
 import { refreshToken, initCsrfToken } from "../services/authService";
 import { getCsrfToken, clearSession } from "../utils/authUtils";
 import { keys } from "../utils/constants";
+import { getAppLanguage } from "../utils/helpers";
 import { redirect } from "react-router-dom";
 import { ROUTES } from "../routes/paths";
 
@@ -111,14 +112,14 @@ export const requiresCsrfToken = (url, method) => {
 // ============================================
 // 📡 CREATE AXIOS INSTANCE
 // ============================================
-
+const appLanguage = getAppLanguage();
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: REQUEST_TIMEOUT,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    "Accept-Language": "en",
+    "Accept-Language": { appLanguage },
     Accept: "application/json",
   },
 });

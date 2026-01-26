@@ -4,9 +4,10 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import enUS from "date-fns/locale/en-US";
 import ar from "date-fns/locale/ar-SA";
+import { keys } from "../../utils/constants";
 
-registerLocale("en", enUS);
-registerLocale("ar", ar);
+registerLocale(keys.kEN, enUS);
+registerLocale(keys.kAR, ar);
 
 const DateInput = ({
   label,
@@ -14,13 +15,16 @@ const DateInput = ({
   onChange,
   name,
   min,
-  lang = "en",
+  lang = keys.kEN,
   placeholderText = "dd-MM-yyyy",
 }) => {
   const safeDate = value instanceof Date && !isNaN(value) ? value : null;
 
   return (
-    <div className="flex flex-col gap-1" dir={lang === "ar" ? "rtl" : "ltr"}>
+    <div
+      className="flex flex-col gap-1"
+      dir={lang === keys.kAR ? "rtl" : "ltr"}
+    >
       <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
         {label}
       </label>
@@ -35,7 +39,7 @@ const DateInput = ({
           dateFormat="dd-MM-yyyy"
           minDate={min}
           placeholderText={placeholderText}
-          todayButton={lang === "ar" ? "اليوم" : "Today"}
+          todayButton={lang === keys.kAR ? "اليوم" : "Today"}
         />
       </div>
     </div>

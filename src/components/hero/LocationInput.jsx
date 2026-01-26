@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { FaLocationArrow, FaChevronDown } from "react-icons/fa";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 const LocationInput = ({
   label,
@@ -9,31 +10,25 @@ const LocationInput = ({
   name,
   locations = [],
 }) => {
+  /**
+   *
+   */
+  const closeDropDown = () => {
+    setIsOpen(false);
+    setSearchTerm("");
+  };
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const dropdownRef = useRef(null);
   const inputRef = useRef(null);
+  const dropdownRef = useClickOutside(() => closeDropDown(), isOpen);
 
   // Filter locations based on search term
   const filteredLocations = locations.filter((location) =>
-    location.label.toLowerCase().includes(searchTerm.toLowerCase())
+    location.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Get selected location label
   const selectedLocation = locations.find((loc) => loc.value === value);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-        setSearchTerm("");
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
