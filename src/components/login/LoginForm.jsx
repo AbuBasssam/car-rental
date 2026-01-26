@@ -1,21 +1,22 @@
-import React from "react";
-
+import { useTranslation } from "react-i18next";
 import { FaUser } from "react-icons/fa";
 
 import FormInput from "../../layouts/FormInput.jsx";
 import PasswordInput from "../../layouts/PasswordInput.jsx";
 import { ForgotPasswordLink } from "./ForgotPasswordLink.jsx";
-
 import FullWidthButton from "../../layouts/FullWidthButton";
+import localeKeys from "../../utils/localeKeys.js";
 
 const LoginForm = ({ showPassword, onTogglePassword }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <FormInput
         FieldIcon={FaUser}
         type="email"
         name="email"
-        placeholder="Enter your email"
+        placeholder={t(localeKeys.enterYourEmail)}
         required
       />
 
@@ -23,12 +24,14 @@ const LoginForm = ({ showPassword, onTogglePassword }) => {
         <PasswordInput
           showPassword={showPassword}
           onTogglePassword={onTogglePassword}
+          placeholder={t(localeKeys.enterYourPassword)}
         />
         <ForgotPasswordLink />
       </div>
 
-      <FullWidthButton type="submit">Login</FullWidthButton>
+      <FullWidthButton type="submit">{t(localeKeys.login)}</FullWidthButton>
     </>
   );
 };
+
 export default LoginForm;

@@ -1,16 +1,20 @@
-import React from "react";
+import { useTranslation } from "react-i18next";
 import { loginStyles } from "../utils/styles";
 import { FaLock, FaEyeSlash, FaEye } from "react-icons/fa";
+import localeKeys from "../utils/localeKeys.js";
 
 const PasswordInput = ({
   value,
   onChange,
   showPassword,
   onTogglePassword,
-  placeholder = "Enter your password",
+  placeholder,
   required = false,
   ...props
 }) => {
+  const { t } = useTranslation();
+  const defaultPlaceholder = placeholder || t(localeKeys.enterYourPassword);
+
   return (
     <div className={loginStyles.form.inputContainer}>
       <div className={loginStyles.form.inputWrapper}>
@@ -22,7 +26,7 @@ const PasswordInput = ({
           name="password"
           defaultValue={value}
           onChange={onChange}
-          placeholder={placeholder}
+          placeholder={defaultPlaceholder}
           required={required}
           className={loginStyles.form.input}
           {...props}

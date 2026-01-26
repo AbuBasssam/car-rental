@@ -82,7 +82,14 @@ export const localeKeys = {
   ourFleet: "our_fleet",
   services: "services",
   privacyPolicy: "privacy_policy",
-  rentACar: "rent_a_car"
+  rentACar: "rent_a_car",
+  backToHome: "back_to_home",
+  enterYourEmail: "enter_your_email",
+  enterYourPassword: "enter_your_password",
+  premiumDrive: "premium_drive",
+  luxuryMobilityExperience: "luxury_mobility_experience",
+  dontHaveAccount: "dont_have_account",
+  createAccount: "create_account"
 };
 
 /**
