@@ -1,4 +1,9 @@
+import { useTranslation } from "react-i18next";
+import localeKeys from "../../utils/localeKeys.js";
+
 const HeroIntro = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <h2
@@ -6,28 +11,25 @@ const HeroIntro = () => {
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        Find Your Perfect Ride
+        {t(localeKeys.findYourPerfectRide)}
       </h2>
       <h3
         className="text-4xl font-extrabold leading-tight text-gray-900 dark:text-gray-100"
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        Rent The Best Quality{" "}
-        <span className="text-premium-orange">Car's </span>
-        With Us
+        {t(localeKeys.rentTheBestQuality)}{" "}
+        <span className="text-premium-orange">{t(localeKeys.cars)} </span>
+        {t(localeKeys.withUs)}
       </h3>
       <p
         className="text-gray-600 dark:text-gray-400 max-w-xl"
         data-aos="fade-up"
         data-aos-delay="300"
       >
-        We provide top-notch car rental services with affordable pricing and
-        flexible options. Whether you're going on a trip or need a ride in town
-        – we got you covered.
+        {t(localeKeys.heroDescription)}
       </p>
     </>
   );
 };
-
 export default HeroIntro;

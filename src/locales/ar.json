@@ -33,5 +33,32 @@
     "register_title": "إنشاء حساب جديد",
     "email_placeholder": "أدخل بريدك الإلكتروني",
     "password_placeholder": "أدخل كلمة المرور"
-  }
+  },
+
+  "find_your_perfect_ride": "ابحث عن سيارتك المثالية",
+  "rent_the_best_quality": "استأجر أفضل",
+  "cars": "السيارات",
+  "with_us": "معنا",
+  "hero_description": "نحن نقدم خدمات تأجير سيارات من الدرجة الأولى بأسعار معقولة وخيارات مرنة. سواء كنت ذاهباً في رحلة أو تحتاج إلى سيارة في المدينة - نحن هنا لخدمتك.",
+  "book_your_ride": "احجز سيارتك",
+  "sell_your_car": "بع سيارتك",
+  "luxury_car": "سيارة فاخرة",
+
+  "pickup_location": "موقع الاستلام",
+  "pickup_date": "تاريخ الاستلام",
+  "return_date": "تاريخ الإرجاع",
+  "return_location": "موقع الإرجاع",
+  "select_branch": "اختر الفرع",
+  "return_to_different_location": "الإرجاع إلى موقع مختلف",
+  "return_to_same_location": "الإرجاع إلى موقع الاستلام",
+
+  "date_format": "يوم-شهر-سنة",
+  "today": "اليوم",
+  "no_locations_found": "لم يتم العثور على مواقع",
+
+  "pickup_location_required": "موقع الاستلام مطلوب",
+  "pickup_date_required": "تاريخ الاستلام مطلوب",
+  "dropoff_date_required": "تاريخ الإرجاع مطلوب",
+  "dropoff_date_invalid": "يجب أن يكون تاريخ الإرجاع بعد تاريخ الاستلام",
+  "dropoff_location_required": "موقع الإرجاع مطلوب"
 }

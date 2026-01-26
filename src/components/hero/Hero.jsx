@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useTranslation } from "react-i18next";
 import { MdOutlineDateRange } from "react-icons/md";
 
 import lightHero from "../../assets/light hero.png";
@@ -10,6 +10,7 @@ import OutlineButton from "../../layouts/outlineButton.jsx";
 import HeroIntro from "./heroIntro.jsx";
 import LocationInput from "./LocationInput.jsx";
 import DateInput from "./DateInput.jsx";
+import localeKeys from "../../utils/localeKeys.js";
 
 const addDays = (date, days) => {
   if (!date) return null;
@@ -19,6 +20,7 @@ const addDays = (date, days) => {
 };
 
 const Hero = () => {
+  const { t } = useTranslation();
   const [differentDropoff, setDifferentDropoff] = useState(false);
   const [formData, setFormData] = useState({
     pickupLocation: "",
@@ -28,23 +30,7 @@ const Hero = () => {
   });
   const [errors, setErrors] = useState({});
 
-  const content = {
-    pickupLocation: "Pickup Location",
-    pickupLocationPlaceholder: "Select Branch",
-    pickupDate: "Pickup Date",
-    dropoffDate: "Return Date",
-    dropoffLocation: "Return Location",
-    dropoffLocationPlaceholder: "Select Branch",
-    searchButton: "Search",
-    differentDropoffToggle: "Return to Different Location",
-    errors: {
-      pickupLocationRequired: "Pickup location is required",
-      pickupDateRequired: "Pickup date is required",
-      dropoffDateRequired: "Return date is required",
-      dropoffDateInvalid: "Return date must be after pickup date",
-      dropoffLocationRequired: "Return location is required",
-    },
-  };
+  // Keep mock data unchanged
   const locations = [
     { id: 1, value: "downtown", label: "Downtown Branch" },
     { id: 2, value: "airport", label: "Airport Branch" },
@@ -85,25 +71,25 @@ const Hero = () => {
     const newErrors = {};
 
     if (!formData.pickupLocation.trim()) {
-      newErrors.pickupLocation = content.errors.pickupLocationRequired;
+      newErrors.pickupLocation = t(localeKeys.pickupLocationRequired);
     }
 
     if (!formData.pickupDate) {
-      newErrors.pickupDate = content.errors.pickupDateRequired;
+      newErrors.pickupDate = t(localeKeys.pickupDateRequired);
     }
 
     if (!formData.dropoffDate) {
-      newErrors.dropoffDate = content.errors.dropoffDateRequired;
+      newErrors.dropoffDate = t(localeKeys.dropoffDateRequired);
     }
 
     if (formData.pickupDate && formData.dropoffDate) {
       if (formData.dropoffDate <= formData.pickupDate) {
-        newErrors.dropoffDate = content.errors.dropoffDateInvalid;
+        newErrors.dropoffDate = t(localeKeys.dropoffDateInvalid);
       }
     }
 
     if (differentDropoff && !formData.dropoffLocation.trim()) {
-      newErrors.dropoffLocation = content.errors.dropoffLocationRequired;
+      newErrors.dropoffLocation = t(localeKeys.dropoffLocationRequired);
     }
 
     setErrors(newErrors);
@@ -137,26 +123,25 @@ const Hero = () => {
     }
   };
 
-  // Helper function to convert YYYY-MM-DD string back to Date object for DatePicker's selected prop
-  // const parseDate = (dateString) => (dateString ? new Date(dateString) : null);
-
   return (
     <section className="bg-mercury dark:bg-mirage py-40 lg:py-20 px-5 lg:px-14">
-      <div className="max-w-325 mx-auto flex flex-col lg:flex-row items-center justify-between gap-10  transition-colors duration-300">
+      <div className="max-w-325 mx-auto flex flex-col lg:flex-row items-center justify-between gap-10 transition-colors duration-300">
         <div className="flex-1 space-y-6">
           <HeroIntro />
 
           {/* BUTTONS */}
           <div className="flex gap-4" data-aos="fade-up" data-aos-delay="400">
-            <PrimaryButton type="button">Book Your Ride</PrimaryButton>
+            <PrimaryButton type="button">
+              {t(localeKeys.bookYourRide)}
+            </PrimaryButton>
 
-            <OutlineButton title="Sell Your Car" />
+            <OutlineButton title={t(localeKeys.sellYourCar)} />
           </div>
         </div>
 
         {/* Image */}
         <div data-aos="zoom-in-left">
-          <img src={lightHero} alt="Luxury Car" loading="eager" />
+          <img src={lightHero} alt={t(localeKeys.luxuryCar)} loading="eager" />
         </div>
       </div>
 
@@ -176,8 +161,8 @@ const Hero = () => {
             )}
 
             <LocationInput
-              label={content.pickupLocation}
-              placeholder={content.pickupLocationPlaceholder}
+              label={t(localeKeys.pickupLocation)}
+              placeholder={t(localeKeys.selectBranch)}
               name="pickupLocation"
               value={formData.pickupLocation}
               locations={locations}
@@ -192,7 +177,7 @@ const Hero = () => {
             )}
 
             <DateInput
-              label={content.pickupDate}
+              label={t(localeKeys.pickupDate)}
               name="pickupDate"
               value={formData.pickupDate}
               onChange={(date) => handleDateChange(date, "pickupDate")}
@@ -207,7 +192,7 @@ const Hero = () => {
             )}
 
             <DateInput
-              label={content.dropoffDate}
+              label={t(localeKeys.returnDate)}
               value={formData.dropoffDate}
               onChange={(date) => handleDateChange(date, "dropoffDate")}
               min={
@@ -225,8 +210,8 @@ const Hero = () => {
                 <p className="error-message">{errors.dropoffLocation}</p>
               )}
               <LocationInput
-                label={content.dropoffLocation}
-                placeholder={content.dropoffLocationPlaceholder}
+                label={t(localeKeys.returnLocation)}
+                placeholder={t(localeKeys.selectBranch)}
                 name="dropoffLocation"
                 value={formData.dropoffLocation}
                 onChange={handleInputChange}
@@ -236,13 +221,12 @@ const Hero = () => {
           )}
 
           {/* Search button */}
-
           <PrimaryButton
             type="submit"
             className="w-full"
             onClick={handleSearch}
           >
-            {content.searchButton}
+            {t(localeKeys.search)}
           </PrimaryButton>
         </div>
 
@@ -253,7 +237,9 @@ const Hero = () => {
             onClick={() => setDifferentDropoff(!differentDropoff)}
             className="text-sm font-semibold text-orange-500 hover:underline dark:text-neon-orange transition-colors duration-200"
           >
-            {content.differentDropoffToggle}
+            {differentDropoff
+              ? t(localeKeys.returnToSameLocation)
+              : t(localeKeys.returnToDifferentLocation)}
           </button>
         </div>
       </form>

@@ -29,5 +29,30 @@
     "register_title": "Create a new account",
     "email_placeholder": "Enter your email",
     "password_placeholder": "Enter your password"
-  }
+  },
+  "find_your_perfect_ride": "Find Your Perfect Ride",
+  "rent_the_best_quality": "Rent The Best Quality",
+  "cars": "Car's",
+  "with_us": "With Us",
+  "hero_description": "We provide top-notch car rental services with affordable pricing and flexible options. Whether you're going on a trip or need a ride in town - we got you covered.",
+  "book_your_ride": "Book Your Ride",
+  "sell_your_car": "Sell Your Car",
+  "luxury_car": "Luxury Car",
+
+  "pickup_location": "Pickup Location",
+  "pickup_date": "Pickup Date",
+  "return_date": "Return Date",
+  "return_location": "Return Location",
+  "select_branch": "Select Branch",
+  "return_to_different_location": "Return to Different Location",
+  "return_to_same_location": "Return to Pickup Location",
+  "date_format": "dd-MM-yyyy",
+  "today": "Today",
+  "no_locations_found": "No locations found",
+
+  "pickup_location_required": "Pickup location is required",
+  "pickup_date_required": "Pickup date is required",
+  "dropoff_date_required": "Return date is required",
+  "dropoff_date_invalid": "Return date must be after pickup date",
+  "dropoff_location_required": "Return location is required"
 }

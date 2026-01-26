@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { FaLocationArrow, FaChevronDown } from "react-icons/fa";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import localeKeys from "../../utils/localeKeys.js";
 
 const LocationInput = ({
   label,
@@ -10,16 +12,16 @@ const LocationInput = ({
   name,
   locations = [],
 }) => {
-  /**
-   *
-   */
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const inputRef = useRef(null);
+
   const closeDropDown = () => {
     setIsOpen(false);
     setSearchTerm("");
   };
-  const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const inputRef = useRef(null);
+
   const dropdownRef = useClickOutside(() => closeDropDown(), isOpen);
 
   // Filter locations based on search term
@@ -104,21 +106,12 @@ const LocationInput = ({
                     : "text-deep-gray dark:text-gray-300 hover:bg-soft-gray dark:hover:bg-fiord"
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  {/* <FaLocationArrow
-                    className={`text-xs ${
-                      value === location.value
-                        ? "text-premium-orange"
-                        : "text-gray-400"
-                    }`}
-                  /> */}
-                  {location.label}
-                </div>
+                <div className="flex items-center gap-2">{location.label}</div>
               </button>
             ))
           ) : (
             <div className="px-4 py-3 text-sm text-gray-400 dark:text-gray-500 text-center">
-              No locations found
+              {t(localeKeys.noLocationsFound)}
             </div>
           )}
         </div>

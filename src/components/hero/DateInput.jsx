@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import DatePicker from "react-datepicker";
 import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -5,25 +6,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import enUS from "date-fns/locale/en-US";
 import ar from "date-fns/locale/ar-SA";
 import { keys } from "../../utils/constants";
+import localeKeys from "../../utils/localeKeys.js";
 
 registerLocale(keys.kEN, enUS);
 registerLocale(keys.kAR, ar);
 
-const DateInput = ({
-  label,
-  value,
-  onChange,
-  name,
-  min,
-  lang = keys.kEN,
-  placeholderText = "dd-MM-yyyy",
-}) => {
+const DateInput = ({ label, value, onChange, name, min, placeholderText }) => {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language === keys.kAR ? keys.kAR : keys.kEN;
   const safeDate = value instanceof Date && !isNaN(value) ? value : null;
 
   return (
     <div
       className="flex flex-col gap-1"
-      dir={lang === keys.kAR ? "rtl" : "ltr"}
+      dir={currentLang === keys.kAR ? "rtl" : "ltr"}
     >
       <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
         {label}
@@ -35,15 +31,14 @@ const DateInput = ({
           selected={safeDate}
           onChange={onChange}
           name={name}
-          locale={lang}
+          locale={currentLang}
           dateFormat="dd-MM-yyyy"
           minDate={min}
-          placeholderText={placeholderText}
-          todayButton={lang === keys.kAR ? "اليوم" : "Today"}
+          placeholderText={placeholderText || t(localeKeys.dateFormat)}
+          todayButton={t(localeKeys.today)}
         />
       </div>
     </div>
   );
 };
-
 export default DateInput;

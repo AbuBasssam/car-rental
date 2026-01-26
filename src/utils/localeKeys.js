@@ -28,7 +28,30 @@ export const localeKeys = {
   password: "password",
   forgotPassword: "forgot_password",
   accountSettings: "account_settings",
-  changeLanguage: "change_language"
+  changeLanguage: "change_language",
+  findYourPerfectRide: "find_your_perfect_ride",
+  rentTheBestQuality: "rent_the_best_quality",
+  cars: "cars",
+  withUs: "with_us",
+  heroDescription: "hero_description",
+  bookYourRide: "book_your_ride",
+  sellYourCar: "sell_your_car",
+  luxuryCar: "luxury_car",
+  pickupLocation: "pickup_location",
+  pickupDate: "pickup_date",
+  returnDate: "return_date",
+  returnLocation: "return_location",
+  selectBranch: "select_branch",
+  returnToDifferentLocation: "return_to_different_location",
+  returnToSameLocation: "return_to_same_location",
+  dateFormat: "date_format",
+  today: "today",
+  noLocationsFound: "no_locations_found",
+  pickupLocationRequired: "pickup_location_required",
+  pickupDateRequired: "pickup_date_required",
+  dropoffDateRequired: "dropoff_date_required",
+  dropoffDateInvalid: "dropoff_date_invalid",
+  dropoffLocationRequired: "dropoff_location_required"
 };
 
 /**
