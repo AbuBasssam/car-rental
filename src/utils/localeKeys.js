@@ -7,7 +7,11 @@
  * Provides autocomplete and prevents typos
  */
 export const localeKeys = {
+  appName: "app_name",
+  rentoLogo: "rento_logo",
   home: "home",
+  fleet: "fleet",
+  locations: "locations",
   about: "about",
   contact: "contact",
   settings: "settings",
@@ -23,7 +27,8 @@ export const localeKeys = {
   email: "email",
   password: "password",
   forgotPassword: "forgot_password",
-  changeLanguage: "change_language",
+  accountSettings: "account_settings",
+  changeLanguage: "change_language"
 };
 
 /**
@@ -31,7 +36,7 @@ export const localeKeys = {
  */
 export const languagesKeys = {
   arabic: "languages.arabic",
-  english: "languages.english",
+  english: "languages.english"
 };
 
 /**
@@ -42,7 +47,7 @@ export const authKeys = {
   loginButton: "auth.login_button",
   registerTitle: "auth.register_title",
   emailPlaceholder: "auth.email_placeholder",
-  passwordPlaceholder: "auth.password_placeholder",
+  passwordPlaceholder: "auth.password_placeholder"
 };
 
 // Default export

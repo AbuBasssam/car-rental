@@ -1,5 +1,9 @@
 {
+  "app_name": "رينتو",
+  "rento_logo": "شعار رينتو",
   "home": "الرئيسية",
+  "fleet": "الأسطول",
+  "locations": "المواقع",
   "about": "من نحن",
   "contact": "اتصل بنا",
   "settings": "الإعدادات",
@@ -17,6 +21,7 @@
   "email": "البريد الإلكتروني",
   "password": "كلمة المرور",
   "forgot_password": "نسيت كلمة المرور؟",
+  "account_settings": "إعدادات الحساب",
 
   "change_language": "تغيير اللغة",
 

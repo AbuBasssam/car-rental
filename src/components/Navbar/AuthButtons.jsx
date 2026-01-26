@@ -1,6 +1,11 @@
+import { useTranslation } from "react-i18next";
 import PrimaryButton from "../../layouts/primaryButton.jsx";
 import { ROUTES } from "../../routes/paths.js";
+import localeKeys from "../../utils/localeKeys.js";
+
 const AuthButtons = ({ isMobile = false, onLogin }) => {
+  const { t } = useTranslation();
+
   if (isMobile) {
     return (
       <>
@@ -9,17 +14,18 @@ const AuthButtons = ({ isMobile = false, onLogin }) => {
           className="font-heading interactive-text transition"
           onClick={onLogin}
         >
-          Login
+          {t(localeKeys.login)}
         </a>
         <a
           href={ROUTES.SIGNUP}
           className="font-heading interactive-text transition"
         >
-          Register
+          {t(localeKeys.register)}
         </a>
       </>
     );
   }
+
   // Desktop view
   return (
     <>
@@ -28,10 +34,10 @@ const AuthButtons = ({ isMobile = false, onLogin }) => {
         className="font-heading text-eerie-black interactive-text transition"
         onClick={onLogin}
       >
-        Login
+        {t(localeKeys.login)}
       </a>
       <PrimaryButton type="button" onClick={() => console.log("Hello")}>
-        Register
+        {t(localeKeys.register)}
       </PrimaryButton>
     </>
   );

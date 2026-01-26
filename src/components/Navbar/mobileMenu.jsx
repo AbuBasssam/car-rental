@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
 import NavLinks from "./navLinks";
 import AuthButtons from "./AuthButtons";
+import localeKeys from "../../utils/localeKeys.js";
 
 const MobileMenu = ({ isOpen, onLogin, isLoggedIn, onClose, onLogout }) => {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   return (
@@ -21,14 +25,14 @@ const MobileMenu = ({ isOpen, onLogin, isLoggedIn, onClose, onLogout }) => {
                 className="font-heading interactive-text"
                 onClick={onLogin}
               >
-                Account Settings
+                {t(localeKeys.accountSettings)}
               </a>
               <a
                 href="#Logout"
                 className="font-heading interactive-text"
                 onClick={onLogout}
               >
-                Logout
+                {t(localeKeys.logout)}
               </a>
             </div>
           )}
@@ -37,5 +41,4 @@ const MobileMenu = ({ isOpen, onLogin, isLoggedIn, onClose, onLogout }) => {
     </div>
   );
 };
-
 export default MobileMenu;

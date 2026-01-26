@@ -1,5 +1,17 @@
+import { useTranslation } from "react-i18next";
+import localeKeys from "../../utils/localeKeys.js";
+import { ROUTES } from "../../routes/paths.js";
+
 const NavLinks = ({ isMobile = false, onLinkClick }) => {
-  const links = ["Fleet", "Locations", "About", "Contact"];
+  const { t } = useTranslation();
+
+  const links = [
+    { key: localeKeys.fleet, href: ROUTES.FLEET },
+    { key: localeKeys.locations, href: ROUTES.LOCATIONS },
+    { key: localeKeys.about, href: ROUTES.ABOUT },
+    { key: localeKeys.contact, href: ROUTES.CONTACT },
+  ];
+
   const containerClass = isMobile
     ? "flex flex-col gap-2 dark:bg-transparent"
     : "hidden md:flex items-center gap-10";
@@ -9,20 +21,18 @@ const NavLinks = ({ isMobile = false, onLinkClick }) => {
     : "font-heading text-base font-medium interactive-text";
 
   return (
-    <>
-      <div className={containerClass}>
-        {links.map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            className={linkClass}
-            onClick={onLinkClick}
-          >
-            {item}
-          </a>
-        ))}
-      </div>
-    </>
+    <div className={containerClass}>
+      {links.map((item) => (
+        <a
+          key={item.key}
+          href={`#${item.href}`}
+          className={linkClass}
+          onClick={onLinkClick}
+        >
+          {t(item.key)}
+        </a>
+      ))}
+    </div>
   );
 };
 
