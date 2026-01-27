@@ -5,6 +5,17 @@ import localeKeys from "../../utils/localeKeys.js";
 
 const AuthButtons = ({ isMobile = false, onLogin }) => {
   const { t } = useTranslation();
+  const btnRegisterStyle = `inline-flex items-center justify-center
+        px-6 py-2
+        rounded-lg
+        text-base font-semibold
+        bg-orange-500 text-white
+        transition-all duration-200
+        hover:bg-orange-600
+        dark:hover:bg-neon-orange
+        hover:-translate-y-0.5
+        hover:shadow-lg hover:shadow-orange-500/30
+        active:translate-y-0`;
 
   if (isMobile) {
     return (
@@ -36,9 +47,9 @@ const AuthButtons = ({ isMobile = false, onLogin }) => {
       >
         {t(localeKeys.login)}
       </a>
-      <PrimaryButton type="button" onClick={() => console.log("Hello")}>
+      <a href={ROUTES.SIGNUP} className={btnRegisterStyle}>
         {t(localeKeys.register)}
-      </PrimaryButton>
+      </a>
     </>
   );
 };

@@ -22,6 +22,7 @@ const LoginForm = ({ showPassword, onTogglePassword }) => {
 
       <div>
         <PasswordInput
+          name="password"
           showPassword={showPassword}
           onTogglePassword={onTogglePassword}
           placeholder={t(localeKeys.enterYourPassword)}

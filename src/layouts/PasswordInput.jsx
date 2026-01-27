@@ -4,6 +4,7 @@ import { FaLock, FaEyeSlash, FaEye } from "react-icons/fa";
 import localeKeys from "../utils/localeKeys.js";
 
 const PasswordInput = ({
+  name,
   value,
   onChange,
   showPassword,
@@ -23,7 +24,7 @@ const PasswordInput = ({
         </div>
         <input
           type={showPassword ? "text" : "password"}
-          name="password"
+          name={name}
           defaultValue={value}
           onChange={onChange}
           placeholder={defaultPlaceholder}
