@@ -101,5 +101,16 @@
   "premium_drive": "قيادة متميزة",
   "luxury_mobility_experience": "تجربة تنقل فاخرة",
   "dont_have_account": "ليس لديك حساب بعد؟",
-  "create_account": "إنشاء حساب"
+  "create_account": "إنشاء حساب",
+  "first_name": "الاسم الأول",
+  "last_name": "اسم العائلة",
+  "confirm_password": "تأكيد كلمة المرور",
+  "create_password": "إنشاء كلمة المرور",
+  "already_have_account": "هل لديك حساب بالفعل؟",
+  "join_premium_drive": "انضم إلى القيادة المتميزة",
+  "create_exclusive_account": "أنشئ حسابك الحصري",
+  "i_agree_to": "أوافق على",
+  "terms_of_service": "شروط الخدمة",
+  "and": "و",
+  "privacy_policy_link": "سياسة الخصوصية"
 }

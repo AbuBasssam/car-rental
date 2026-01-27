@@ -94,5 +94,16 @@
   "premium_drive": "PremiumDrive",
   "luxury_mobility_experience": "LUXURY MOBILITY EXPERIENCE",
   "dont_have_account": "Don't have an account yet?",
-  "create_account": "Create Account"
+  "create_account": "Create Account",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "confirm_password": "Confirm password",
+  "create_password": "Create password",
+  "already_have_account": "Already have an account?",
+  "join_premium_drive": "Join Premium Drive",
+  "create_exclusive_account": "Create your Exclusive Account",
+  "i_agree_to": "I agree to the",
+  "terms_of_service": "Terms of Service",
+  "and": "and",
+  "privacy_policy_link": "Privacy Policy"
 }

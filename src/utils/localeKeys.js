@@ -89,7 +89,18 @@ export const localeKeys = {
   premiumDrive: "premium_drive",
   luxuryMobilityExperience: "luxury_mobility_experience",
   dontHaveAccount: "dont_have_account",
-  createAccount: "create_account"
+  createAccount: "create_account",
+  firstName: "first_name",
+  lastName: "last_name",
+  confirmPassword: "confirm_password",
+  createPassword: "create_password",
+  alreadyHaveAccount: "already_have_account",
+  joinPremiumDrive: "join_premium_drive",
+  createExclusiveAccount: "create_exclusive_account",
+  iAgreeTo: "i_agree_to",
+  termsOfService: "terms_of_service",
+  and: "and",
+  privacyPolicyLink: "privacy_policy_link"
 };
 
 /**
