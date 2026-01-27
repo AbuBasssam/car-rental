@@ -112,5 +112,16 @@
   "i_agree_to": "أوافق على",
   "terms_of_service": "شروط الخدمة",
   "and": "و",
-  "privacy_policy_link": "سياسة الخصوصية"
+  "privacy_policy_link": "سياسة الخصوصية",
+  "password_requirements": "متطلبات كلمة المرور",
+  "password_length": "بين 8 و 16 حرفاً",
+  "password_uppercase": "حرف كبير واحد على الأقل",
+  "password_lowercase": "حرف صغير واحد على الأقل",
+  "password_special": "رمز خاص واحد على الأقل",
+  "password_number": "رقم واحد على الأقل",
+  "password_strength": "قوة كلمة المرور",
+  "password_weak": "ضعيفة",
+  "password_medium": "متوسطة",
+  "password_strong": "قوية",
+  "password_very_strong": "قوية جداً"
 }

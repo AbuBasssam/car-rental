@@ -1,9 +1,10 @@
-import React from "react";
+import { React } from "react";
 import { signupStyles } from "../../utils/styles";
 import { FaUser, FaUserCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import FormInput from "../../layouts/FormInput";
 import PasswordInput from "../../layouts/PasswordInput";
+import PasswordRequirements from "./PasswordRequirements";
 import TermsCheckbox from "./TermsCheckbox";
 import FullWidthButton from "../../layouts/FullWidthButton";
 import { useTranslation } from "react-i18next";
@@ -71,6 +72,7 @@ const SignupForm = ({
         onTogglePassword={onToggleConfirmPassword}
         placeholder={t(localeKeys.confirmPassword)}
       />
+      <PasswordRequirements password={formData.password} />
 
       <TermsCheckbox checked={formData.acceptedTerms} onChange={onChange} />
 

@@ -100,7 +100,18 @@ export const localeKeys = {
   iAgreeTo: "i_agree_to",
   termsOfService: "terms_of_service",
   and: "and",
-  privacyPolicyLink: "privacy_policy_link"
+  privacyPolicyLink: "privacy_policy_link",
+  passwordRequirements: "password_requirements",
+  passwordLength: "password_length",
+  passwordUppercase: "password_uppercase",
+  passwordLowercase: "password_lowercase",
+  passwordSpecial: "password_special",
+  passwordNumber: "password_number",
+  passwordStrength: "password_strength",
+  passwordWeak: "password_weak",
+  passwordMedium: "password_medium",
+  passwordStrong: "password_strong",
+  passwordVeryStrong: "password_very_strong"
 };
 
 /**

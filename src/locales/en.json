@@ -105,5 +105,16 @@
   "i_agree_to": "I agree to the",
   "terms_of_service": "Terms of Service",
   "and": "and",
-  "privacy_policy_link": "Privacy Policy"
+  "privacy_policy_link": "Privacy Policy",
+  "password_requirements": "Password Requirements",
+  "password_length": "Between 8 and 16 characters",
+  "password_uppercase": "At least one uppercase letter",
+  "password_lowercase": "At least one lowercase letter",
+  "password_special": "At least one special character",
+  "password_number": "At least one number",
+  "password_strength": "Password Strength",
+  "password_weak": "Weak",
+  "password_medium": "Medium",
+  "password_strong": "Strong",
+  "password_very_strong": "Very Strong"
 }
