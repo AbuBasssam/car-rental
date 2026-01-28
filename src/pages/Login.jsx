@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { loginStyles } from "../utils/styles";
-import AnimatedBackground from "../components/Login/AnimatedBackground";
-import BackButton from "../components/Login/BackButton";
-import LoginCard from "../components/Login/LoginCard";
+import AnimatedBackground from "../components/login/AnimatedBackground";
+import BackButton from "../components/login/BackButton";
+import LoginCard from "../components/login/LoginCard";
 import RoundedThemeToggle from "../utils/RoundedThemeToggle";
 import { useActionData } from "react-router-dom";
 import { showErrorToast } from "../config/toastConfig";
