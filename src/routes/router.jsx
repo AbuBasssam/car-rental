@@ -4,6 +4,8 @@ import App from "../App.jsx";
 import { ROUTES } from "./paths.js";
 import Loadable from "../utils/Loadable.jsx";
 import { loginAction } from "../actions/loginAction.js";
+import { signUpAction } from "../actions/signUpAction";
+
 import PublicRoute from "./PublicRoute";
 
 const HomePage = Loadable(lazy(() => import("../pages/homePage.jsx")));
@@ -26,7 +28,7 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.SIGNUP,
             element: <SignUpPage />,
-            // action: loginAction,
+            action: signUpAction,
           },
         ],
       },

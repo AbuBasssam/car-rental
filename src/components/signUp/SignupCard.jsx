@@ -3,14 +3,12 @@ import { signupStyles } from "../../utils/styles";
 import LoginSection from "./LoginSection";
 import SignupForm from "./SignupForm";
 import SignupHeader from "./SignUpHeader";
+import { Form } from "react-router-dom";
 
 const SignupCard = ({
   isActive,
-  formData,
   showPassword,
   showConfirmPassword,
-  onSubmit,
-  onChange,
   onTogglePassword,
   onToggleConfirmPassword,
 }) => {
@@ -24,15 +22,17 @@ const SignupCard = ({
 
         <SignupHeader />
 
-        <SignupForm
-          formData={formData}
-          showPassword={showPassword}
-          showConfirmPassword={showConfirmPassword}
-          onSubmit={onSubmit}
-          onChange={onChange}
-          onTogglePassword={onTogglePassword}
-          onToggleConfirmPassword={onToggleConfirmPassword}
-        />
+        <Form method="post" className={signupStyles.form.container}>
+          <SignupForm
+            // formData={formData}
+            showPassword={showPassword}
+            showConfirmPassword={showConfirmPassword}
+            // onSubmit={onSubmit}
+            // onChange={onChange}
+            onTogglePassword={onTogglePassword}
+            onToggleConfirmPassword={onToggleConfirmPassword}
+          />
+        </Form>
 
         <LoginSection />
       </div>

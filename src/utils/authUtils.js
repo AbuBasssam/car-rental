@@ -1,4 +1,5 @@
 import { keys } from "../utils/constants";
+import { errorsKeys } from "./localeKeys";
 
 /**
  * Auth Utilities
@@ -105,10 +106,24 @@ export const saveUserInfo = (userName) => {
 /**
  * Handle API errors with enhanced Response<T> structure support
  * Provides user-friendly error messages based on HTTP status and response structure
+ *
  * @param {Error} error - Axios error object
+ * @param {Function} t - i18n translation function from react-i18next
  * @returns {string} User-friendly error message
+ *
+ * @example
+ * import { handleApiError } from '../utils/authUtils';
+ * import { useTranslation } from 'react-i18next';
+ *
+ * const { t } = useTranslation();
+ * try {
+ *   await apiCall();
+ * } catch (error) {
+ *   const message = handleApiError(error, t);
+ *   setError(message);
+ * }
  */
-export const handleApiError = (error) => {
+export const handleApiError = (error, t) => {
   // Handle axios error structure
   if (error.response) {
     const { status, data } = error.response;
@@ -133,71 +148,63 @@ export const handleApiError = (error) => {
       }
     }
 
-    // Priority 4: HTTP status-based messages
-    const statusMessages = {
-      400: "Invalid request. Please check your input.",
-      401: "Your session has expired. Please log in again.",
-      403: "You don't have permission to access this resource.",
-      404: "The requested resource was not found.",
-      409: "A conflict occurred. Please try again.",
-      422: {
-        default: "Validation failed.",
-        withData:
-          data && typeof data === "object"
-            ? "Please correct the errors and try again."
-            : "Validation failed.",
-      },
-      429: "Too many requests. Please wait a moment before trying again.",
-      500: "Server error. Our team has been notified.",
-      502: "Bad gateway. Please try again later.",
-      503: "Service temporarily unavailable. Maintenance in progress.",
-      504: "Gateway timeout. Please try again.",
+    // Priority 3: HTTP status-based messages (i18n)
+    const statusMessageKeys = {
+      400: errorsKeys.badRequest,
+      401: errorsKeys.unauthorized,
+      403: errorsKeys.forbidden,
+      404: errorsKeys.notFound,
+      409: errorsKeys.conflict,
+      422:
+        data && typeof data === "object"
+          ? errorsKeys.validationFailedWithData
+          : errorsKeys.validationFailed,
+      429: errorsKeys.tooManyRequests,
+      500: errorsKeys.serverError,
+      502: errorsKeys.badGateway,
+      503: errorsKeys.serviceUnavailable,
+      504: errorsKeys.gatewayTimeout,
     };
 
-    const messageConfig = statusMessages[status];
+    const messageKey = statusMessageKeys[status];
 
-    if (messageConfig) {
-      if (typeof messageConfig === "object" && messageConfig.withData) {
-        return messageConfig.withData;
-      }
-      return typeof messageConfig === "string"
-        ? messageConfig
-        : "An error occurred.";
+    if (messageKey) {
+      return t(messageKey);
     }
 
     // For 4xx client errors
     if (status >= 400 && status < 500) {
-      return "Your request couldn't be processed. Please try again.";
+      return t(errorsKeys.clientError);
     }
 
     // For 5xx server errors
     if (status >= 500) {
-      return "Server error. Please try again later.";
+      return t(errorsKeys.serverErrorGeneral);
     }
 
-    return "An unexpected error occurred.";
+    return t(errorsKeys.unexpectedError);
   } else if (error.request) {
     // Network or CORS errors
     if (error.message && error.message.includes("Network Error")) {
-      return "Unable to connect to the server. Please check your internet connection.";
+      return t(errorsKeys.networkError);
     }
 
     if (error.message && error.message.includes("timeout")) {
-      return "Request timed out. Please check your connection and try again.";
+      return t(errorsKeys.timeoutError);
     }
 
     if (error.message && error.message.includes("CORS")) {
-      return "Cross-origin request blocked. Please contact support.";
+      return t(errorsKeys.corsError);
     }
 
-    return "Network error. Please check your connection and try again.";
+    return t(errorsKeys.connectionError);
   } else {
     // Configuration or code errors
     if (error.message && error.message.includes("canceled")) {
-      return "Request was cancelled.";
+      return t(errorsKeys.requestCancelled);
     }
 
-    return error.message || "An unexpected error occurred. Please try again.";
+    return error.message || t(errorsKeys.unexpectedError);
   }
 };
 

@@ -1,47 +1,35 @@
 import { createContext, useState } from "react";
-import { getUserInfo } from "../utils/authUtils";
-import { useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    const savedUser = getUserInfo();
-    return savedUser || null;
-  });
-  const isLoggedIn = !!user;
+  // State: user object or null
+  const [user, setUser] = useState(null);
+
+  // State: loading state for async operations
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const syncWithStorage = () => {
-      const savedUser = getUserInfo();
-      if (savedUser && !user) {
-        setUser(savedUser);
-      } else if (!savedUser && user) {
-        setUser(null);
-      }
-    };
 
-    syncWithStorage();
+  // Derived state: is user authenticated?
+  const isAuthenticated = !!user;
 
-    const interval = setInterval(syncWithStorage, 500);
-
-    return () => clearInterval(interval);
-  }, [user]);
-  const login = (userInfo) => {
-    setUser(userInfo);
+  // Function to set user data (when logging in or registering)
+  const setUserData = (userData) => {
+    setUser(userData);
   };
 
-  const logout = () => {
+  // Function to clear user data (when logging out)
+  const clearUser = () => {
     setUser(null);
   };
 
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        user,
+        isAuthenticated,
         isLoading,
-        login,
-        logout,
+        setUser: setUserData,
+        clearUser,
         setIsLoading,
       }}
     >
@@ -49,4 +37,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 export { AuthContext };

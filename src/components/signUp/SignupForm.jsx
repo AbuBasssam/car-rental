@@ -1,5 +1,4 @@
-import { React } from "react";
-import { signupStyles } from "../../utils/styles";
+import { React, useState } from "react";
 import { FaUser, FaUserCircle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import FormInput from "../../layouts/FormInput";
@@ -11,25 +10,21 @@ import { useTranslation } from "react-i18next";
 import localeKeys from "../../utils/localeKeys.js";
 
 const SignupForm = ({
-  formData,
   showPassword,
   showConfirmPassword,
-  onSubmit,
-  onChange,
   onTogglePassword,
   onToggleConfirmPassword,
 }) => {
   const { t } = useTranslation();
+  const [passwordValue, setPasswordValue] = useState("");
 
   return (
-    <form onSubmit={onSubmit} className={signupStyles.form.container}>
+    <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         <FormInput
           FieldIcon={FaUser}
           type="text"
           name="firstName"
-          value={formData.firstName}
-          onChange={onChange}
           placeholder={t(localeKeys.firstName)}
           required
         />
@@ -38,8 +33,6 @@ const SignupForm = ({
           FieldIcon={FaUserCircle}
           type="text"
           name="lastName"
-          value={formData.lastName}
-          onChange={onChange}
           placeholder={t(localeKeys.lastName)}
           required
         />
@@ -49,37 +42,32 @@ const SignupForm = ({
         FieldIcon={MdEmail}
         type="email"
         name="email"
-        value={formData.email}
-        onChange={onChange}
         placeholder={t(localeKeys.enterYourEmail)}
         required
       />
 
       <PasswordInput
         name="password"
-        value={formData.password}
-        onChange={onChange}
         showPassword={showPassword}
         onTogglePassword={onTogglePassword}
         placeholder={t(localeKeys.createPassword)}
+        onChange={(e) => setPasswordValue(e.target.value)}
       />
 
       <PasswordInput
         name="confirmPassword"
-        value={formData.confirmPassword}
-        onChange={onChange}
         showPassword={showConfirmPassword}
         onTogglePassword={onToggleConfirmPassword}
         placeholder={t(localeKeys.confirmPassword)}
       />
-      <PasswordRequirements password={formData.password} />
+      <PasswordRequirements password={passwordValue} />
 
-      <TermsCheckbox checked={formData.acceptedTerms} onChange={onChange} />
+      <TermsCheckbox />
 
       <FullWidthButton type="submit">
         {t(localeKeys.createAccount)}
       </FullWidthButton>
-    </form>
+    </>
   );
 };
 
