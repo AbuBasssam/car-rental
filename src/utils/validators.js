@@ -1,4 +1,8 @@
-// Validation Constants
+import { validationKeys } from "../utils/localeKeys";
+// ============================================
+// 🔧 VALIDATION CONSTANTS
+// ============================================
+
 export const VALIDATION_CONSTANTS = {
   EMAIL_MAX_LENGTH: 256,
   PASSWORD_MIN_LENGTH: 8,
@@ -7,136 +11,213 @@ export const VALIDATION_CONSTANTS = {
   NAME_MAX_LENGTH: 50,
 };
 
-// Email Validation Messages
-export const EMAIL_MESSAGES = {
-  REQUIRED: "Email is required",
-  INVALID_FORMAT: "Invalid email format",
-  MAX_LENGTH: `Email must not exceed ${VALIDATION_CONSTANTS.EMAIL_MAX_LENGTH} characters`,
-};
-
-// Password Validation Messages
-export const PASSWORD_MESSAGES = {
-  REQUIRED: "Password is required",
-  MIN_LENGTH: `Password must be at least ${VALIDATION_CONSTANTS.PASSWORD_MIN_LENGTH} characters`,
-  MAX_LENGTH: `Password must not exceed ${VALIDATION_CONSTANTS.PASSWORD_MAX_LENGTH} characters`,
-  WEAK: "Password must contain uppercase, lowercase, number and special character",
-};
-
-// Name Validation Messages
-export const NAME_MESSAGES = {
-  REQUIRED: "This field is required",
-  MIN_LENGTH: `Must be at least ${VALIDATION_CONSTANTS.NAME_MIN_LENGTH} characters`,
-  MAX_LENGTH: `Must not exceed ${VALIDATION_CONSTANTS.NAME_MAX_LENGTH} characters`,
-  INVALID_FORMAT: "Only letters and spaces are allowed",
-};
+// ============================================
+// 📧 EMAIL VALIDATION
+// ============================================
 
 /**
  * Validate Email Address
  * Rules: Required, Valid Format, Max Length
+ *
+ * @param {string} email - Email to validate
+ * @returns {Object|null} { key: string, params?: object } or null if valid
+ *
+ * @example
+ * const error = validateEmail(email);
+ * if (error) {
+ *   const message = t(error.key, error.params);
+ * }
  */
 export const validateEmail = (email) => {
   // Required validation
   if (!email || email.trim() === "") {
-    return EMAIL_MESSAGES.REQUIRED;
+    return { key: validationKeys.emailRequired };
   }
 
   // Email format validation (RFC 5322 simplified)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return EMAIL_MESSAGES.INVALID_FORMAT;
+    return { key: validationKeys.emailInvalid };
   }
 
   // Max length validation
   if (email.length > VALIDATION_CONSTANTS.EMAIL_MAX_LENGTH) {
-    return EMAIL_MESSAGES.MAX_LENGTH;
+    return {
+      key: validationKeys.emailMaxLength,
+      params: { max: VALIDATION_CONSTANTS.EMAIL_MAX_LENGTH },
+    };
   }
 
-  return "";
+  return null;
 };
+
+// ============================================
+// 🔑 PASSWORD VALIDATION
+// ============================================
 
 /**
  * Validate Password (Basic - for Login)
  * Rules: Required only
+ *
+ * @param {string} password - Password to validate
+ * @returns {Object|null} { key: string } or null if valid
  */
 export const validatePassword = (password) => {
   if (!password || password.trim() === "") {
-    return PASSWORD_MESSAGES.REQUIRED;
+    return { key: validationKeys.passwordRequired };
   }
-  return "";
+  return null;
+};
+
+/**
+ * Check Password Requirements (for UI display)
+ * Returns detailed requirements status for PasswordRequirements component
+ *
+ * @param {string} password - Password to check
+ * @returns {Object} Requirements object with individual checks
+ *
+ * @example
+ * const requirements = checkPasswordRequirements("MyPass123!");
+ * Returns: { length: true, uppercase: true, lowercase: true, number: true, special: true }
+ */
+export const checkPasswordRequirements = (password = "") => {
+  return {
+    length:
+      password.length >= VALIDATION_CONSTANTS.PASSWORD_MIN_LENGTH &&
+      password.length <= VALIDATION_CONSTANTS.PASSWORD_MAX_LENGTH,
+    uppercase: /[A-Z]/.test(password),
+    lowercase: /[a-z]/.test(password),
+    number: /[0-9]/.test(password),
+    special: /[!@#$%^&*(),.?":{}|<>_\-+=[\]\\/;'`~]/.test(password),
+  };
 };
 
 /**
  * Validate Strong Password (for Signup/Reset)
- * Rules: Required, Min Length, Contains uppercase, lowercase, number, special char
+ * Uses validatePassword for basic check, then checks requirements
+ * Returns validation result with requirements details
+ *
+ * @param {string} password - Password to validate
+ * @returns {Object} { isValid: boolean, requirements: object, error: object|null }
+ *
+ * @example
+ * const result = validateStrongPassword("weak");
+ * if (!result.isValid && result.error) {
+ *   const message = t(result.error.key);
+ * }
  */
 export const validateStrongPassword = (password) => {
-  if (!password || password.trim() === "") {
-    return PASSWORD_MESSAGES.REQUIRED;
+  // Use validatePassword for basic required check
+  const basicError = validatePassword(password);
+
+  if (basicError) {
+    return {
+      isValid: false,
+      requirements: checkPasswordRequirements(""),
+      error: basicError,
+    };
   }
 
-  if (password.length < VALIDATION_CONSTANTS.PASSWORD_MIN_LENGTH) {
-    return PASSWORD_MESSAGES.MIN_LENGTH;
-  }
+  // Get detailed requirements
+  const requirements = checkPasswordRequirements(password);
 
-  if (password.length > VALIDATION_CONSTANTS.PASSWORD_MAX_LENGTH) {
-    return PASSWORD_MESSAGES.MAX_LENGTH;
-  }
+  // Check if all requirements are met
+  const allRequirementsMet = Object.values(requirements).every(
+    (req) => req === true,
+  );
 
-  // Check for strong password (uppercase, lowercase, number, special char)
-  const hasUppercase = /[A-Z]/.test(password);
-  const hasLowercase = /[a-z]/.test(password);
-  const hasNumber = /[0-9]/.test(password);
-  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-  if (!hasUppercase || !hasLowercase || !hasNumber || !hasSpecialChar) {
-    return PASSWORD_MESSAGES.WEAK;
-  }
-
-  return "";
+  return {
+    isValid: allRequirementsMet,
+    requirements,
+    error: allRequirementsMet ? null : { key: validationKeys.passwordInvalid },
+  };
 };
+
+// ============================================
+// 👤 NAME VALIDATION
+// ============================================
 
 /**
  * Validate Name (First/Last Name)
  * Rules: Required, Min/Max Length, Letters and spaces only
+ *
+ * @param {string} name - Name to validate
+ * @param {string} fieldKey - Translation key for field name (e.g., 'validation.first_name')
+ * @returns {Object|null} { key: string, params: object } or null if valid
+ *
+ * @example
+ * const error = validateName(firstName, 'validation.first_name');
+ * if (error) {
+ *   const message = t(error.key, error.params);
+ * }
  */
-export const validateName = (name, fieldName = "Name") => {
+export const validateName = (name, fieldKey) => {
   if (!name || name.trim() === "") {
-    return `${fieldName} ${NAME_MESSAGES.REQUIRED}`;
+    return {
+      key: validationKeys.nameRequired,
+      params: { field: `{{t(${fieldKey})}}` },
+    };
   }
 
   if (name.length < VALIDATION_CONSTANTS.NAME_MIN_LENGTH) {
-    return `${fieldName} ${NAME_MESSAGES.MIN_LENGTH}`;
+    return {
+      key: validationKeys.nameMinLength,
+      params: {
+        field: `{{t(${fieldKey})}}`,
+        min: VALIDATION_CONSTANTS.NAME_MIN_LENGTH,
+      },
+    };
   }
 
   if (name.length > VALIDATION_CONSTANTS.NAME_MAX_LENGTH) {
-    return `${fieldName} ${NAME_MESSAGES.MAX_LENGTH}`;
+    return {
+      key: validationKeys.nameMaxLength,
+      params: {
+        field: `{{t(${fieldKey})}}`,
+        max: VALIDATION_CONSTANTS.NAME_MAX_LENGTH,
+      },
+    };
   }
 
   // Only letters and spaces
   const nameRegex = /^[a-zA-Z\s]+$/;
   if (!nameRegex.test(name)) {
-    return `${fieldName} ${NAME_MESSAGES.INVALID_FORMAT}`;
+    return {
+      key: validationKeys.nameInvalid,
+      params: { field: `{{t(${fieldKey})}}` },
+    };
   }
 
-  return "";
+  return null;
 };
+
+// ============================================
+// 🔄 OTHER VALIDATIONS
+// ============================================
 
 /**
  * Validate Passwords Match (for Signup)
+ *
+ * @param {string} password - Password
+ * @param {string} confirmPassword - Confirm password
+ * @returns {Object|null} { key: string } or null if valid
  */
 export const validatePasswordsMatch = (password, confirmPassword) => {
   if (password !== confirmPassword) {
-    return "Passwords do not match";
+    return { key: validationKeys.passwordsNotMatch };
   }
-  return "";
+  return null;
 };
 
 /**
  * Validate Terms Acceptance
+ *
+ * @param {boolean} accepted - Whether terms are accepted
+ * @returns {Object|null} { key: string } or null if valid
  */
 export const validateTermsAcceptance = (accepted) => {
   if (!accepted) {
-    return "You must accept the terms and conditions";
+    return { key: validationKeys.termsRequired };
   }
-  return "";
+  return null;
 };
