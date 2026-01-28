@@ -133,5 +133,50 @@ export const authKeys = {
   passwordPlaceholder: "auth.password_placeholder"
 };
 
+/**
+ * Validation namespace keys
+ */
+export const validationKeys = {
+  required: "validation.required",
+  emailRequired: "validation.email_required",
+  emailInvalid: "validation.email_invalid",
+  emailMaxLength: "validation.email_max_length",
+  passwordRequired: "validation.password_required",
+  passwordInvalid: "validation.password_invalid",
+  nameRequired: "validation.name_required",
+  nameMinLength: "validation.name_min_length",
+  nameMaxLength: "validation.name_max_length",
+  nameInvalid: "validation.name_invalid",
+  passwordsNotMatch: "validation.passwords_not_match",
+  termsRequired: "validation.terms_required",
+  registrationFailed: "validation.registration_failed"
+};
+
+/**
+ * Errors namespace keys
+ */
+export const errorsKeys = {
+  badRequest: "errors.bad_request",
+  unauthorized: "errors.unauthorized",
+  forbidden: "errors.forbidden",
+  notFound: "errors.not_found",
+  conflict: "errors.conflict",
+  validationFailed: "errors.validation_failed",
+  validationFailedWithData: "errors.validation_failed_with_data",
+  tooManyRequests: "errors.too_many_requests",
+  serverError: "errors.server_error",
+  badGateway: "errors.bad_gateway",
+  serviceUnavailable: "errors.service_unavailable",
+  gatewayTimeout: "errors.gateway_timeout",
+  clientError: "errors.client_error",
+  serverErrorGeneral: "errors.server_error_general",
+  unexpectedError: "errors.unexpected_error",
+  networkError: "errors.network_error",
+  timeoutError: "errors.timeout_error",
+  corsError: "errors.cors_error",
+  connectionError: "errors.connection_error",
+  requestCancelled: "errors.request_cancelled"
+};
+
 // Default export
 export default localeKeys;

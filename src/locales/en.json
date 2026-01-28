@@ -116,5 +116,42 @@
   "password_weak": "Weak",
   "password_medium": "Medium",
   "password_strong": "Strong",
-  "password_very_strong": "Very Strong"
+  "password_very_strong": "Very Strong",
+  "validation": {
+    "required": "This field is required",
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email format",
+    "email_max_length": "Email must not exceed {{max}} characters",
+    "password_required": "Password is required",
+    "password_invalid": "Password must meet all requirements",
+    "name_required": "{{field}} is required",
+    "name_min_length": "{{field}} must be at least {{min}} characters",
+    "name_max_length": "{{field}} must not exceed {{max}} characters",
+    "name_invalid": "{{field}} must contain only letters and spaces",
+    "passwords_not_match": "Passwords do not match",
+    "terms_required": "You must accept the terms and conditions",
+    "registration_failed": "Invalid email and/or password"
+  },
+  "errors": {
+    "bad_request": "Invalid request. Please check your input",
+    "unauthorized": "Your session has expired. Please log in again",
+    "forbidden": "You don't have permission to access this resource",
+    "not_found": "The requested resource was not found",
+    "conflict": "A conflict occurred. Please try again",
+    "validation_failed": "Validation failed",
+    "validation_failed_with_data": "Please correct the errors and try again",
+    "too_many_requests": "Too many requests. Please wait a moment before trying again",
+    "server_error": "Server error. Our team has been notified",
+    "bad_gateway": "Bad gateway. Please try again later",
+    "service_unavailable": "Service temporarily unavailable. Maintenance in progress",
+    "gateway_timeout": "Gateway timeout. Please try again",
+    "client_error": "Your request couldn't be processed. Please try again",
+    "server_error_general": "Server error. Please try again later",
+    "unexpected_error": "An unexpected error occurred",
+    "network_error": "Unable to connect to the server. Please check your internet connection",
+    "timeout_error": "Request timed out. Please check your connection and try again",
+    "cors_error": "Cross-origin request blocked. Please contact support",
+    "connection_error": "Network error. Please check your connection and try again",
+    "request_cancelled": "Request was cancelled"
+  }
 }
