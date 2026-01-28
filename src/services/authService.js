@@ -1,5 +1,5 @@
-import { AUTH_ENDPOINTS } from "../config/apiConfig";
-import axiosInstance from "../config/apiConfig";
+import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
+import axiosInstance from "../api/axiosInstance";
 import {
   handleApiError,
   saveUserInfo,
