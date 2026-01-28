@@ -26,3 +26,7 @@ dist-ssr
 /certs/*.key
 /certs/*.pem
 /certs/*.pfx
+# Environment variables
+.env
+.env.local
+.env.*.local
