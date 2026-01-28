@@ -1,7 +1,10 @@
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import localeKeys from "../../utils/localeKeys.js";
 import { FaCheckCircle, FaTimesCircle, FaCircle } from "react-icons/fa";
+import { localeKeys } from "../../utils/localeKeys";
+import { checkPasswordRequirements } from "../../utils/validators";
+import { calculatePasswordStrength } from "../../utils/Passwordhelpers";
+import { keys } from "../../utils/constants";
 
 /**
  * PasswordRequirements Component
@@ -10,201 +13,161 @@ import { FaCheckCircle, FaTimesCircle, FaCircle } from "react-icons/fa";
  * Supports RTL/LTR and Arabic/English languages
  *
  * @param {string} password - The password value to validate
- * @param {boolean} show - Whether to show the requirements
  */
 const PasswordRequirements = ({ password = "" }) => {
   const { t, i18n } = useTranslation();
-  const isArabic = i18n.language === "ar";
+  const isArabic = i18n.language === keys.kAR;
+  const hasContent = password.length > 0;
 
-  // Password validation rules
+  // Get password requirements status
   const requirements = useMemo(() => {
-    const hasLength = password.length >= 8 && password.length <= 16;
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasLowercase = /[a-z]/.test(password);
-    const hasSpecial = /[!@#$%^&*(),.?":{}|<>_\-+=[\]\\/;'`~]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
-
-    return {
-      length: {
-        met: hasLength,
-        label: t(localeKeys.passwordLength),
-        key: "length",
-      },
-      uppercase: {
-        met: hasUppercase,
-        label: t(localeKeys.passwordUppercase),
-        key: "uppercase",
-      },
-      lowercase: {
-        met: hasLowercase,
-        label: t(localeKeys.passwordLowercase),
-        key: "lowercase",
-      },
-      special: {
-        met: hasSpecial,
-        label: t(localeKeys.passwordSpecial),
-        key: "special",
-      },
-      number: {
-        met: hasNumber,
-        label: t(localeKeys.passwordNumber),
-        key: "number",
-      },
-    };
+    const status = checkPasswordRequirements(password);
+    return [
+      { id: 1, met: status.length, label: t(localeKeys.passwordLength) },
+      { id: 2, met: status.uppercase, label: t(localeKeys.passwordUppercase) },
+      { id: 3, met: status.lowercase, label: t(localeKeys.passwordLowercase) },
+      { id: 4, met: status.number, label: t(localeKeys.passwordNumber) },
+      { id: 5, met: status.special, label: t(localeKeys.passwordSpecial) },
+    ];
   }, [password, t]);
 
   // Calculate password strength
-  const passwordStrength = useMemo(() => {
-    const metRequirements = Object.values(requirements).filter(
-      (r) => r.met,
-    ).length;
-
-    if (metRequirements === 0 || password.length === 0) {
-      return { level: 0, label: "", color: "" };
-    } else if (metRequirements <= 2) {
-      return {
-        level: 1,
-        label: t(localeKeys.passwordWeak),
-        color: "bg-red-500",
-        textColor: "text-red-500",
-      };
-    } else if (metRequirements === 3) {
-      return {
-        level: 2,
-        label: t(localeKeys.passwordMedium),
-        color: "bg-yellow-500",
-        textColor: "text-yellow-500",
-      };
-    } else if (metRequirements === 4) {
-      return {
-        level: 3,
-        label: t(localeKeys.passwordStrong),
-        color: "bg-blue-500",
-        textColor: "text-blue-500",
-      };
-    } else {
-      return {
-        level: 4,
-        label: t(localeKeys.passwordVeryStrong),
-        color: "bg-green-500",
-        textColor: "text-green-500",
-      };
-    }
-  }, [requirements, password.length, t]);
+  const strength = useMemo(() => {
+    const reqObj = requirements.reduce(
+      (acc, curr) => ({ ...acc, [curr.id]: curr }),
+      {},
+    );
+    return calculatePasswordStrength(reqObj, password, t, localeKeys);
+  }, [requirements, password, t]);
 
   return (
-    <div
-      className="mt-3 sm:mt-4 relative z-10"
-      style={isArabic ? { direction: "rtl" } : {}}
+    <section
+      className="mt-3 sm:mt-4 relative z-10 transition-colors duration-500"
+      dir={isArabic ? "rtl" : "ltr"}
     >
-      {/* Header */}
-      <div className="mb-2 sm:mb-3">
-        <h4 className="text-xs sm:text-sm font-semibold text-white/90 mb-1">
-          {t(localeKeys.passwordRequirements)}
-        </h4>
+      {/* Header with title and strength label */}
+      <header className="mb-2 sm:mb-3">
+        <div className="flex items-center justify-between mb-1">
+          <h4 className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-white/90 transition-colors duration-300">
+            {t(localeKeys.passwordRequirements)}
+          </h4>
+          {hasContent && strength.level > 0 && (
+            <span
+              className={`text-xs font-medium transition-colors duration-300 ${strength.textColor}`}
+            >
+              {strength.label}
+            </span>
+          )}
+        </div>
 
-        {/* Password Strength Indicator */}
-        {password.length > 0 && (
+        {/* Strength indicator bar */}
+        {hasContent && (
           <div className="mt-2">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-xs text-white/70">
-                {t(localeKeys.passwordStrength)}
-              </span>
-              {passwordStrength.level > 0 && (
-                <span
-                  className={`text-xs font-medium ${passwordStrength.textColor}`}
-                >
-                  {passwordStrength.label}
-                </span>
-              )}
-            </div>
-
-            {/* Strength bars */}
-            <div className="flex gap-1">
-              {[1, 2, 3, 4].map((level) => (
-                <div
-                  key={level}
-                  className={`h-1 flex-1 rounded-full transition-all duration-300 ${
-                    level <= passwordStrength.level
-                      ? passwordStrength.color
-                      : "bg-white/10"
-                  }`}
-                />
-              ))}
-            </div>
+            <StrengthBar level={strength.level} color={strength.color} />
           </div>
         )}
-      </div>
+      </header>
 
       {/* Requirements list */}
-      <div className="space-y-2">
-        {Object.values(requirements).map((requirement) => (
+      <ul className="space-y-2" role="list">
+        {requirements.map((requirement) => (
           <RequirementItem
-            key={requirement.key}
+            key={requirement.id}
             met={requirement.met}
             label={requirement.label}
-            hasPassword={password.length > 0}
-            isArabic={isArabic}
+            hasPassword={hasContent}
           />
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 };
 
 /**
- * RequirementItem Component
- * Individual requirement row with icon and text
+ * RequirementItem
+ * A sub-component that displays an individual password requirement with a reactive icon and label.
+ * It changes its visual state based on whether the requirement is met and if the input is active.
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.met - Indicates if the specific requirement is satisfied.
+ * @param {string} props.label - The translated text description.
+ * @param {boolean} props.hasPassword - Whether the password field has content.
+ * @returns {JSX.Element}
  */
-const RequirementItem = ({ met, label, hasPassword, isArabic }) => {
-  // Determine icon and colors
-  const getIconAndColor = () => {
+const RequirementItem = ({ met, label, hasPassword }) => {
+  // Determine icon and colors based on state
+  const getStatusConfig = () => {
     if (!hasPassword) {
       return {
         Icon: FaCircle,
-        iconColor: "text-white/30",
-        textColor: "text-white/60",
+        iconColor: "text-orange-300/20 dark:text-white/20",
+        textColor: "text-gray-600 dark:text-white/40",
       };
     }
 
     if (met) {
       return {
         Icon: FaCheckCircle,
-        iconColor: "text-green-400",
-        textColor: "text-white/90",
+        iconColor: "text-green-500 dark:text-green-400",
+        textColor: "text-gray-800 dark:text-white/90",
       };
     }
 
     return {
       Icon: FaTimesCircle,
-      iconColor: "text-red-400",
-      textColor: "text-white/70",
+      iconColor: "text-red-500 dark:text-red-400",
+      textColor: "text-gray-700 dark:text-white/60",
     };
   };
 
-  const { Icon, iconColor, textColor } = getIconAndColor();
+  const { Icon, iconColor, textColor } = getStatusConfig();
 
   return (
-    <div
+    <li
       className={`flex items-center gap-2 sm:gap-3 transition-all duration-300 ${
         met && hasPassword ? "transform scale-105" : ""
       }`}
-      style={isArabic ? { direction: "rtl" } : {}}
     >
-      {/* Icon */}
-      <div className={`shrink-0 ${iconColor} transition-colors duration-300`}>
-        <Icon className="text-xs sm:text-sm" />
-      </div>
-
-      {/* Label */}
+      <Icon
+        className={`text-xs sm:text-sm shrink-0 ${iconColor} transition-colors duration-300`}
+        aria-hidden="true"
+      />
       <span
         className={`text-xs sm:text-sm ${textColor} transition-colors duration-300`}
-        style={isArabic ? { textAlign: "right" } : {}}
       >
         {label}
       </span>
-    </div>
+    </li>
   );
 };
+
+/**
+ * StrengthBar
+ * A visual progress-like indicator that represents the password complexity level.
+ * It renders a segmented bar where each segment lights up based on the strength score.
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.level - Strength score (0-4).
+ * @param {string} props.color - Tailwind background class.
+ * @returns {JSX.Element}
+ */
+const StrengthBar = ({ level, color }) => (
+  <div
+    className="flex gap-1"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="4"
+    aria-valuenow={level}
+  >
+    {[1, 2, 3, 4].map((segment) => (
+      <div
+        key={segment}
+        className={`h-1 flex-1 rounded-full transition-all duration-500 ${
+          segment <= level ? color : "bg-orange-200/30 dark:bg-white/10"
+        }`}
+      />
+    ))}
+  </div>
+);
 
 export default PasswordRequirements;
