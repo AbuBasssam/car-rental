@@ -7,3 +7,7 @@ export const keys = {
   kAR: "ar",
   kTheme: "theme",
 };
+export const authEventType = {
+  login: "login",
+  logout: "logout",
+};

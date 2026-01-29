@@ -1,5 +1,6 @@
 import { keys } from "../utils/constants";
 import { errorsKeys } from "./localeKeys";
+import { authEventType } from "../utils/constants";
 
 /**
  * Auth Utilities
@@ -14,7 +15,7 @@ import { errorsKeys } from "./localeKeys";
  * Get CSRF token from cookie
  * @returns {string|null} - CSRF token value otherwise null
  */
-export const getCsrfToken = () => getCookie(keys.kCsrfToken);
+export const getCsrfTokenCookie = () => getCookie(keys.kCsrfToken);
 
 /**
  * Delete a CsrfToken cookie by setting its expiration date to a past date.
@@ -91,6 +92,7 @@ export const getUserInfo = () => {
 export const saveUserInfo = (userName) => {
   if (userName) {
     localStorage.setItem(keys.kUsereName, userName);
+    dispatchAuthEvent(authEventType.login, userName);
   }
 };
 
@@ -123,7 +125,7 @@ export const saveUserInfo = (userName) => {
  *   setError(message);
  * }
  */
-export const handleApiError = (error, t) => {
+export const handleApiError = (error) => {
   // Handle axios error structure
   if (error.response) {
     const { status, data } = error.response;
@@ -169,42 +171,42 @@ export const handleApiError = (error, t) => {
     const messageKey = statusMessageKeys[status];
 
     if (messageKey) {
-      return t(messageKey);
+      return messageKey;
     }
 
     // For 4xx client errors
     if (status >= 400 && status < 500) {
-      return t(errorsKeys.clientError);
+      return errorsKeys.clientError;
     }
 
     // For 5xx server errors
     if (status >= 500) {
-      return t(errorsKeys.serverErrorGeneral);
+      return errorsKeys.serverErrorGeneral;
     }
 
-    return t(errorsKeys.unexpectedError);
+    return errorsKeys.unexpectedError;
   } else if (error.request) {
     // Network or CORS errors
     if (error.message && error.message.includes("Network Error")) {
-      return t(errorsKeys.networkError);
+      return errorsKeys.networkError;
     }
 
     if (error.message && error.message.includes("timeout")) {
-      return t(errorsKeys.timeoutError);
+      return errorsKeys.timeoutError;
     }
 
     if (error.message && error.message.includes("CORS")) {
-      return t(errorsKeys.corsError);
+      return errorsKeys.corsError;
     }
 
-    return t(errorsKeys.connectionError);
+    return errorsKeys.connectionError;
   } else {
     // Configuration or code errors
     if (error.message && error.message.includes("canceled")) {
-      return t(errorsKeys.requestCancelled);
+      return errorsKeys.requestCancelled;
     }
 
-    return error.message || t(errorsKeys.unexpectedError);
+    return error.message || errorsKeys.unexpectedError;
   }
 };
 
@@ -281,6 +283,7 @@ export const isRecoverableError = (error) => {
  */
 export const clearSession = () => {
   localStorage.removeItem(keys.kUsereName);
+  dispatchAuthEvent(authEventType.logout);
 };
 
 /**
@@ -289,4 +292,10 @@ export const clearSession = () => {
  */
 export const hasActiveSession = () => {
   return isAuthenticated();
+};
+const dispatchAuthEvent = (type, user = null) => {
+  const event = new CustomEvent("authChange", {
+    detail: { type, user },
+  });
+  window.dispatchEvent(event);
 };
