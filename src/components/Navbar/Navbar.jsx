@@ -10,15 +10,17 @@ import AuthButtons from "./AuthButtons";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import { ROUTES } from "../../routes/paths.js";
+import { logoutAction } from "../../actions/logoutAction";
+
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { isLoggedIn, logout: contextLogout } = useAuth();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate(ROUTES.LOGIN);
   };
-  const handleLogout = () => {
-    contextLogout();
+  const handleLogout = async () => {
+    await logoutAction();
     navigate(ROUTES.HOME);
   };
 
@@ -33,7 +35,7 @@ const Navbar = () => {
           <LanguageSelector />
           <ThemeToggle />
 
-          {!isLoggedIn ? (
+          {!isAuthenticated ? (
             <AuthButtons onLogin={handleLogin} />
           ) : (
             <UserMenu onLogout={handleLogout} />
@@ -60,7 +62,7 @@ const Navbar = () => {
         isOpen={mobileOpen}
         onLogin={handleLogin}
         onClose={() => setMobileOpen(false)}
-        isLoggedIn={isLoggedIn}
+        isLoggedIn={isAuthenticated}
         onLogout={handleLogout}
       />
     </header>

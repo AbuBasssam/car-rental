@@ -1,5 +1,12 @@
 import { redirect } from "react-router-dom";
-import { signIn } from "../services/authService";
+import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
+import axiosInstance from "../api/axiosInstance";
+import {
+  handleApiError,
+  deleteCsrfToken,
+  saveUserInfo,
+} from "../utils/authUtils";
+
 import { validateEmail, validatePassword } from "../utils/validators";
 import { ROUTES } from "../routes/paths";
 
@@ -30,32 +37,21 @@ export const loginAction = async ({ request }) => {
     return { errors };
   }
 
-  try {
-    // Call API
-    const response = await signIn({ email, password });
+  return axiosInstance
+    .post(AUTH_ENDPOINTS.SIGN_IN, { email, password })
+    .then((response) => {
+      if (response.data?.succeeded && response.data?.data) {
+        return Promise.resolve(response.data.data).then((userData) => {
+          saveUserInfo(userData.fullName);
 
-    // Check if login was successful
-    if (response.succeeded && response.data) {
-      // Redirect to Home page
-      return redirect(ROUTES.HOME, { replace: true });
-    } else {
-      // API returned error
-      return {
-        errors: {
-          general: response.message || "Invalid email or password",
-        },
-      };
-    }
-  } catch (error) {
-    console.error("Login error:", error);
+          deleteCsrfToken();
 
-    // Network or API error
-    return {
-      errors: {
-        general:
-          error.message ||
-          "Network error. Please check your connection and try again.",
-      },
-    };
-  }
+          return redirect(ROUTES.HOME, { replace: true });
+        });
+      }
+      return response.data;
+    })
+    .catch((error) => {
+      return handleApiError(error);
+    });
 };

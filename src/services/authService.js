@@ -32,23 +32,30 @@ export const initCsrfToken = async () => {
  * @returns {Promise<Object>} - API response data
  * @throws {Error} Custom authentication error
  */
-export const signIn = async (credentials) => {
-  try {
-    const response = await axiosInstance.post(
-      AUTH_ENDPOINTS.SIGN_IN,
-      credentials,
-    );
+export const signIn = (credentials) => {
+  return axiosInstance
+    .post(AUTH_ENDPOINTS.SIGN_IN, credentials)
+    .then((response) => {
+      if (response.data?.succeeded && response.data?.data) {
+        return Promise.resolve(response.data.data)
+          .then((userData) => {
+            saveUserInfo(userData.fullName);
+            deleteCsrfToken();
 
-    // Check if response follows the Response<T> structure
-    if (response.data && response.data.succeeded && response.data.data) {
-      saveUserInfo(response.data.data.fullName);
-      deleteCsrfToken();
-    }
-
-    return response.data;
-  } catch (error) {
-    throw handleAuthError(error);
-  }
+            return response.data;
+          })
+          .catch((updateError) => {
+            // ✅ معالجة أخطاء التحديث فقط
+            console.error("Error updating user session:", updateError);
+            // حتى لو فشل التحديث، نرجع البيانات لأن API نجح
+            return response.data;
+          });
+      }
+      return response.data;
+    })
+    .catch((error) => {
+      throw handleAuthError(error);
+    });
 };
 
 /**
@@ -75,13 +82,12 @@ export const refreshToken = async () => {
  */
 export const logOut = async () => {
   try {
-    const response = await axiosInstance.post(AUTH_ENDPOINTS.LOGOUT_OUT);
+    const response = await axiosInstance.post(AUTH_ENDPOINTS.LOGOUT);
     clearSession();
     deleteCsrfToken();
     return response.data;
   } catch (error) {
     clearSession();
-    deleteCsrfToken();
     throw handleAuthError(error);
   }
 };
