@@ -155,7 +155,7 @@ export const validateName = (name, fieldKey) => {
   if (!name || name.trim() === "") {
     return {
       key: validationKeys.nameRequired,
-      params: { field: `{{t(${fieldKey})}}` },
+      params: { field: fieldKey },
     };
   }
 
@@ -163,7 +163,7 @@ export const validateName = (name, fieldKey) => {
     return {
       key: validationKeys.nameMinLength,
       params: {
-        field: `{{t(${fieldKey})}}`,
+        field: fieldKey,
         min: VALIDATION_CONSTANTS.NAME_MIN_LENGTH,
       },
     };
@@ -173,7 +173,7 @@ export const validateName = (name, fieldKey) => {
     return {
       key: validationKeys.nameMaxLength,
       params: {
-        field: `{{t(${fieldKey})}}`,
+        field: fieldKey,
         max: VALIDATION_CONSTANTS.NAME_MAX_LENGTH,
       },
     };
@@ -184,7 +184,7 @@ export const validateName = (name, fieldKey) => {
   if (!nameRegex.test(name)) {
     return {
       key: validationKeys.nameInvalid,
-      params: { field: `{{t(${fieldKey})}}` },
+      params: { field: fieldKey },
     };
   }
 
