@@ -31,3 +31,60 @@ export const AUTH_ENDPOINTS = {
   // Security
   CSRF_TOKEN: `${API_BASE_URL}/authentication/csrf-token`,
 };
+
+/**
+ * List of endpoints that require CSRF token protection
+ * These endpoints perform state-changing operations that need CSRF validation
+ * @constant {string[]}
+ */
+const CSRF_REQUIRED_ENDPOINTS = [
+  AUTH_ENDPOINTS.SIGN_IN,
+  AUTH_ENDPOINTS.SIGN_UP,
+  AUTH_ENDPOINTS.VERIFY_EMAIL,
+  AUTH_ENDPOINTS.RESEND_VERIFICATION,
+
+  AUTH_ENDPOINTS.FORGOT_PASSWORD,
+  AUTH_ENDPOINTS.VERIFY_PASSWORD,
+  AUTH_ENDPOINTS.RESEND_PASSWORD_RESET,
+];
+
+/**
+ * List of endpoints excluded from CSRF token requirement
+ * These are typically read-only or token initialization endpoints
+ * @constant {string[]}
+ */
+const CSRF_EXCLUDED_ENDPOINTS = [
+  AUTH_ENDPOINTS.CSRF_TOKEN,
+  AUTH_ENDPOINTS.REFRESH_TOKEN,
+];
+
+/**
+ * Determines if a CSRF token is required for the given URL and method.
+ *
+ * @param {string} url - The endpoint URL to check.
+ * @param {string} method - The HTTP method being used.
+ * @returns {boolean} - Returns true if a CSRF token is required; otherwise false.
+ */
+export const requiresCsrfToken = (url, method) => {
+  const isStateMutatingMethod = ["post", "put", "patch", "delete"].includes(
+    method?.toLowerCase(),
+  );
+
+  if (!isStateMutatingMethod) {
+    return false;
+  }
+
+  const isExcluded = CSRF_EXCLUDED_ENDPOINTS.some((endpoint) =>
+    url?.includes(endpoint),
+  );
+
+  if (isExcluded) {
+    return false;
+  }
+
+  const isRequired = CSRF_REQUIRED_ENDPOINTS.some((endpoint) =>
+    url?.includes(endpoint),
+  );
+
+  return isRequired;
+};
