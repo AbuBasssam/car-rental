@@ -42,16 +42,33 @@ const SignUpPage = () => {
         actionData.errors.forEach((err) => showErrorToast(err));
       }
 
-      // 3. Handle Field Validation Errors (If you want to show them as Toasts)
-      // Note: Usually, validationErrors are shown under each input field,
-      // but if you want to toast them:
+      // 3. Handle Field Validation Errors
       if (actionData.validationErrors) {
         const firstErrorKey = Object.keys(actionData.validationErrors)[0];
         const errorObj = actionData.validationErrors[firstErrorKey];
+        if (errorObj) showTranslationError(errorObj);
+      }
+    }
 
-        if (errorObj) {
-          showErrorToast(t(errorObj.key, errorObj.params));
-        }
+    function showTranslationError(errorObj) {
+      // Check if errorObj has params and field property
+      if (errorObj.params && errorObj.params.field) {
+        // Translate the field key
+        const translatedFieldName = t(errorObj.params.field);
+
+        // Create updated params object with translated field
+        const updatedParams = {
+          ...errorObj.params, // Spread all original params
+          field: translatedFieldName, // Override field with translated value
+        };
+
+        showErrorToast(t(errorObj.key, updatedParams));
+      } else if (errorObj.params) {
+        // Has params but no field property
+        showErrorToast(t(errorObj.key, errorObj.params));
+      } else {
+        // No params at all
+        showErrorToast(t(errorObj.key));
       }
     }
   }, [actionData, t]);

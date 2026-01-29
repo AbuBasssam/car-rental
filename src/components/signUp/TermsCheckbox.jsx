@@ -14,7 +14,6 @@ const TermsCheckbox = ({ checked, onChange }) => {
         checked={checked}
         onChange={onChange}
         className={signupStyles.form.checkbox}
-        required
       />
       <label className={signupStyles.form.checkboxLabel}>
         {t(localeKeys.iAgreeTo)}{" "}

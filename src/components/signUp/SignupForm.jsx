@@ -40,7 +40,6 @@ const SignupForm = ({
 
       <FormInput
         FieldIcon={MdEmail}
-        type="email"
         name="email"
         placeholder={t(localeKeys.enterYourEmail)}
         required
