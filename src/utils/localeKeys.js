@@ -178,5 +178,20 @@ export const errorsKeys = {
   requestCancelled: "errors.request_cancelled"
 };
 
+/**
+ * Verify_account namespace keys
+ */
+export const verify_accountKeys = {
+  title: "verify_account.title",
+  codeSentTo: "verify_account.code_sent_to",
+  enterSixDigitCode: "verify_account.enter_six_digit_code",
+  verifyButton: "verify_account.verify_button",
+  verifyingButton: "verify_account.verifying_button",
+  canResendAfter: "verify_account.can_resend_after",
+  didntReceiveCode: "verify_account.didnt_receive_code",
+  resendCode: "verify_account.resend_code",
+  resendingCode: "verify_account.resending_code"
+};
+
 // Default export
 export default localeKeys;

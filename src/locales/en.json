@@ -153,5 +153,16 @@
     "cors_error": "Cross-origin request blocked. Please contact support",
     "connection_error": "Network error. Please check your connection and try again",
     "request_cancelled": "Request was cancelled"
+  },
+  "verify_account": {
+    "title": "Verify Your Account",
+    "code_sent_to": "Verification code sent to",
+    "enter_six_digit_code": "Enter the 6-digit code",
+    "verify_button": "Verify Account",
+    "verifying_button": "Verifying...",
+    "can_resend_after": "You can resend after",
+    "didnt_receive_code": "Didn't receive the code?",
+    "resend_code": "Resend Code",
+    "resending_code": "Sending..."
   }
 }

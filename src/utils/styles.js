@@ -315,6 +315,72 @@ export const signupStyles = {
 };
 
 // ========================================================================
+// VERIFY ACCOUNT STYLES
+// ========================================================================
+
+export const verifyStyles = {
+  // Page container
+  pageContainer:
+    "min-h-screen bg-authentic-white dark:bg-mirage flex items-center justify-center px-4 py-12",
+
+  // Main wrapper
+  wrapper: "w-full max-w-md",
+
+  // Header section
+  header: {
+    container: "text-center mb-8",
+    iconWrapper:
+      "inline-flex items-center justify-center w-16 h-16 bg-seashell dark:bg-pickled-bluewood rounded-full mb-4",
+    icon: "w-8 h-8 text-premium-orange",
+    title:
+      "text-3xl font-heading font-bold text-eerie-black dark:text-authentic-white mb-2",
+    description: "text-deep-gray dark:text-dark-text-muted font-body",
+    email: "text-premium-orange font-semibold mt-1",
+  },
+
+  // OTP section
+  otp: {
+    wrapper: "space-y-4",
+    inputsContainer: "flex gap-3 justify-center",
+
+    // OTP input base styles
+    input:
+      "w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-semibold bg-white dark:bg-big-stone border-2 rounded-xl outline-none transition-all duration-200 text-eerie-black dark:text-authentic-white",
+
+    // OTP input states
+    inputEmpty: "border-soft-gray dark:border-dark-border",
+    inputFilled: "border-premium-orange bg-seashell dark:bg-pickled-bluewood",
+    inputFocus: "border-premium-orange ring-2 ring-premium-orange/20",
+    inputDisabled: "opacity-50 cursor-not-allowed",
+
+    hint: "text-sm text-center text-deep-gray dark:text-dark-text-muted",
+  },
+
+  // Form section
+  form: {
+    container: "space-y-6",
+
+    // Submit button
+    submitButton:
+      "w-full py-3 px-4 bg-premium-orange hover:bg-[#e55a2a] text-white font-semibold rounded-xl transition-all duration-300 shadow-orange dark:shadow-dark-soft",
+    submitButtonDisabled:
+      "bg-soft-gray dark:bg-dark-border cursor-not-allowed opacity-60",
+  },
+
+  // Resend section
+  resend: {
+    container: "mt-6 text-center",
+    timerText: "text-sm text-deep-gray dark:text-dark-text-muted",
+    timerValue: "font-semibold text-premium-orange",
+    content: "space-y-2",
+    prompt: "text-sm text-deep-gray dark:text-dark-text-muted",
+    button:
+      "text-premium-orange hover:text-[#e55a2a] font-semibold transition-colors duration-300",
+    buttonDisabled: "opacity-50 cursor-not-allowed",
+  },
+};
+
+// ========================================================================
 // UTILITY FUNCTIONS
 // ========================================================================
 
