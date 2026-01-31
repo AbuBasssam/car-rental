@@ -111,7 +111,9 @@ export const localeKeys = {
   passwordWeak: "password_weak",
   passwordMedium: "password_medium",
   passwordStrong: "password_strong",
-  passwordVeryStrong: "password_very_strong"
+  passwordVeryStrong: "password_very_strong",
+  verifyAccountTitle: "verifyAccountTitle",
+  codeSentSuccess: "code_sent_success"
 };
 
 /**
@@ -130,7 +132,8 @@ export const authKeys = {
   loginButton: "auth.login_button",
   registerTitle: "auth.register_title",
   emailPlaceholder: "auth.email_placeholder",
-  passwordPlaceholder: "auth.password_placeholder"
+  passwordPlaceholder: "auth.password_placeholder",
+  verificationSuccess: "auth.verificationSuccess"
 };
 
 /**
@@ -149,7 +152,9 @@ export const validationKeys = {
   nameInvalid: "validation.name_invalid",
   passwordsNotMatch: "validation.passwords_not_match",
   termsRequired: "validation.terms_required",
-  registrationFailed: "validation.registration_failed"
+  registrationFailed: "validation.registration_failed",
+  otpIncomplete: "validation.otp_incomplete",
+  invalidOrExpiredCode: "validation.invalid_or_expired_code"
 };
 
 /**
@@ -179,18 +184,18 @@ export const errorsKeys = {
 };
 
 /**
- * Verify_account namespace keys
+ * Verify namespace keys
  */
-export const verify_accountKeys = {
-  title: "verify_account.title",
-  codeSentTo: "verify_account.code_sent_to",
-  enterSixDigitCode: "verify_account.enter_six_digit_code",
-  verifyButton: "verify_account.verify_button",
-  verifyingButton: "verify_account.verifying_button",
-  canResendAfter: "verify_account.can_resend_after",
-  didntReceiveCode: "verify_account.didnt_receive_code",
-  resendCode: "verify_account.resend_code",
-  resendingCode: "verify_account.resending_code"
+export const verifyKeys = {
+  codeSentTo: "verify.code_sent_to",
+  enterSixDigitCode: "verify.enter_six_digit_code",
+  verifyButton: "verify.verify_button",
+  verifyingButton: "verify.verifying_button",
+  canResendAfter: "verify.can_resend_after",
+  didntReceiveCode: "verify.didnt_receive_code",
+  resendCode: "verify.resend_code",
+  resendingCode: "verify.resending_code",
+  digitLabel: "verify.digit_label"
 };
 
 // Default export

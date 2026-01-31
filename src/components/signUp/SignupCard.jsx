@@ -24,11 +24,8 @@ const SignupCard = ({
 
         <Form method="post" className={signupStyles.form.container}>
           <SignupForm
-            // formData={formData}
             showPassword={showPassword}
             showConfirmPassword={showConfirmPassword}
-            // onSubmit={onSubmit}
-            // onChange={onChange}
             onTogglePassword={onTogglePassword}
             onToggleConfirmPassword={onToggleConfirmPassword}
           />

@@ -28,7 +28,8 @@
     "login_button": "Login",
     "register_title": "Create a new account",
     "email_placeholder": "Enter your email",
-    "password_placeholder": "Enter your password"
+    "password_placeholder": "Enter your password",
+    "verificationSuccess": "Your account has been verified successfully. You can  log in now."
   },
   "find_your_perfect_ride": "Find Your Perfect Ride",
   "rent_the_best_quality": "Rent The Best Quality",
@@ -117,6 +118,9 @@
   "password_medium": "Medium",
   "password_strong": "Strong",
   "password_very_strong": "Very Strong",
+  "verifyAccountTitle": "Please Verify Your Account",
+  "code_sent_success": "The code has been sent successfully",
+
   "validation": {
     "required": "This field is required",
     "email_required": "Email is required",
@@ -130,7 +134,9 @@
     "name_invalid": "{{field}} must contain only letters and spaces",
     "passwords_not_match": "Passwords do not match",
     "terms_required": "You must accept the terms and conditions",
-    "registration_failed": "Invalid email and/or password"
+    "registration_failed": "Invalid email and/or password",
+    "otp_incomplete": "Please enter the complete 6-digit verification code.",
+    "invalid_or_expired_code": "The code is invalid or has expired."
   },
   "errors": {
     "bad_request": "Invalid request. Please check your input",
@@ -154,8 +160,7 @@
     "connection_error": "Network error. Please check your connection and try again",
     "request_cancelled": "Request was cancelled"
   },
-  "verify_account": {
-    "title": "Verify Your Account",
+  "verify": {
     "code_sent_to": "Verification code sent to",
     "enter_six_digit_code": "Enter the 6-digit code",
     "verify_button": "Verify Account",
@@ -163,6 +168,7 @@
     "can_resend_after": "You can resend after",
     "didnt_receive_code": "Didn't receive the code?",
     "resend_code": "Resend Code",
-    "resending_code": "Sending..."
+    "resending_code": "Sending...",
+    "digit_label": "Digit"
   }
 }

@@ -340,20 +340,22 @@ export const verifyStyles = {
 
   // OTP section
   otp: {
-    wrapper: "space-y-4",
-    inputsContainer: "flex gap-3 justify-center",
-
+    wrapper: "space-y-6",
+    inputsContainer:
+      "flex gap-[10px] sm:gap-[14px] justify-center items-center flex-nowrap",
     // OTP input base styles
     input:
-      "w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-semibold bg-white dark:bg-big-stone border-2 rounded-xl outline-none transition-all duration-200 text-eerie-black dark:text-authentic-white",
+      "w-12 h-14 sm:w-14 sm:h-16 text-center font-semibold outline-none transition-all duration-200 text-[clamp(1rem,3vw,1.5rem)] " + // Responsive font size
+      "bg-white dark:bg-big-stone border-2 rounded-xl " +
+      "text-eerie-black dark:text-authentic-white " +
+      "shadow-[0_8px_10px_rgba(0,0,0,0.2)] " + // Base shadow
+      "focus:border-premium-orange focus:shadow-[0_0_10px_rgba(255,102,51,0.5)] focus:scale-105",
 
-    // OTP input states
     inputEmpty: "border-soft-gray dark:border-dark-border",
-    inputFilled: "border-premium-orange bg-seashell dark:bg-pickled-bluewood",
-    inputFocus: "border-premium-orange ring-2 ring-premium-orange/20",
-    inputDisabled: "opacity-50 cursor-not-allowed",
 
-    hint: "text-sm text-center text-deep-gray dark:text-dark-text-muted",
+    inputFilled: "border-premium-orange bg-seashell dark:bg-pickled-bluewood",
+
+    hint: "text-sm text-center text-deep-gray dark:text-dark-text-muted mt-4",
   },
 
   // Form section
@@ -369,13 +371,14 @@ export const verifyStyles = {
 
   // Resend section
   resend: {
-    container: "mt-6 text-center",
+    container: "mt-8 text-center",
+    content:
+      "flex flex-col md:flex-row md:items-center md:justify-center md:gap-2 space-y-2 md:space-y-0 whitespace-nowrap",
     timerText: "text-sm text-deep-gray dark:text-dark-text-muted",
     timerValue: "font-semibold text-premium-orange",
-    content: "space-y-2",
     prompt: "text-sm text-deep-gray dark:text-dark-text-muted",
     button:
-      "text-premium-orange hover:text-[#e55a2a] font-semibold transition-colors duration-300",
+      "text-sm text-premium-orange hover:text-[#e55a2a] font-semibold transition-colors duration-300 cursor-pointer",
     buttonDisabled: "opacity-50 cursor-not-allowed",
   },
 };

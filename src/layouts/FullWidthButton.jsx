@@ -1,5 +1,3 @@
-import React from "react";
-
 const FullWidthButton = ({ children, className = "", ...props }) => {
   const defaultStyle = `w-full inline-flex items-center justify-center
     px-6 py-3 my-4 sm:py-4

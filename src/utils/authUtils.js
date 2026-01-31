@@ -110,20 +110,8 @@ export const saveUserInfo = (userName) => {
  * Provides user-friendly error messages based on HTTP status and response structure
  *
  * @param {Error} error - Axios error object
- * @param {Function} t - i18n translation function from react-i18next
- * @returns {string} User-friendly error message
+ * @returns {string} User-friendly error message/ error Translation key
  *
- * @example
- * import { handleApiError } from '../utils/authUtils';
- * import { useTranslation } from 'react-i18next';
- *
- * const { t } = useTranslation();
- * try {
- *   await apiCall();
- * } catch (error) {
- *   const message = handleApiError(error, t);
- *   setError(message);
- * }
  */
 export const handleApiError = (error) => {
   // Handle axios error structure
@@ -176,6 +164,14 @@ export const handleApiError = (error) => {
 
     // For 4xx client errors
     if (status >= 400 && status < 500) {
+      if (status === 429) {
+        return errorsKeys.too_many_requests;
+      }
+
+      if (status === 422) {
+        return errorsKeys.validation_failed;
+      }
+
       return errorsKeys.clientError;
     }
 
@@ -298,4 +294,55 @@ const dispatchAuthEvent = (type, user = null) => {
     detail: { type, user },
   });
   window.dispatchEvent(event);
+};
+const VERIFICATION_EMAIL_TTL = 24 * 60 * 60 * 1000; // 24 hours
+
+/**
+ * Save verification email after successful signup
+ */
+export const saveVerificationEmail = (email) => {
+  if (!email) return;
+
+  const payload = {
+    email,
+    createdAt: Date.now(),
+  };
+
+  localStorage.setItem(keys.kVerificationEmail, JSON.stringify(payload));
+};
+
+/**
+ * Remove verification email after successful verification
+ */
+export const clearVerificationEmail = () => {
+  localStorage.removeItem(keys.kVerificationEmail);
+};
+
+/**
+ * Get valid verification email if exists and not expired
+ */
+export const getValidVerificationEmail = () => {
+  const raw = localStorage.getItem(keys.kVerificationEmail);
+  if (!raw) return null;
+
+  try {
+    const { email, createdAt } = JSON.parse(raw);
+
+    if (!email || !createdAt) {
+      clearVerificationEmail();
+      return null;
+    }
+
+    const isExpired = Date.now() - createdAt > VERIFICATION_EMAIL_TTL;
+
+    if (isExpired) {
+      clearVerificationEmail();
+      return null;
+    }
+
+    return email;
+  } catch {
+    clearVerificationEmail();
+    return null;
+  }
 };

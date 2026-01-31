@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { signupStyles } from "../utils/styles";
 import AnimatedBackground from "../components/login/AnimatedBackground";
 import BackButton from "../components/login/BackButton";
 import SignupCard from "../components/signUp/SignupCard";
 import { useActionData } from "react-router-dom";
-import { showErrorToast } from "../config/toastConfig";
+import { useActionToast } from "../hooks/useActionToast";
 
 const SignUpPage = () => {
   const [isActive, setIsActive] = useState(false);
@@ -20,7 +19,6 @@ const SignUpPage = () => {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword((prev) => !prev);
   };
-  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,49 +27,7 @@ const SignUpPage = () => {
 
     return () => clearTimeout(timer);
   }, []);
-  useEffect(() => {
-    if (actionData) {
-      // 1. Handle Server-side Errors or General Failures
-      if (actionData.serverError) {
-        // Translate the error key if it's a known error key from localeKeys
-        showErrorToast(t(actionData.serverError));
-      }
-
-      // 2. Handle specific API validation errors array
-      if (actionData.errors && Array.isArray(actionData.errors)) {
-        actionData.errors.forEach((err) => showErrorToast(err));
-      }
-
-      // 3. Handle Field Validation Errors
-      if (actionData.validationErrors) {
-        const firstErrorKey = Object.keys(actionData.validationErrors)[0];
-        const errorObj = actionData.validationErrors[firstErrorKey];
-        if (errorObj) showTranslationError(errorObj);
-      }
-    }
-
-    function showTranslationError(errorObj) {
-      // Check if errorObj has params and field property
-      if (errorObj.params && errorObj.params.field) {
-        // Translate the field key
-        const translatedFieldName = t(errorObj.params.field);
-
-        // Create updated params object with translated field
-        const updatedParams = {
-          ...errorObj.params, // Spread all original params
-          field: translatedFieldName, // Override field with translated value
-        };
-
-        showErrorToast(t(errorObj.key, updatedParams));
-      } else if (errorObj.params) {
-        // Has params but no field property
-        showErrorToast(t(errorObj.key, errorObj.params));
-      } else {
-        // No params at all
-        showErrorToast(t(errorObj.key));
-      }
-    }
-  }, [actionData, t]);
+  useActionToast(actionData);
 
   return (
     <div className={signupStyles.pageContainer}>

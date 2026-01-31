@@ -17,6 +17,7 @@ const SignupForm = ({
 }) => {
   const { t } = useTranslation();
   const [passwordValue, setPasswordValue] = useState("");
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
   return (
     <>
@@ -61,7 +62,10 @@ const SignupForm = ({
       />
       <PasswordRequirements password={passwordValue} />
 
-      <TermsCheckbox />
+      <TermsCheckbox
+        onChange={(e) => setIsTermsAccepted(e.target.checked)}
+        checked={isTermsAccepted}
+      />
 
       <FullWidthButton type="submit">
         {t(localeKeys.createAccount)}

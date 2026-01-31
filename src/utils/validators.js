@@ -221,3 +221,14 @@ export const validateTermsAcceptance = (accepted) => {
   }
   return null;
 };
+/**
+ * Validate OTP Code
+ * @param {string} code verification code
+ * @returns {Object|null}
+ */
+export const validateOTP = (code) => {
+  if (!code || code.length < 6) {
+    return { key: validationKeys.otpIncomplete };
+  }
+  return null;
+};
