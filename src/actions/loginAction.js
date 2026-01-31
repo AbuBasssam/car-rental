@@ -9,49 +9,58 @@ import {
 
 import { validateEmail, validatePassword } from "../utils/validators";
 import { ROUTES } from "../routes/paths";
+import { getValidVerificationEmail } from "../utils/authUtils";
 
 /**
  * Login Action
  * Handles form submission using React Router's action
  */
-export const loginAction = async ({ request }) => {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
+export const loginAction = ({ request }) => {
+  let email;
+  return request
+    .formData()
+    .then((formData) => {
+      email = formData.get("email");
+      const password = formData.get("password");
 
-  // Validate inputs
-  const errors = {};
+      const errors = {};
 
-  const emailError = validateEmail(email);
-  if (emailError) {
-    errors.email = emailError;
-  }
+      const emailError = validateEmail(email);
+      if (emailError) errors.email = emailError;
 
-  const passwordError = validatePassword(password);
-  if (passwordError) {
-    errors.password = passwordError;
-  }
+      const passwordError = validatePassword(password);
+      if (passwordError) errors.password = passwordError;
 
-  // If validation errors exist, return them
-  if (Object.keys(errors).length > 0) {
-    return { errors };
-  }
-
-  return axiosInstance
-    .post(AUTH_ENDPOINTS.SIGN_IN, { email, password })
-    .then((response) => {
-      if (response.data?.succeeded && response.data?.data) {
-        return Promise.resolve(response.data.data).then((userData) => {
-          saveUserInfo(userData.fullName);
-
-          deleteCsrfToken();
-
-          return redirect(ROUTES.HOME, { replace: true });
-        });
+      if (Object.keys(errors).length > 0) {
+        return Promise.reject({ type: "validation", errors });
       }
+
+      return { email, password };
+    })
+    .then(({ email, password }) =>
+      axiosInstance
+        .post(AUTH_ENDPOINTS.SIGN_IN, { email, password })
+        .then((response) => ({ response, email })),
+    )
+    .then(({ response }) => {
+      if (response.data?.succeeded && response.data?.data) {
+        const userData = response.data.data;
+
+        saveUserInfo(userData.fullName);
+        deleteCsrfToken();
+
+        return redirect(ROUTES.HOME, { replace: true });
+      }
+
       return response.data;
     })
     .catch((error) => {
+      const verificationEmail = getValidVerificationEmail();
+      if (verificationEmail && verificationEmail === email) {
+        return axiosInstance
+          .post(AUTH_ENDPOINTS.RESEND_VERIFICATION, { email })
+          .then(() => redirect(ROUTES.VERIFY_ACCOUNT, { replace: true }));
+      }
       return handleApiError(error);
     });
 };

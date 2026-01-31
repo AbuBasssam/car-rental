@@ -1,7 +1,13 @@
 import { redirect } from "react-router-dom";
-import { registerUser } from "../api/endpoints/auth";
-import { localeKeys, validationKeys, errorsKeys } from "../utils/localeKeys";
+import { localeKeys } from "../utils/localeKeys";
 import { ROUTES } from "../routes/paths";
+import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
+import axiosInstance from "../api/axiosInstance";
+import {
+  handleApiError,
+  deleteCsrfToken,
+  saveVerificationEmail,
+} from "../utils/authUtils";
 import {
   validateEmail,
   validateStrongPassword,
@@ -23,15 +29,15 @@ export const signUpAction = async ({ request }) => {
 
   // Extract form fields (FormData API)
 
-  const firstName = formData.get("firstName");
+  const firstName = formData.get("firstName").trim();
 
-  const lastName = formData.get("lastName");
+  const lastName = formData.get("lastName").trim();
 
-  const email = formData.get("email");
+  const email = formData.get("email").trim();
 
-  const password = formData.get("password");
+  const password = formData.get("password").trim();
 
-  const confirmPassword = formData.get("confirmPassword");
+  const confirmPassword = formData.get("confirmPassword").trim();
 
   const acceptedTerms = formData.get("acceptedTerms") === "on";
 
@@ -62,8 +68,8 @@ export const signUpAction = async ({ request }) => {
     );
     if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
 
-    // الموافقة على الشروط
-    const termsError = validateTermsAcceptance(acceptedTerms === "on");
+    // Accept terms & conditions
+    const termsError = validateTermsAcceptance(acceptedTerms);
     if (termsError) errors.acceptedTerms = termsError;
 
     return errors;
@@ -79,56 +85,25 @@ export const signUpAction = async ({ request }) => {
   // ============================================
   // 2. Registration API Call
   // ============================================
-  try {
-    const registrationData = {
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      email: email.trim(),
-      password: password,
-    };
+  const registrationData = {
+    firstName: firstName.trim(),
+    lastName: lastName.trim(),
+    email: email.trim(),
+    password: password,
+  };
 
-    const response = await registerUser(registrationData);
+  return axiosInstance
+    .post(AUTH_ENDPOINTS.SIGN_UP, registrationData)
+    .then((response) => {
+      return Promise.resolve(response.data.data).then(() => {
+        deleteCsrfToken();
 
-    if (response.data.succeeded) {
-      return redirect(ROUTES.VERIFY + `?email=${encodeURIComponent(email)}`);
-    } else {
-      // Handle server-side errors (e.g., 'Email already exists')
-      return {
-        serverError:
-          response.data?.message || validationKeys.registrationFailed,
-        errors: response.data?.errors || [],
-      };
-    }
-  } catch (err) {
-    /**
-     * IMPORTANT: We cannot use handleApiError here because:
-     * 1. Actions run on server-side (no hooks allowed)
-     * 2. No access to useTranslation()
-     *
-     * Instead, we return error keys for the component to translate
-     */
-    let errorKey = errorsKeys.unexpectedError;
+        saveVerificationEmail(email);
 
-    // Determine error type
-    if (err.request && !err.response) {
-      // Network error
-      errorKey = errorsKeys.networkError;
-    } else if (err.response) {
-      // HTTP error
-      const status = err.response.status;
-
-      if (status === 409) {
-        errorKey = errorsKeys.conflict;
-      } else if (status === 400) {
-        errorKey = errorsKeys.badRequest;
-      } else if (status >= 500) {
-        errorKey = errorsKeys.serverError;
-      }
-    }
-
-    return {
-      serverError: errorKey,
-      isNetworkError: err.request && !err.response,
-    };
-  }
+        return redirect(ROUTES.VERIFY_ACCOUNT);
+      });
+    })
+    .catch((error) => {
+      return handleApiError(error);
+    });
 };

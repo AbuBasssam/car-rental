@@ -6,10 +6,13 @@ import LoginCard from "../components/login/LoginCard";
 import RoundedThemeToggle from "../utils/RoundedThemeToggle";
 import { useActionData } from "react-router-dom";
 import { showErrorToast } from "../config/toastConfig";
+import useVerificationSuccessToast from "../hooks/useVerificationSuccessToast";
 
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  useVerificationSuccessToast();
 
   // ✅ React Router hooks
   const actionData = useActionData(); //Get Errors from action
