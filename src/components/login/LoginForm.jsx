@@ -14,10 +14,8 @@ const LoginForm = ({ showPassword, onTogglePassword }) => {
     <>
       <FormInput
         FieldIcon={FaUser}
-        type="email"
         name="email"
         placeholder={t(localeKeys.enterYourEmail)}
-        required
       />
 
       <div>

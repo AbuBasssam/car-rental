@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { ROUTES } from "./paths";
-import { isAuthenticated } from "../utils/authUtils";
+import { useAuth } from "../hooks/useAuth";
 
 const PublicRoute = () => {
-  const isAuth = isAuthenticated();
+  const { isAuthenticated } = useAuth();
 
-  if (isAuth) {
+  if (isAuthenticated) {
     return <Navigate to={ROUTES.HOME} replace />;
   }
 

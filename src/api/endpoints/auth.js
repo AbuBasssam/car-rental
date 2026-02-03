@@ -147,3 +147,42 @@ export const refreshToken = () => {
 export const getCsrfToken = () => {
   return axiosInstance.get(AUTH_ENDPOINTS.CSRF_TOKEN);
 };
+/**
+ * Verify user authentication status
+ * GET /authentication/verify
+ *
+ * This endpoint validates the httpOnly cookie and returns user data if authenticated.
+ * Backend will:
+ * 1. Read access_token from httpOnly cookie
+ * 2. Decode JWT and extract user_id and jti
+ * 3. Query database for user
+ * 4. Compare jti with active_jti in DB
+ * 5. Check token_expires_at
+ *
+ * @returns {Promise} API response with user data or error
+ * @example
+ * // Success Response (200):
+ * {
+ *   "statusCode": 200,
+ *   "succeeded": true,
+ *   "message": "Success",
+ *   "data": {
+ *     "firstName": "John",
+ *     "lastName": "Doe",
+ *     "email": "john@example.com",
+ *     "imagePath": null
+ *   }
+ * }
+ *
+ * @example
+ * // Error Response (401):
+ * {
+ *   "statusCode": 401,
+ *   "succeeded": false,
+ *   "message": "Token expired" | "Invalid session" | "Not authenticated",
+ *   "errors": ["string"]
+ * }
+ */
+export const verifyAuth = () => {
+  return axiosInstance.get(AUTH_ENDPOINTS.VERIFY);
+};

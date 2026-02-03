@@ -10,35 +10,32 @@ import AuthButtons from "./AuthButtons";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import { ROUTES } from "../../routes/paths.js";
-import { logoutAction } from "../../actions/logoutAction";
+import { navbarStyles } from "../../utils/styles.js";
+import useScrollLock from "../../hooks/useScrollLock";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Scroll Lock Hook
+  useScrollLock(mobileOpen);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate(ROUTES.LOGIN);
-  };
-  const handleLogout = async () => {
-    await logoutAction();
-    navigate(ROUTES.HOME);
-  };
+  const handleLogin = () => navigate(ROUTES.LOGIN);
 
   return (
-    <header className="fixed top-0 w-full bg-white dark:bg-pickled-bluewood border-b shadow-sm z-50  border-eerie-black">
-      <nav className="max-w-7xl mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
+    <header className={navbarStyles.header}>
+      <nav className={navbarStyles.navContainer}>
         <Logo />
         <NavLinks />
 
         {/* Desktop Action Buttons section*/}
-        <div className="hidden md:flex items-center gap-4">
+        <div className={navbarStyles.actionButtons}>
           <LanguageSelector />
           <ThemeToggle />
 
           {!isAuthenticated ? (
             <AuthButtons onLogin={handleLogin} />
           ) : (
-            <UserMenu onLogout={handleLogout} />
+            <UserMenu />
           )}
         </div>
 
@@ -47,7 +44,10 @@ const Navbar = () => {
           <LanguageSelector />
           <ThemeToggle />
 
-          <button className="p-2" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button
+            className={navbarStyles.mobileToggle}
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
             {mobileOpen ? (
               <X size={26} className="text-dark-gray dark:text-white" />
             ) : (
@@ -62,8 +62,6 @@ const Navbar = () => {
         isOpen={mobileOpen}
         onLogin={handleLogin}
         onClose={() => setMobileOpen(false)}
-        isLoggedIn={isAuthenticated}
-        onLogout={handleLogout}
       />
     </header>
   );

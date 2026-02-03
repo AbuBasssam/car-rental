@@ -414,3 +414,42 @@ export const mergeAuthStyles = (baseStyles, customStyles = {}) => {
     ...customStyles,
   };
 };
+
+export const navbarStyles = {
+  header:
+    "fixed top-0 w-full bg-white dark:bg-pickled-bluewood border-b shadow-sm z-50 border-gray-100 dark:border-eerie-black transition-colors duration-300",
+  navContainer:
+    "max-w-7xl mx-auto px-4 lg:px-8 h-20 flex items-center justify-between",
+
+  userMenu: {
+    trigger:
+      "flex items-center gap-2 p-1.5 pr-3 rounded-full bg-authentic-white dark:bg-big-stone hover:bg-soft-gray dark:hover:bg-fiord transition-all duration-300 border border-transparent hover:border-soft-gray dark:hover:border-fiord group",
+    avatarWrapper:
+      "bg-white dark:bg-pickled-bluewood rounded-full p-1 shadow-sm group-hover:scale-105 transition-transform duration-300",
+    userName:
+      "hidden sm:inline-block text-sm font-medium max-w-[120px] truncate text-deep-gray dark:text-premium-orange transition-colors",
+    chevron:
+      "text-deep-gray/50 dark:text-soft-gray/50 group-hover:text-premium-orange transition-all",
+
+    avatarIcon: "text-deep-gray dark:text-premium-orange",
+  },
+
+  mobileMenu: {
+    container:
+      "md:hidden bg-white dark:bg-pickled-bluewood border-t border-gray-100 dark:border-eerie-black shadow-lg animate-slideDown",
+    wrapper: "flex flex-col px-6 py-6 gap-6",
+    userSection:
+      "flex items-center gap-3 pb-4 border-b border-gray-100 dark:border-fiord/50",
+    userAvatar:
+      "bg-soft-gray dark:bg-fiord p-2 rounded-full text-premium-orange",
+    userName:
+      "font-heading text-lg font-semibold text-deep-gray dark:text-premium-orange",
+    link: "font-heading text-lg text-deep-gray dark:text-soft-gray hover:text-premium-orange transition-colors text-left  cursor-pointer",
+    logoutBtn:
+      "font-heading text-lg text-red-600 hover:text-red-400 transition-colors text-left flex items-center gap-2  cursor-pointer",
+  },
+
+  actionButtons: "hidden md:flex items-center gap-4",
+  mobileToggle:
+    "p-2 rounded-lg hover:bg-soft-gray dark:hover:bg-fiord transition-colors text-dark-gray dark:text-white",
+};

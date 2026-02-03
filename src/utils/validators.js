@@ -1,7 +1,4 @@
 import { validationKeys } from "../utils/localeKeys";
-// ============================================
-// 🔧 VALIDATION CONSTANTS
-// ============================================
 
 export const VALIDATION_CONSTANTS = {
   EMAIL_MAX_LENGTH: 256,
@@ -9,76 +6,54 @@ export const VALIDATION_CONSTANTS = {
   PASSWORD_MAX_LENGTH: 16,
   NAME_MIN_LENGTH: 3,
   NAME_MAX_LENGTH: 50,
+  OTP_LENGTH: 6,
 };
-
-// ============================================
-// 📧 EMAIL VALIDATION
-// ============================================
-
+const validationResult = (translationKey, paramsObj = null) => {
+  return {
+    key: translationKey,
+    params: paramsObj,
+  };
+};
 /**
  * Validate Email Address
- * Rules: Required, Valid Format, Max Length
- *
  * @param {string} email - Email to validate
- * @returns {Object|null} { key: string, params?: object } or null if valid
- *
- * @example
- * const error = validateEmail(email);
- * if (error) {
- *   const message = t(error.key, error.params);
- * }
+ * @returns {string|null} Error key or null if valid
  */
 export const validateEmail = (email) => {
-  // Required validation
   if (!email || email.trim() === "") {
-    return { key: validationKeys.emailRequired };
+    return validationResult(validationKeys.emailRequired);
   }
 
-  // Email format validation (RFC 5322 simplified)
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return { key: validationKeys.emailInvalid };
+    return validationResult(validationKeys.emailInvalid);
   }
 
-  // Max length validation
   if (email.length > VALIDATION_CONSTANTS.EMAIL_MAX_LENGTH) {
-    return {
-      key: validationKeys.emailMaxLength,
-      params: { max: VALIDATION_CONSTANTS.EMAIL_MAX_LENGTH },
-    };
+    return validationResult(validationKeys.emailMaxLength, {
+      parm1: VALIDATION_CONSTANTS.EMAIL_MAX_LENGTH,
+    });
   }
 
   return null;
 };
 
-// ============================================
-// 🔑 PASSWORD VALIDATION
-// ============================================
-
 /**
  * Validate Password (Basic - for Login)
- * Rules: Required only
- *
  * @param {string} password - Password to validate
- * @returns {Object|null} { key: string } or null if valid
+ * @returns {string|null} Error key or null if valid
  */
 export const validatePassword = (password) => {
   if (!password || password.trim() === "") {
-    return { key: validationKeys.passwordRequired };
+    return validationResult(validationKeys.passwordRequired);
   }
   return null;
 };
 
 /**
  * Check Password Requirements (for UI display)
- * Returns detailed requirements status for PasswordRequirements component
- *
  * @param {string} password - Password to check
  * @returns {Object} Requirements object with individual checks
- *
- * @example
- * const requirements = checkPasswordRequirements("MyPass123!");
- * Returns: { length: true, uppercase: true, lowercase: true, number: true, special: true }
  */
 export const checkPasswordRequirements = (password = "") => {
   return {
@@ -94,141 +69,99 @@ export const checkPasswordRequirements = (password = "") => {
 
 /**
  * Validate Strong Password (for Signup/Reset)
- * Uses validatePassword for basic check, then checks requirements
- * Returns validation result with requirements details
- *
  * @param {string} password - Password to validate
- * @returns {Object} { isValid: boolean, requirements: object, error: object|null }
- *
- * @example
- * const result = validateStrongPassword("weak");
- * if (!result.isValid && result.error) {
- *   const message = t(result.error.key);
- * }
+ * @returns {string|null} Error key or null if valid
  */
 export const validateStrongPassword = (password) => {
-  // Use validatePassword for basic required check
   const basicError = validatePassword(password);
-
   if (basicError) {
-    return {
-      isValid: false,
-      requirements: checkPasswordRequirements(""),
-      error: basicError,
-    };
+    return basicError;
   }
 
-  // Get detailed requirements
   const requirements = checkPasswordRequirements(password);
-
-  // Check if all requirements are met
   const allRequirementsMet = Object.values(requirements).every(
     (req) => req === true,
   );
 
-  return {
-    isValid: allRequirementsMet,
-    requirements,
-    error: allRequirementsMet ? null : { key: validationKeys.passwordInvalid },
-  };
+  return allRequirementsMet
+    ? null
+    : validationResult(validationKeys.passwordInvalid);
 };
-
-// ============================================
-// 👤 NAME VALIDATION
-// ============================================
 
 /**
  * Validate Name (First/Last Name)
- * Rules: Required, Min/Max Length, Letters and spaces only
- *
  * @param {string} name - Name to validate
- * @param {string} fieldKey - Translation key for field name (e.g., 'validation.first_name')
- * @returns {Object|null} { key: string, params: object } or null if valid
- *
- * @example
- * const error = validateName(firstName, 'validation.first_name');
- * if (error) {
- *   const message = t(error.key, error.params);
- * }
+ * @param {string} fieldKey - Translation key for field name
+ * @returns {string|null} Error key or null if valid
  */
 export const validateName = (name, fieldKey) => {
+  let params;
+
   if (!name || name.trim() === "") {
-    return {
-      key: validationKeys.nameRequired,
-      params: { field: fieldKey },
+    params = {
+      parm1: fieldKey,
     };
+    return validationResult(validationKeys.nameRequired, params);
   }
 
   if (name.length < VALIDATION_CONSTANTS.NAME_MIN_LENGTH) {
-    return {
-      key: validationKeys.nameMinLength,
-      params: {
-        field: fieldKey,
-        min: VALIDATION_CONSTANTS.NAME_MIN_LENGTH,
-      },
+    params = {
+      parm1: fieldKey,
+      parm2: VALIDATION_CONSTANTS.NAME_MIN_LENGTH,
     };
+
+    return validationResult(validationKeys.nameMinLength, params);
   }
 
   if (name.length > VALIDATION_CONSTANTS.NAME_MAX_LENGTH) {
-    return {
-      key: validationKeys.nameMaxLength,
-      params: {
-        field: fieldKey,
-        max: VALIDATION_CONSTANTS.NAME_MAX_LENGTH,
-      },
+    params = {
+      parm1: fieldKey,
+      parm2: VALIDATION_CONSTANTS.NAME_MAX_LENGTH,
     };
+    return validationResult(validationKeys.nameMaxLength, params);
   }
 
-  // Only letters and spaces
   const nameRegex = /^[a-zA-Z\s]+$/;
   if (!nameRegex.test(name)) {
-    return {
-      key: validationKeys.nameInvalid,
-      params: { field: fieldKey },
-    };
+    return validationResult(validationKeys.nameInvalid);
   }
 
   return null;
 };
 
-// ============================================
-// 🔄 OTHER VALIDATIONS
-// ============================================
-
 /**
  * Validate Passwords Match (for Signup)
- *
  * @param {string} password - Password
  * @param {string} confirmPassword - Confirm password
- * @returns {Object|null} { key: string } or null if valid
+ * @returns {string|null} Error key or null if valid
  */
 export const validatePasswordsMatch = (password, confirmPassword) => {
   if (password !== confirmPassword) {
-    return { key: validationKeys.passwordsNotMatch };
+    return validationResult(validationKeys.passwordsNotMatch);
   }
   return null;
 };
 
 /**
  * Validate Terms Acceptance
- *
  * @param {boolean} accepted - Whether terms are accepted
- * @returns {Object|null} { key: string } or null if valid
+ * @returns {string|null} Error key or null if valid
  */
 export const validateTermsAcceptance = (accepted) => {
   if (!accepted) {
-    return { key: validationKeys.termsRequired };
+    return validationResult(validationKeys.termsRequired);
   }
   return null;
 };
+
 /**
  * Validate OTP Code
- * @param {string} code verification code
- * @returns {Object|null}
+ * @param {string} code - Verification code
+ * @returns {string|null} Error key or null if valid
  */
 export const validateOTP = (code) => {
-  if (!code || code.length < 6) {
-    return { key: validationKeys.otpIncomplete };
+  if (!code || code.length < VALIDATION_CONSTANTS.OTP_LENGTH) {
+    return validationResult(validationKeys.otpIncomplete);
   }
   return null;
 };

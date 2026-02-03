@@ -4,7 +4,7 @@ import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
 import axiosInstance from "../api/axiosInstance";
 import {
-  handleApiError,
+  normalizeError,
   deleteCsrfToken,
   saveVerificationEmail,
 } from "../utils/authUtils";
@@ -16,94 +16,77 @@ import {
   validateTermsAcceptance,
 } from "../utils/validators";
 
-/**
- * Sign up Action
- * Handles form submission, performs data validation, and manages the registration API lifecycle.
- *
- * @param {Object} context - React Router's action context object.
- * @param {Request} context.request - The Fetch API Request object containing the form data.
- * @returns {Promise<Response|Object>} A redirect on success, or an object containing validation/server errors.
- */
 export const signUpAction = async ({ request }) => {
   const formData = await request.formData();
 
-  // Extract form fields (FormData API)
-
-  const firstName = formData.get("firstName").trim();
-
-  const lastName = formData.get("lastName").trim();
-
-  const email = formData.get("email").trim();
-
-  const password = formData.get("password").trim();
-
-  const confirmPassword = formData.get("confirmPassword").trim();
-
+  const firstName = formData.get("firstName")?.trim() || "";
+  const lastName = formData.get("lastName")?.trim() || "";
+  const email = formData.get("email")?.trim() || "";
+  const password = formData.get("password")?.trim() || "";
+  const confirmPassword = formData.get("confirmPassword")?.trim() || "";
   const acceptedTerms = formData.get("acceptedTerms") === "on";
 
-  // ============================================
-  // 1. Client-Side Validation
-  // ============================================
+  const validationErrors = {};
 
-  const validateForm = () => {
-    const errors = {};
+  const firstNameError = validateName(firstName, localeKeys.firstName);
+  if (firstNameError) validationErrors.firstName = firstNameError;
 
-    const firstNameError = validateName(firstName, localeKeys.firstName);
-    if (firstNameError) errors.firstName = firstNameError;
+  const lastNameError = validateName(lastName, localeKeys.lastName);
+  if (lastNameError) validationErrors.lastName = lastNameError;
 
-    const lastNameError = validateName(lastName, localeKeys.lastName);
-    if (lastNameError) errors.lastName = lastNameError;
+  const emailError = validateEmail(email);
+  if (emailError) validationErrors.email = emailError;
 
-    const emailError = validateEmail(email);
-    if (emailError) errors.email = emailError;
+  const passwordError = validateStrongPassword(password);
+  if (passwordError) validationErrors.password = passwordError;
 
-    const passwordValidation = validateStrongPassword(password);
-    if (!passwordValidation.isValid) {
-      errors.password = passwordValidation.error;
-    }
-
-    const confirmPasswordError = validatePasswordsMatch(
-      password,
-      confirmPassword,
-    );
-    if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
-
-    // Accept terms & conditions
-    const termsError = validateTermsAcceptance(acceptedTerms);
-    if (termsError) errors.acceptedTerms = termsError;
-
-    return errors;
-  };
-
-  const validationErrors = validateForm();
-
-  // If validation fails, return errors immediately to be consumed via useActionData
-  if (Object.keys(validationErrors).length > 0) {
-    return { validationErrors };
+  const confirmPasswordError = validatePasswordsMatch(
+    password,
+    confirmPassword,
+  );
+  if (confirmPasswordError) {
+    validationErrors.confirmPassword = confirmPasswordError;
   }
 
-  // ============================================
-  // 2. Registration API Call
-  // ============================================
+  const termsError = validateTermsAcceptance(acceptedTerms);
+  if (termsError) validationErrors.acceptedTerms = termsError;
+
+  if (Object.keys(validationErrors).length > 0) {
+    return {
+      succeeded: false,
+      message: "Please fix the validation errors",
+      validationErrors,
+    };
+  }
+
   const registrationData = {
-    firstName: firstName.trim(),
-    lastName: lastName.trim(),
-    email: email.trim(),
-    password: password,
+    firstName,
+    lastName,
+    email,
+    password,
   };
 
-  return axiosInstance
-    .post(AUTH_ENDPOINTS.SIGN_UP, registrationData)
-    .then((response) => {
-      return Promise.resolve(response.data.data).then(() => {
-        deleteCsrfToken();
+  try {
+    const response = await axiosInstance.post(
+      AUTH_ENDPOINTS.SIGN_UP,
+      registrationData,
+    );
 
-        saveVerificationEmail(email);
+    if (response.data?.succeeded) {
+      deleteCsrfToken();
+      saveVerificationEmail(email);
+      return redirect(ROUTES.VERIFY_ACCOUNT, { replace: true });
+    }
 
-        return redirect(ROUTES.VERIFY_ACCOUNT);
-      });
-    })
-    .catch((error) => {
-      return handleApiError(error);
-    });
+    return response.data;
+  } catch (error) {
+    const normalizedError = normalizeError(error);
+
+    return {
+      succeeded: false,
+      message: normalizedError.message,
+      errors: normalizedError.errors || [],
+      validationErrors: normalizedError.validationErrors,
+    };
+  }
 };

@@ -4,8 +4,8 @@ import { keys } from "../utils/constants";
 import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
 import { validateOTP } from "../utils/validators";
-import { validationKeys } from "../utils/localeKeys";
-import { clearVerificationEmail } from "../utils/authUtils";
+import { validationKeys, errorsKeys } from "../utils/localeKeys";
+import { clearVerificationEmail, normalizeError } from "../utils/authUtils";
 
 /**
  * Verify Account Action
@@ -20,9 +20,15 @@ export const AccountVerificationAction = async ({ request }) => {
     .formData()
     .then((formData) => Object.fromEntries(formData))
     .then((data) => {
-      const validationError = validateOTP(data.code);
-      if (validationError) {
-        return { errorKey: validationError.key };
+      const validationErrors = {};
+      const otpError = validateOTP(data.code);
+      if (otpError) validationErrors.otp = otpError;
+      if (Object.keys(validationErrors).length > 0) {
+        return {
+          succeeded: false,
+          message: "Validation failed",
+          validationError: validationErrors,
+        };
       }
       const payload = {
         email: data.email,
@@ -43,11 +49,21 @@ export const AccountVerificationAction = async ({ request }) => {
       }
     })
     .catch((err) => {
-      const errorMessage =
-        err.response?.data?.message || err.response?.data?.errors?.[0];
+      const normalizedError = normalizeError(err);
+      let finalMessage = normalizedError.message;
+      if (
+        normalizedError.isMessageKey &&
+        normalizedError.message === errorsKeys.badRequest
+      ) {
+        finalMessage = validationKeys.invalidOrExpiredCode;
+      }
 
-      return errorMessage
-        ? { error: errorMessage }
-        : { errorKey: validationKeys.invalidOrExpiredCode };
+      return {
+        isMessageKey: normalizedError.isMessageKey,
+        succeeded: false,
+        message: finalMessage,
+        errors: normalizedError.errors || [],
+        validationErrors: normalizedError.validationErrors || {},
+      };
     });
 };

@@ -2,65 +2,65 @@ import { redirect } from "react-router-dom";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
 import axiosInstance from "../api/axiosInstance";
 import {
-  handleApiError,
   deleteCsrfToken,
-  saveUserInfo,
+  getValidVerificationEmail,
+  normalizeError,
 } from "../utils/authUtils";
-
 import { validateEmail, validatePassword } from "../utils/validators";
 import { ROUTES } from "../routes/paths";
-import { getValidVerificationEmail } from "../utils/authUtils";
 
-/**
- * Login Action
- * Handles form submission using React Router's action
- */
-export const loginAction = ({ request }) => {
-  let email;
-  return request
-    .formData()
-    .then((formData) => {
-      email = formData.get("email");
-      const password = formData.get("password");
+export const loginAction = async ({ request }) => {
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const password = formData.get("password");
 
-      const errors = {};
+  const validationErrors = {};
 
-      const emailError = validateEmail(email);
-      if (emailError) errors.email = emailError;
+  const emailError = validateEmail(email);
+  if (emailError) validationErrors.email = emailError;
 
-      const passwordError = validatePassword(password);
-      if (passwordError) errors.password = passwordError;
+  const passwordError = validatePassword(password);
+  if (passwordError) validationErrors.password = passwordError;
 
-      if (Object.keys(errors).length > 0) {
-        return Promise.reject({ type: "validation", errors });
-      }
+  if (Object.keys(validationErrors).length > 0) {
+    return {
+      succeeded: false,
+      message: "Validation failed",
+      validationErrors,
+    };
+  }
 
-      return { email, password };
-    })
-    .then(({ email, password }) =>
-      axiosInstance
-        .post(AUTH_ENDPOINTS.SIGN_IN, { email, password })
-        .then((response) => ({ response, email })),
-    )
-    .then(({ response }) => {
-      if (response.data?.succeeded && response.data?.data) {
-        const userData = response.data.data;
-
-        saveUserInfo(userData.fullName);
-        deleteCsrfToken();
-
-        return redirect(ROUTES.HOME, { replace: true });
-      }
-
-      return response.data;
-    })
-    .catch((error) => {
-      const verificationEmail = getValidVerificationEmail();
-      if (verificationEmail && verificationEmail === email) {
-        return axiosInstance
-          .post(AUTH_ENDPOINTS.RESEND_VERIFICATION, { email })
-          .then(() => redirect(ROUTES.VERIFY_ACCOUNT, { replace: true }));
-      }
-      return handleApiError(error);
+  try {
+    const response = await axiosInstance.post(AUTH_ENDPOINTS.SIGN_IN, {
+      email: email.trim(),
+      password,
     });
+
+    if (response.data?.succeeded) {
+      deleteCsrfToken();
+      return redirect(ROUTES.HOME, { replace: true });
+    }
+
+    return response.data;
+  } catch (error) {
+    const verificationEmail = getValidVerificationEmail();
+    if (verificationEmail && verificationEmail === email) {
+      try {
+        await axiosInstance.post(AUTH_ENDPOINTS.RESEND_VERIFICATION, { email });
+        return redirect(ROUTES.VERIFY_ACCOUNT, { replace: true });
+      } catch {
+        // Continue with normal error handling
+      }
+    }
+
+    const normalizedError = normalizeError(error);
+
+    return {
+      isMessageKey: normalizedError.isMessageKey,
+      succeeded: false,
+      message: normalizedError.message,
+      errors: normalizedError.errors || [],
+      validationErrors: normalizedError.validationErrors || {},
+    };
+  }
 };

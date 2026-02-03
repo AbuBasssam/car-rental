@@ -9,7 +9,3 @@ export const keys = {
   kVerificationEmail: "pendingVerificationEmail",
   kAccountVerified: "accountVerified",
 };
-export const authEventType = {
-  login: "login",
-  logout: "logout",
-};

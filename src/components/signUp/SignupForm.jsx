@@ -27,7 +27,6 @@ const SignupForm = ({
           type="text"
           name="firstName"
           placeholder={t(localeKeys.firstName)}
-          required
         />
 
         <FormInput
@@ -35,7 +34,6 @@ const SignupForm = ({
           type="text"
           name="lastName"
           placeholder={t(localeKeys.lastName)}
-          required
         />
       </div>
 
@@ -43,7 +41,6 @@ const SignupForm = ({
         FieldIcon={MdEmail}
         name="email"
         placeholder={t(localeKeys.enterYourEmail)}
-        required
       />
 
       <PasswordInput

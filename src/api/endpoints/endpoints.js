@@ -30,6 +30,7 @@ export const AUTH_ENDPOINTS = {
 
   // Security
   CSRF_TOKEN: `${API_BASE_URL}/authentication/csrf-token`,
+  VERIFY: `${API_BASE_URL}/authentication/token/validation`,
 };
 
 /**

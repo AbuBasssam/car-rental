@@ -1,6 +1,5 @@
 import { keys } from "../utils/constants";
 import { errorsKeys } from "./localeKeys";
-import { authEventType } from "../utils/constants";
 
 /**
  * Auth Utilities
@@ -62,148 +61,149 @@ const deleteCookie = (cookieName) => {
   // Set the cookie with the same name and an expiration date in the past
   document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;`;
 };
-// ============================================
-// AUTH STATE CHECKS
-// ============================================
-
-/**
- * Check if user is authenticated
- *
- */
-export const isAuthenticated = () => {
-  const userName = localStorage.getItem(keys.kUsereName);
-  return !!userName;
-};
-
-/**
- * Get user display info
- *
- * @returns {string|null} UserName value if found otherwise null.
- */
-export const getUserInfo = () => {
-  const userName = localStorage.getItem(keys.kUsereName);
-  return userName ? { fullName: userName } : null;
-};
-
-/**
- * Save user display info
- * @param {String} userName The UserName value
- */
-export const saveUserInfo = (userName) => {
-  if (userName) {
-    localStorage.setItem(keys.kUsereName, userName);
-    dispatchAuthEvent(authEventType.login, userName);
-  }
-};
-
-/**
- * Clear user info
- *
- */
 
 // ============================================
 // 🔧 ERROR HANDLING
 // ============================================
 
 /**
- * Handle API errors with enhanced Response<T> structure support
- * Provides user-friendly error messages based on HTTP status and response structure
- *
+ * Handle API errors with unified ApiResponse<T> structure support
  * @param {Error} error - Axios error object
- * @returns {string} User-friendly error message/ error Translation key
- *
+ * @returns {string} Error message or translation key
  */
 export const handleApiError = (error) => {
-  // Handle axios error structure
+  const normalized = normalizeError(error);
+  return normalized.message;
+};
+
+/**
+ * Normalize any error into a consistent structure
+ * @param {Error} error - Any error object
+ * @returns {Object} Normalized error structure
+ */
+export const normalizeError = (error) => {
   if (error.response) {
-    const { status, data } = error.response;
-
-    // Check if response follows Response<T> structure
-    if (data && typeof data === "object") {
-      // Priority 1: Use Response<T> message if available and meaningful
-      if (data.succeeded === false && data.message && data.message.trim()) {
-        return data.message;
-      }
-
-      // Priority 2: Use Response<T> errors array if available
-      if (data.errors && Array.isArray(data.errors) && data.errors.length > 0) {
-        const filteredErrors = data.errors.filter((err) => err && err.trim());
-        if (filteredErrors.length > 0) {
-          if (filteredErrors.length === 1) {
-            return filteredErrors[0];
-          }
-          // Join first 3 errors for readability
-          return `${filteredErrors.slice(0, 3).join(", ")}${filteredErrors.length > 3 ? "..." : ""}`;
-        }
-      }
-    }
-
-    // Priority 3: HTTP status-based messages (i18n)
-    const statusMessageKeys = {
-      400: errorsKeys.badRequest,
-      401: errorsKeys.unauthorized,
-      403: errorsKeys.forbidden,
-      404: errorsKeys.notFound,
-      409: errorsKeys.conflict,
-      422:
-        data && typeof data === "object"
-          ? errorsKeys.validationFailedWithData
-          : errorsKeys.validationFailed,
-      429: errorsKeys.tooManyRequests,
-      500: errorsKeys.serverError,
-      502: errorsKeys.badGateway,
-      503: errorsKeys.serviceUnavailable,
-      504: errorsKeys.gatewayTimeout,
-    };
-
-    const messageKey = statusMessageKeys[status];
-
-    if (messageKey) {
-      return messageKey;
-    }
-
-    // For 4xx client errors
-    if (status >= 400 && status < 500) {
-      if (status === 429) {
-        return errorsKeys.too_many_requests;
-      }
-
-      if (status === 422) {
-        return errorsKeys.validation_failed;
-      }
-
-      return errorsKeys.clientError;
-    }
-
-    // For 5xx server errors
-    if (status >= 500) {
-      return errorsKeys.serverErrorGeneral;
-    }
-
-    return errorsKeys.unexpectedError;
-  } else if (error.request) {
-    // Network or CORS errors
-    if (error.message && error.message.includes("Network Error")) {
-      return errorsKeys.networkError;
-    }
-
-    if (error.message && error.message.includes("timeout")) {
-      return errorsKeys.timeoutError;
-    }
-
-    if (error.message && error.message.includes("CORS")) {
-      return errorsKeys.corsError;
-    }
-
-    return errorsKeys.connectionError;
-  } else {
-    // Configuration or code errors
-    if (error.message && error.message.includes("canceled")) {
-      return errorsKeys.requestCancelled;
-    }
-
-    return error.message || errorsKeys.unexpectedError;
+    return handleServerError(error.response);
   }
+
+  if (error.request) {
+    return handleNetworkError(error);
+  }
+
+  return handleClientError(error);
+};
+
+const handleServerError = (response) => {
+  const { status, data } = response;
+
+  if (data && typeof data === "object") {
+    if (data.succeeded === false) {
+      return {
+        isMessageKey: data.message ? false : true,
+        message: data.message || getDefaultMessageKeyForStatus(status),
+        errors: data.errors || [],
+        validationErrors: data.validationErrors || {},
+        isRecoverable: isRecoverableStatus(status),
+      };
+    }
+  }
+
+  return {
+    message: getDefaultMessageKeyForStatus(status),
+    isRecoverable: isRecoverableStatus(status),
+  };
+};
+
+const getDefaultMessageKeyForStatus = (status) => {
+  const statusMessageKeys = {
+    400: errorsKeys.badRequest,
+    401: errorsKeys.unauthorized,
+    403: errorsKeys.forbidden,
+    404: errorsKeys.notFound,
+    409: errorsKeys.conflict,
+    422: errorsKeys.validationFailed,
+    429: errorsKeys.tooManyRequests,
+    500: errorsKeys.serverError,
+    502: errorsKeys.badGateway,
+    503: errorsKeys.serviceUnavailable,
+    504: errorsKeys.gatewayTimeout,
+  };
+
+  if (statusMessageKeys[status]) {
+    return statusMessageKeys[status];
+  }
+
+  if (status >= 400 && status < 500) {
+    return errorsKeys.clientError;
+  }
+
+  if (status >= 500) {
+    return errorsKeys.serverErrorGeneral;
+  }
+
+  return errorsKeys.unexpectedError;
+};
+
+const handleNetworkError = (error) => {
+  if (error.message?.includes("Network Error")) {
+    return {
+      isMessageKey: true,
+      message: errorsKeys.networkError,
+      isRecoverable: true,
+    };
+  }
+
+  if (error.message?.includes("timeout")) {
+    return {
+      isMessageKey: true,
+      message: errorsKeys.timeoutError,
+      isRecoverable: true,
+    };
+  }
+
+  if (error.message?.includes("CORS")) {
+    return {
+      isMessageKey: true,
+
+      message: errorsKeys.corsError,
+      isRecoverable: false,
+    };
+  }
+
+  return {
+    message: errorsKeys.connectionError,
+    isRecoverable: true,
+  };
+};
+
+const handleClientError = (error) => {
+  if (error.message?.includes("canceled")) {
+    return {
+      isMessageKey: true,
+
+      message: errorsKeys.requestCancelled,
+      isRecoverable: true,
+    };
+  }
+
+  return {
+    message: error.message || errorsKeys.unexpectedError,
+    isRecoverable: false,
+  };
+};
+/**
+ * Check if error is recoverable (user can retry)
+ * @param {Number} status - Error status code
+ * @returns {boolean} True if error is recoverable
+ */
+const isRecoverableStatus = (status) => {
+  const recoverableStatuses = [408, 429, 502, 503, 504];
+
+  if (status >= 400 && status < 500 && ![401, 403, 404].includes(status)) {
+    return true;
+  }
+
+  return recoverableStatuses.includes(status);
 };
 
 /**
@@ -222,7 +222,6 @@ export const getErrorDetails = (error) => {
     details.response = {
       status: error.response.status,
       statusText: error.response.statusText,
-      headers: error.response.headers,
       data: error.response.data,
     };
   }
@@ -232,7 +231,6 @@ export const getErrorDetails = (error) => {
       url: error.config.url,
       method: error.config.method,
       baseURL: error.config.baseURL,
-      timeout: error.config.timeout,
     };
   }
 
@@ -240,61 +238,50 @@ export const getErrorDetails = (error) => {
 };
 
 /**
- * Check if error is recoverable (user can retry)
+ * Extract validation errors from normalized error
  * @param {Error} error - Error object
- * @returns {boolean} True if error is recoverable
+ * @returns {Object|null} Field validation errors
  */
-export const isRecoverableError = (error) => {
-  if (!error.response) {
-    // Network errors are usually recoverable
-    return true;
-  }
-
-  const { status } = error.response;
-
-  // Recoverable status codes
-  const recoverableStatuses = [
-    408, // Timeout
-    429, // Too Many Requests
-    502, // Bad Gateway
-    503, // Service Unavailable
-    504, // Gateway Timeout
-  ];
-
-  // 4xx errors except 401, 403, 404 are usually client errors
-  // that might be recoverable with user action
-  if (status >= 400 && status < 500 && ![401, 403, 404].includes(status)) {
-    return true;
-  }
-
-  return recoverableStatuses.includes(status);
-};
-
-// ============================================
-// 🎯 SESSION HELPERS
-// ============================================
-
-/**
- * Clear session data
- */
-export const clearSession = () => {
-  localStorage.removeItem(keys.kUsereName);
-  dispatchAuthEvent(authEventType.logout);
+export const extractValidationErrors = (error) => {
+  const normalized = normalizeError(error);
+  return normalized.validationErrors || null;
 };
 
 /**
- * Check if session is valid
- * Note: Actual validation happens on backend via cookies
+ * Check if error contains validation errors
+ * @param {Error} error - Error object
+ * @returns {boolean} True if validation errors exist
  */
-export const hasActiveSession = () => {
-  return isAuthenticated();
+export const hasValidationErrors = (error) => {
+  const normalized = normalizeError(error);
+  return !!(
+    normalized.validationErrors &&
+    Object.keys(normalized.validationErrors).length > 0
+  );
 };
-const dispatchAuthEvent = (type, user = null) => {
-  const event = new CustomEvent("authChange", {
-    detail: { type, user },
-  });
-  window.dispatchEvent(event);
+
+/**
+ * Get all error messages as an array
+ * @param {Error} error - Error object
+ * @returns {string[]} Array of error messages
+ */
+export const getAllErrorMessages = (error) => {
+  const normalized = normalizeError(error);
+  const messages = [];
+
+  if (normalized.message) {
+    messages.push(normalized.message);
+  }
+
+  if (normalized.errors && normalized.errors.length > 0) {
+    messages.push(
+      ...normalized.errors.filter((e) => e && e !== normalized.message),
+    );
+  }
+
+  return messages;
 };
+
 const VERIFICATION_EMAIL_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
 /**

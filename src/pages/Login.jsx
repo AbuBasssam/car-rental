@@ -5,9 +5,8 @@ import BackButton from "../components/login/BackButton";
 import LoginCard from "../components/login/LoginCard";
 import RoundedThemeToggle from "../utils/RoundedThemeToggle";
 import { useActionData } from "react-router-dom";
-import { showErrorToast } from "../config/toastConfig";
 import { useVerificationSuccessToast } from "../hooks/useVerificationSuccessToast";
-
+import { useActionToast } from "../hooks/useActionToast";
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +16,6 @@ const Login = () => {
   // ✅ React Router hooks
   const actionData = useActionData(); //Get Errors from action
 
-  // ✅ Loading state
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -29,23 +27,8 @@ const Login = () => {
 
     return () => clearTimeout(timer);
   }, []);
-  useEffect(() => {
-    if (actionData?.errors) {
-      const { general, email, password } = actionData.errors;
 
-      if (general) {
-        showErrorToast(general);
-      }
-
-      if (email) {
-        showErrorToast(email);
-      }
-
-      if (password) {
-        showErrorToast(password);
-      }
-    }
-  }, [actionData]);
+  useActionToast(actionData);
 
   return (
     <div className={loginStyles.pageContainer}>

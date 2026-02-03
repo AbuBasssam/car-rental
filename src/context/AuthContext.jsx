@@ -1,68 +1,35 @@
-import { createContext, useState, useEffect } from "react";
-import { authEventType } from "../utils/constants";
-import { getUserInfo } from "../utils/authUtils";
+import { createContext, useState, useCallback } from "react";
 
 const AuthContext = createContext();
 
+/**
+ * AuthProvider - Centralized Authentication State Management
+ *
+ * Responsibilities:
+ * - Maintain user state (user object + isAuthenticated flag)
+ * - Provide setUser() and clearUser() for direct state updates
+ *
+ * Architecture:
+ * - Actions (loginAction/logoutAction) handle server communication + redirect
+ * - AuthContext handles state synchronization
+ * - Components use Form submission or custom hooks for login/logout
+ *
+ * Note: We don't use useSubmit here because it must be used within
+ * a component that's inside the router context, not in the provider itself.
+ */
 export const AuthProvider = ({ children }) => {
-  // State: user object or null
-  const [user, setUser] = useState(null);
-
-  // State: loading state for async operations
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // Derived state: is user authenticated?
+  const [user, setUserState] = useState(null);
   const isAuthenticated = !!user;
-  useEffect(() => {
-    const loadUser = () => {
-      const userInfo = getUserInfo();
-      if (userInfo) {
-        setUser(userInfo.fullName);
-      }
-      // setIsLoading(false);
-    };
 
-    loadUser();
-  }, []);
-  // Function to set user data (when logging in or registering)
-  const setUserData = (userData) => {
-    setUser(userData);
-  };
-
-  // Function to clear user data (when logging out)
-  const clearUser = () => {
-    setUser(null);
-  };
-  // Listen for auth events (login/logout)
-  useEffect(() => {
-    const handleAuthChange = (event) => {
-      if (event.detail.type === authEventType.login) {
-        setUser(event.detail.user);
-      } else if (event.detail.type === authEventType.logout) {
-        setUser(null);
-      }
-    };
-
-    // Subscribe to auth events
-    window.addEventListener("authChange", handleAuthChange);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("authChange", handleAuthChange);
-    };
-  }, []);
+  /**
+   * Direct state setters (used by Root loader after rootLoader verification)
+   * Also used to sync state after login/logout actions complete
+   */
+  const setUser = useCallback((userData) => setUserState(userData), []);
+  const clearUser = useCallback(() => setUserState(null), []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated,
-        // isLoading,
-        setUser: setUserData,
-        clearUser,
-        // setIsLoading,
-      }}
-    >
+    <AuthContext.Provider value={{ user, isAuthenticated, setUser, clearUser }}>
       {children}
     </AuthContext.Provider>
   );
