@@ -3,7 +3,6 @@ import axiosInstance from "../api/axiosInstance";
 import { keys } from "../utils/constants";
 import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
-import { validateOTP } from "../utils/validators";
 import { validationKeys, errorsKeys } from "../utils/localeKeys";
 import { clearVerificationEmail, normalizeError } from "../utils/authUtils";
 
@@ -16,54 +15,44 @@ import { clearVerificationEmail, normalizeError } from "../utils/authUtils";
  * @returns {Function} React Router action handler
  */
 export const AccountVerificationAction = async ({ request }) => {
-  return request
-    .formData()
-    .then((formData) => Object.fromEntries(formData))
-    .then((data) => {
-      const validationErrors = {};
-      const otpError = validateOTP(data.code);
-      if (otpError) validationErrors.otp = otpError;
-      if (Object.keys(validationErrors).length > 0) {
-        return {
-          succeeded: false,
-          message: "Validation failed",
-          validationError: validationErrors,
-        };
-      }
-      const payload = {
-        email: data.email,
-        otpCode: data.code,
-      };
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
 
-      return axiosInstance.post(AUTH_ENDPOINTS.VERIFY_EMAIL, payload);
-    })
-    .then((response) => {
-      if (response.data?.succeeded) {
-        clearVerificationEmail();
+    const payload = {
+      email: data.email,
+      otpCode: data.code,
+    };
 
-        sessionStorage.setItem(keys.accountVerified, "true");
+    const response = await axiosInstance.post(
+      AUTH_ENDPOINTS.VERIFY_EMAIL,
+      payload,
+    );
 
-        return redirect(ROUTES.LOGIN, {
-          replace: true,
-        });
-      }
-    })
-    .catch((err) => {
-      const normalizedError = normalizeError(err);
-      let finalMessage = normalizedError.message;
-      if (
-        normalizedError.isMessageKey &&
-        normalizedError.message === errorsKeys.badRequest
-      ) {
-        finalMessage = validationKeys.invalidOrExpiredCode;
-      }
+    if (response.data?.succeeded) {
+      clearVerificationEmail();
+      sessionStorage.setItem(keys.kAccountVerified, "true");
+      return redirect(ROUTES.LOGIN, { replace: true });
+    }
 
-      return {
-        isMessageKey: normalizedError.isMessageKey,
-        succeeded: false,
-        message: finalMessage,
-        errors: normalizedError.errors || [],
-        validationErrors: normalizedError.validationErrors || {},
-      };
-    });
+    return response.data;
+  } catch (err) {
+    const normalizedError = normalizeError(err);
+
+    let finalMessage = normalizedError.message;
+    if (
+      normalizedError.isMessageKey &&
+      normalizedError.message === errorsKeys.badRequest
+    ) {
+      finalMessage = validationKeys.invalidOrExpiredCode;
+    }
+
+    return {
+      succeeded: false,
+      isMessageKey: normalizedError.isMessageKey,
+      message: finalMessage,
+      errors: normalizedError.errors || [],
+      validationErrors: normalizedError.validationErrors || {},
+    };
+  }
 };

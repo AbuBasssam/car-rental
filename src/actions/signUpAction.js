@@ -83,10 +83,11 @@ export const signUpAction = async ({ request }) => {
     const normalizedError = normalizeError(error);
 
     return {
+      isMessageKey: normalizedError.isMessageKey,
       succeeded: false,
       message: normalizedError.message,
       errors: normalizedError.errors || [],
-      validationErrors: normalizedError.validationErrors,
+      validationErrors: normalizedError.validationErrors || {},
     };
   }
 };
