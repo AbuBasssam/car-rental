@@ -1,5 +1,5 @@
 import logo from "../../assets/logo.svg";
-import { signupStyles } from "../../utils/styles";
+import { arabicTextAdjustment, signupStyles } from "../../utils/styles";
 import { useTranslation } from "react-i18next";
 import localeKeys from "../../utils/localeKeys.js";
 import { keys } from "../../utils/constants.js";
@@ -26,17 +26,7 @@ const SignupHeader = () => {
       </span>
       <h2
         className={signupStyles.signupCard.title}
-        style={
-          isArabic
-            ? {
-                fontSize: "1.5rem",
-                lineHeight: "1.3",
-                whiteSpace: "normal",
-                wordWrap: "break-word",
-                maxWidth: "100%",
-              }
-            : {}
-        }
+        style={isArabic ? { arabicTextAdjustment } : {}}
       >
         {t(localeKeys.joinPremiumDrive)}
       </h2>
