@@ -452,3 +452,10 @@ export const navbarStyles = {
   mobileToggle:
     "p-2 rounded-lg hover:bg-soft-gray dark:hover:bg-fiord transition-colors text-dark-gray dark:text-white",
 };
+export const arabicTextAdjustment = {
+  fontSize: "1.5rem",
+  lineHeight: "1.3",
+  whiteSpace: "normal",
+  wordWrap: "break-word",
+  maxWidth: "100%",
+};

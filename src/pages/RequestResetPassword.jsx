@@ -11,6 +11,8 @@ import BackButton from "../components/login/BackButton";
 import FormInput from "../layouts/FormInput";
 import FullWidthButton from "../layouts/FullWidthButton";
 import { useActionToast } from "../hooks/useActionToast";
+import { keys } from "../utils/constants";
+import { arabicTextAdjustment } from "../utils/styles";
 
 /**
  * RequestResetPassword Component
@@ -87,7 +89,8 @@ export default RequestResetPassword;
  * Displays logo, title, and description
  */
 const ResetPasswordHeader = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === keys.kAR;
 
   return (
     <header className={loginStyles.loginCard.headerContainer}>
@@ -95,19 +98,25 @@ const ResetPasswordHeader = () => {
       <div className={loginStyles.loginCard.logoContainer}>
         <div className={loginStyles.loginCard.logoText}>
           <span className="header-spacing">{t(localeKeys.premiumDrive)}</span>
-          <span className="text-[10px] md:text-xs font-light tracking-[0.2em] text-premium-orange dark:text-orange-300">
+          <span className="text-[15px] md:text-xs font-light tracking-[0.3em] text-premium-orange dark:text-orange-300">
             {t(localeKeys.luxuryMobilityExperience)}
           </span>
         </div>
       </div>
 
       {/* Title */}
-      <h1 className={loginStyles.loginCard.title}>
+      <h1
+        className={loginStyles.loginCard.title}
+        style={isArabic ? arabicTextAdjustment : {}}
+      >
         {t(resetPasswordKeys.forgotPasswordTitle)}
       </h1>
 
       {/* Description */}
-      <p className={loginStyles.loginCard.subtitle}>
+      <p
+        className={loginStyles.loginCard.subtitle}
+        style={isArabic ? arabicTextAdjustment : {}}
+      >
         {t(resetPasswordKeys.forgotPasswordDescription)}
       </p>
     </header>
