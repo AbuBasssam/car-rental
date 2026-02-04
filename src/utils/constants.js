@@ -7,5 +7,6 @@ export const keys = {
   kAR: "ar",
   kTheme: "theme",
   kVerificationEmail: "pendingVerificationEmail",
+  kResetEmail: "pendingResetEmail",
   kAccountVerified: "accountVerified",
 };

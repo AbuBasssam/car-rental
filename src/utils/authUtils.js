@@ -333,3 +333,60 @@ export const getValidVerificationEmail = () => {
     return null;
   }
 };
+// ============================================
+// 🔑 PASSWORD RESET EMAIL MANAGEMENT
+// ============================================
+
+const RESET_EMAIL_TTL = 15 * 60 * 1000; // minutes
+
+/**
+ * Save reset email after successful forgot password request
+ * Uses sessionStorage for temporary storage during reset flow
+ */
+export const saveResetEmail = (email) => {
+  if (!email) return;
+
+  // Delete any old saved data
+  sessionStorage.removeItem(keys.kResetEmail);
+
+  const payload = { email, createdAt: Date.now() };
+
+  sessionStorage.setItem(keys.kResetEmail, JSON.stringify(payload));
+};
+
+/**
+ * Remove reset email after successful password reset
+ */
+export const clearResetEmail = () => {
+  sessionStorage.removeItem(keys.kResetEmail);
+};
+
+/**
+ * Get valid reset email if exists and not expired
+ * Returns null if expired or not found
+ */
+export const getValidResetEmail = () => {
+  const raw = sessionStorage.getItem(keys.kResetEmail);
+  if (!raw) return null;
+
+  try {
+    const { email, createdAt } = JSON.parse(raw);
+
+    if (!email || !createdAt) {
+      clearResetEmail();
+      return null;
+    }
+
+    const isExpired = Date.now() - createdAt > RESET_EMAIL_TTL;
+
+    if (isExpired) {
+      clearResetEmail();
+      return null;
+    }
+
+    return email;
+  } catch {
+    clearResetEmail();
+    return null;
+  }
+};
