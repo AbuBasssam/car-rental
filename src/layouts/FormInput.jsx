@@ -14,7 +14,7 @@ const FormInput = ({
   return (
     <div className={loginStyles.form.inputContainer}>
       <div className={loginStyles.form.inputWrapper}>
-        <div className={loginStyles.form.inputIcon}>
+        <div className={loginStyles.form.inputIcon} aria-hidden="true">
           <Icon />
         </div>
         <input
