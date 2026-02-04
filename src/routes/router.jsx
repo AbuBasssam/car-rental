@@ -19,6 +19,9 @@ const SignUpPage = Loadable(lazy(() => import("../pages/SignUp.jsx")));
 const VerifyAccountPage = Loadable(
   lazy(() => import("../pages/VerifyAccountPage.jsx")),
 );
+const ForgetPasswordPage = Loadable(
+  lazy(() => import("../pages/RequestResetPassword.jsx")),
+);
 
 /**
  * Router Configuration - Phase 3 Complete
@@ -64,6 +67,10 @@ export const router = createBrowserRouter([
                 path: ROUTES.SIGNUP,
                 element: <SignUpPage />,
                 action: signUpAction,
+              },
+              {
+                path: ROUTES.FORGOT_PASSWORD,
+                element: <ForgetPasswordPage />,
               },
             ],
           },
