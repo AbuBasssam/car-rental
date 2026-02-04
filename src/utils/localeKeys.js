@@ -4,7 +4,6 @@
 
 /**
  * Translation keys - Use this object instead of string literals
- * Provides autocomplete and prevents typos
  */
 export const localeKeys = {
   appName: "app_name",
@@ -196,6 +195,29 @@ export const verifyKeys = {
   resendCode: "verify.resend_code",
   resendingCode: "verify.resending_code",
   digitLabel: "verify.digit_label"
+};
+
+/**
+ * ResetPassword namespace keys
+ */
+export const resetPasswordKeys = {
+  forgotPasswordTitle: "reset_password.forgot_password_title",
+  forgotPasswordDescription: "reset_password.forgot_password_description",
+  sendCode: "reset_password.send_code",
+  sendingCode: "reset_password.sending_code",
+  rememberedPassword: "reset_password.remembered_password",
+  backToLogin: "reset_password.back_to_login",
+  verifyResetTitle: "reset_password.verify_reset_title",
+  verifyResetDescription: "reset_password.verify_reset_description",
+  verifyCodeButton: "reset_password.verify_code_button",
+  verifyingCode: "reset_password.verifying_code",
+  resetPasswordTitle: "reset_password.reset_password_title",
+  resetPasswordDescription: "reset_password.reset_password_description",
+  newPassword: "reset_password.new_password",
+  confirmNewPassword: "reset_password.confirm_new_password",
+  resetPasswordButton: "reset_password.reset_password_button",
+  resettingPassword: "reset_password.resetting_password",
+  passwordResetSuccess: "reset_password.password_reset_success"
 };
 
 // Default export

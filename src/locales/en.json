@@ -170,5 +170,24 @@
     "resend_code": "Resend Code",
     "resending_code": "Sending...",
     "digit_label": "Digit"
+  },
+  "reset_password": {
+    "forgot_password_title": "Forgot Password",
+    "forgot_password_description": "Enter your email and we'll send you a verification code",
+    "send_code": "Send Verification Code",
+    "sending_code": "Sending...",
+    "remembered_password": "Remembered your password?",
+    "back_to_login": "Back to Login",
+    "verify_reset_title": "Verify Reset Code",
+    "verify_reset_description": "Enter the code sent to",
+    "verify_code_button": "Verify Code",
+    "verifying_code": "Verifying...",
+    "reset_password_title": "Reset Password",
+    "reset_password_description": "Enter your new password",
+    "new_password": "New Password",
+    "confirm_new_password": "Confirm New Password",
+    "reset_password_button": "Reset Password",
+    "resetting_password": "Resetting...",
+    "password_reset_success": "Password has been reset successfully"
   }
 }

@@ -177,5 +177,24 @@
     "resend_code": "إعادة إرسال الرمز",
     "resending_code": "جاري الإرسال...",
     "digit_label": "رقم"
+  },
+  "reset_password": {
+    "forgot_password_title": "نسيت كلمة المرور",
+    "forgot_password_description": "أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق",
+    "send_code": "إرسال رمز التحقق",
+    "sending_code": "جاري الإرسال...",
+    "remembered_password": "تذكرت كلمة المرور؟",
+    "back_to_login": "العودة لتسجيل الدخول",
+    "verify_reset_title": "التحقق من رمز إعادة التعيين",
+    "verify_reset_description": "أدخل الرمز المرسل إلى",
+    "verify_code_button": "تحقق من الرمز",
+    "verifying_code": "جاري التحقق...",
+    "reset_password_title": "إعادة تعيين كلمة المرور",
+    "reset_password_description": "أدخل كلمة المرور الجديدة",
+    "new_password": "كلمة المرور الجديدة",
+    "confirm_new_password": "تأكيد كلمة المرور الجديدة",
+    "reset_password_button": "إعادة تعيين كلمة المرور",
+    "resetting_password": "جاري إعادة التعيين...",
+    "password_reset_success": "تم إعادة تعيين كلمة المرور بنجاح"
   }
 }
