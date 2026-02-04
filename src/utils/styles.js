@@ -372,8 +372,7 @@ export const verifyStyles = {
   // Resend section
   resend: {
     container: "mt-8 text-center",
-    content:
-      "flex flex-col md:flex-row md:items-center md:justify-center md:gap-2 space-y-2 md:space-y-0 whitespace-nowrap",
+    content: "flex flex-wrap items-center justify-center gap-x-1 gap-y-2",
     timerText: "text-sm text-deep-gray dark:text-dark-text-muted",
     timerValue: "font-semibold text-premium-orange",
     prompt: "text-sm text-deep-gray dark:text-dark-text-muted",

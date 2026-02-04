@@ -165,7 +165,7 @@
     "enter_six_digit_code": "Enter the 6-digit code",
     "verify_button": "Verify Account",
     "verifying_button": "Verifying...",
-    "can_resend_after": "You can resend after",
+    "can_resend_after": "You can resend after ",
     "didnt_receive_code": "Didn't receive the code?",
     "resend_code": "Resend Code",
     "resending_code": "Sending...",
