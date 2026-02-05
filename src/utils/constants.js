@@ -9,4 +9,6 @@ export const keys = {
   kVerificationEmail: "pendingVerificationEmail",
   kResetEmail: "pendingResetEmail",
   kAccountVerified: "accountVerified",
+  kResetToken: "resetToken",
+  kPasswordReset: "passwordResetSuccess",
 };

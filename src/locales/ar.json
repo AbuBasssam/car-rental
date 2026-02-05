@@ -195,6 +195,12 @@
     "confirm_new_password": "تأكيد كلمة المرور الجديدة",
     "reset_password_button": "إعادة تعيين كلمة المرور",
     "resetting_password": "جاري إعادة التعيين...",
-    "password_reset_success": "تم إعادة تعيين كلمة المرور بنجاح"
+    "password_reset_success": "تم إعادة تعيين كلمة المرور بنجاح",
+    "enter_new_password": "أدخل كلمة المرور الجديدة",
+    "confirm_new_password_placeholder": "تأكيد كلمة المرور الجديدة",
+    "passwords_must_match": "كلمات المرور يجب أن تتطابق",
+    "password_changed_successfully": "تم تغيير كلمة المرور بنجاح!",
+    "changing_password": "جاري تغيير كلمة المرور...",
+    "change_password": "تغيير كلمة المرور"
   }
 }

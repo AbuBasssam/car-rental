@@ -188,6 +188,12 @@
     "confirm_new_password": "Confirm New Password",
     "reset_password_button": "Reset Password",
     "resetting_password": "Resetting...",
-    "password_reset_success": "Password has been reset successfully"
+    "password_reset_success": "Password has been reset successfully",
+    "enter_new_password": "Enter your new password",
+    "confirm_new_password_placeholder": "Confirm your new password",
+    "passwords_must_match": "Passwords must match",
+    "password_changed_successfully": "Password has been changed successfully!",
+    "changing_password": "Changing password...",
+    "change_password": "Change Password"
   }
 }

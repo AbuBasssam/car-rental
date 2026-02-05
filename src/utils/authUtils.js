@@ -334,7 +334,7 @@ export const getValidVerificationEmail = () => {
   }
 };
 // ============================================
-// 🔑 PASSWORD RESET EMAIL MANAGEMENT
+// 🔑 PASSWORD RESET MANAGEMENT
 // ============================================
 
 const RESET_EMAIL_TTL = 15 * 60 * 1000; // minutes
@@ -389,4 +389,24 @@ export const getValidResetEmail = () => {
     clearResetEmail();
     return null;
   }
+};
+
+/**
+ * Get reset token from sessionStorage
+ * @returns {string|null} Reset token or null
+ */
+export const getResetToken = () => {
+  try {
+    const token = sessionStorage.getItem(keys.kResetToken);
+    return token || null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Clear reset token from sessionStorage
+ */
+export const clearResetToken = () => {
+  sessionStorage.removeItem(keys.kResetToken);
 };

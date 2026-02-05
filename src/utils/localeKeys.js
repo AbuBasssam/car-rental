@@ -112,7 +112,7 @@ export const localeKeys = {
   passwordStrong: "password_strong",
   passwordVeryStrong: "password_very_strong",
   verifyAccountTitle: "verifyAccountTitle",
-  codeSentSuccess: "code_sent_success"
+  codeSentSuccess: "code_sent_success",
 };
 
 /**
@@ -120,7 +120,7 @@ export const localeKeys = {
  */
 export const languagesKeys = {
   arabic: "languages.arabic",
-  english: "languages.english"
+  english: "languages.english",
 };
 
 /**
@@ -132,7 +132,7 @@ export const authKeys = {
   registerTitle: "auth.register_title",
   emailPlaceholder: "auth.email_placeholder",
   passwordPlaceholder: "auth.password_placeholder",
-  verificationSuccess: "auth.verificationSuccess"
+  verificationSuccess: "auth.verificationSuccess",
 };
 
 /**
@@ -153,7 +153,7 @@ export const validationKeys = {
   termsRequired: "validation.terms_required",
   registrationFailed: "validation.registration_failed",
   otpIncomplete: "validation.otp_incomplete",
-  invalidOrExpiredCode: "validation.invalid_or_expired_code"
+  invalidOrExpiredCode: "validation.invalid_or_expired_code",
 };
 
 /**
@@ -179,7 +179,7 @@ export const errorsKeys = {
   timeoutError: "errors.timeout_error",
   corsError: "errors.cors_error",
   connectionError: "errors.connection_error",
-  requestCancelled: "errors.request_cancelled"
+  requestCancelled: "errors.request_cancelled",
 };
 
 /**
@@ -194,7 +194,7 @@ export const verifyKeys = {
   didntReceiveCode: "verify.didnt_receive_code",
   resendCode: "verify.resend_code",
   resendingCode: "verify.resending_code",
-  digitLabel: "verify.digit_label"
+  digitLabel: "verify.digit_label",
 };
 
 /**
@@ -217,7 +217,14 @@ export const resetPasswordKeys = {
   confirmNewPassword: "reset_password.confirm_new_password",
   resetPasswordButton: "reset_password.reset_password_button",
   resettingPassword: "reset_password.resetting_password",
-  passwordResetSuccess: "reset_password.password_reset_success"
+  passwordResetSuccess: "reset_password.password_reset_success",
+  enterNewPassword: "reset_password.enter_new_password",
+  confirmNewPasswordPlaceholder:
+    "reset_password.confirm_new_password_placeholder",
+  passwordsMustMatch: "reset_password.passwords_must_match",
+  passwordChangedSuccessfully: "reset_password.password_changed_successfully",
+  changingPassword: "reset_password.changing_password",
+  changePassword: "reset_password.change_password",
 };
 
 // Default export
