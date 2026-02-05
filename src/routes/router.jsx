@@ -7,7 +7,7 @@ import { loginAction } from "../actions/loginAction.js";
 import { logoutAction } from "../actions/logoutAction.js";
 import { signUpAction } from "../actions/signUpAction";
 import { AccountVerificationAction } from "../actions/AccountVerificationAction";
-import { RequestResetPasswordCodeAction } from "../actions/RequestResetPasswordCodeAction";
+import ForgetPasswordAction from "../actions/RequestResetPasswordCodeAction";
 import VerifyRoute from "./VerifyRoute";
 import PublicRoute from "./PublicRoute";
 import { rootLoader } from "../loaders/Rootloader";
@@ -22,6 +22,12 @@ const VerifyAccountPage = Loadable(
 );
 const ForgetPasswordPage = Loadable(
   lazy(() => import("../pages/RequestResetPassword.jsx")),
+);
+const VerifyResetCodePage = Loadable(
+  lazy(() => import("../pages/VerifyResetCodePage.jsx")),
+);
+const ResetPasswordPage = Loadable(
+  lazy(() => import("../pages/ResetPasswordPage.jsx")),
 );
 
 /**
@@ -72,7 +78,17 @@ export const router = createBrowserRouter([
               {
                 path: ROUTES.FORGOT_PASSWORD,
                 element: <ForgetPasswordPage />,
-                action: RequestResetPasswordCodeAction,
+                action: ForgetPasswordAction,
+              },
+              //TODO: Delete VerifyResetCodePage from here it just for test actual place is VerifyRoute
+              {
+                path: ROUTES.VERIFY_RESET,
+                element: <VerifyResetCodePage />,
+              },
+              //TODO: Delete ResetPasswordPage from here it just for test actual place is ResetPasswordRoute will be add later
+              {
+                path: ROUTES.RESET_PASSWORD,
+                element: <ResetPasswordPage />,
               },
             ],
           },
