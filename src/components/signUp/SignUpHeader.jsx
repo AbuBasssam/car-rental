@@ -26,7 +26,7 @@ const SignupHeader = () => {
       </span>
       <h2
         className={signupStyles.signupCard.title}
-        style={isArabic ? { arabicTextAdjustment } : {}}
+        style={isArabic ? arabicTextAdjustment : {}}
       >
         {t(localeKeys.joinPremiumDrive)}
       </h2>

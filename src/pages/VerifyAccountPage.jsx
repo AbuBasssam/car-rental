@@ -9,6 +9,8 @@ import OTPInput from "../components/Verify/OTPInput";
 import ResendSection from "../components/Verify/ResendSection";
 import { useActionData } from "react-router-dom";
 import { useActionToast } from "../hooks/useActionToast";
+import { getValidVerificationEmail } from "../utils/authUtils";
+import { resendVerificationCode } from "../api/endpoints/auth";
 
 /**
  * Verify Account Page Component
@@ -33,7 +35,11 @@ function VerifyAccountPage() {
     handlePaste,
     handleResend,
     formatTimer,
-  } = useOtpVerification(120);
+  } = useOtpVerification(
+    120,
+    getValidVerificationEmail,
+    resendVerificationCode,
+  );
 
   const actionData = useActionData();
 
