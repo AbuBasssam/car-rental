@@ -7,6 +7,7 @@ import { loginAction } from "../actions/loginAction.js";
 import { logoutAction } from "../actions/logoutAction.js";
 import { signUpAction } from "../actions/signUpAction";
 import { AccountVerificationAction } from "../actions/AccountVerificationAction";
+import { RequestResetPasswordCodeAction } from "../actions/RequestResetPasswordCodeAction";
 import VerifyRoute from "./VerifyRoute";
 import PublicRoute from "./PublicRoute";
 import { rootLoader } from "../loaders/Rootloader";
@@ -71,6 +72,7 @@ export const router = createBrowserRouter([
               {
                 path: ROUTES.FORGOT_PASSWORD,
                 element: <ForgetPasswordPage />,
+                action: RequestResetPasswordCodeAction,
               },
             ],
           },
