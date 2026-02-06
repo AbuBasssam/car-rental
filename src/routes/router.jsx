@@ -14,6 +14,7 @@ import { rootLoader } from "../loaders/Rootloader";
 import Root from "../layouts/Root";
 import VerifyResetCodeAction from "../actions/VerifyResetCodeAction";
 import ResetPasswordAction from "../actions/ResetPasswordAction";
+import ResetPasswordRoute from "../routes/ResetpasswordrRoute.jsx";
 
 // Lazy loaded pages
 const HomePage = Loadable(lazy(() => import("../pages/HomePage.jsx")));
@@ -110,6 +111,16 @@ export const router = createBrowserRouter([
                 element: <VerifyAccountPage />,
                 action: AccountVerificationAction,
               },
+            ],
+          },
+          {
+            element: <ResetPasswordRoute />,
+            children: [
+              // {
+              //   path: ROUTES.RESET_PASSWORD,
+              //   element: <ResetPasswordPage />,
+              //   action: ResetPasswordAction,
+              // },
             ],
           },
 
