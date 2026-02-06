@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { useActionData, useNavigation } from "react-router-dom";
+import { Navigate, useActionData, useNavigation } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../config/toastConfig";
 import { useTranslation } from "react-i18next";
+import { ROUTES } from "../routes/paths";
+import { errorsKeys } from "../utils/localeKeys";
 
 /**
  * useOtpVerification Hook
@@ -59,6 +61,19 @@ const useOtpVerification = (initialTimer = 120, getEmailFn, resendCodeFn) => {
   const canResend = timer === 0;
 
   // ============================================
+  // ⏱️Session expired Handler
+  // ============================================
+  useEffect(() => {
+    if (!email) {
+      // Session expired - redirect to forgot password with message
+      return Navigate(ROUTES.FORGOT_PASSWORD, {
+        state: { message: errorsKeys.resetSessionExpired },
+        replace: true,
+      });
+    }
+  });
+
+  // ============================================
   // ⏱️ COUNTDOWN TIMER EFFECT
   // ============================================
   useEffect(() => {
@@ -78,7 +93,7 @@ const useOtpVerification = (initialTimer = 120, getEmailFn, resendCodeFn) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timer]);
+  }, [timer, email]);
 
   // ============================================
   // 🍞 ERROR TOAST HANDLING

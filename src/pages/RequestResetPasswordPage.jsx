@@ -1,18 +1,24 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Link, useNavigation, useActionData } from "react-router-dom";
+import {
+  Form,
+  Link,
+  useNavigation,
+  useActionData,
+  Navigate,
+} from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { loginStyles } from "../utils/styles";
 import { resetPasswordKeys, localeKeys } from "../utils/localeKeys";
 import { ROUTES } from "../routes/paths";
 import AnimatedBackground from "../components/login/AnimatedBackground";
 import BackButton from "../components/login/BackButton";
-// import RoundedThemeToggle from "../utils/RoundedThemeToggle";
 import FormInput from "../layouts/FormInput";
 import FullWidthButton from "../layouts/FullWidthButton";
 import { useActionToast } from "../hooks/useActionToast";
 import { keys } from "../utils/constants";
 import { arabicTextAdjustment } from "../utils/styles";
+import useFlashMessage from "../hooks/useFlashMessage";
 
 /**
  * RequestResetPassword Component
@@ -28,7 +34,7 @@ import { arabicTextAdjustment } from "../utils/styles";
  * - Theme toggle
  * - RTL/LTR support
  */
-const RequestResetPassword = () => {
+const RequestResetPasswordPage = () => {
   const navigation = useNavigation();
   const actionData = useActionData();
   const [isActive, setIsActive] = useState(false);
@@ -58,6 +64,9 @@ const RequestResetPassword = () => {
     }
   };
 
+  // Show message from previous redirect if exists (handle auth session expired)
+  useFlashMessage();
+
   return (
     <main className={loginStyles.pageContainer}>
       <AnimatedBackground isActive={isActive} />
@@ -82,7 +91,7 @@ const RequestResetPassword = () => {
   );
 };
 
-export default RequestResetPassword;
+export default RequestResetPasswordPage;
 
 /**
  * ResetPasswordHeader Component

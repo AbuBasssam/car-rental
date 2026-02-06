@@ -12,6 +12,7 @@ import VerifyRoute from "./VerifyRoute";
 import PublicRoute from "./PublicRoute";
 import { rootLoader } from "../loaders/Rootloader";
 import Root from "../layouts/Root";
+import VerifyResetCodeAction from "../actions/VerifyResetCodeAction";
 
 // Lazy loaded pages
 const HomePage = Loadable(lazy(() => import("../pages/HomePage.jsx")));
@@ -21,7 +22,7 @@ const VerifyAccountPage = Loadable(
   lazy(() => import("../pages/VerifyAccountPage.jsx")),
 );
 const ForgetPasswordPage = Loadable(
-  lazy(() => import("../pages/RequestResetPassword.jsx")),
+  lazy(() => import("../pages/RequestResetPasswordPage.jsx")),
 );
 const VerifyResetCodePage = Loadable(
   lazy(() => import("../pages/VerifyResetCodePage.jsx")),
@@ -84,6 +85,7 @@ export const router = createBrowserRouter([
               {
                 path: ROUTES.VERIFY_RESET,
                 element: <VerifyResetCodePage />,
+                action: VerifyResetCodeAction,
               },
               //TODO: Delete ResetPasswordPage from here it just for test actual place is ResetPasswordRoute will be add later
               {
