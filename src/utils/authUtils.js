@@ -355,12 +355,12 @@ export const saveResetEmail = (email) => {
 /**
  * Saves reset token with expiration
  *
- * @param {String} token
- * @param {timestamp} expiresAt
+ * @param {string} token
+ * @param {string} expiresAt ISO timestamp
+ *
  */
 export const saveResetToken = (token, expiresAt) => {
-  const payload = { token, expiresAt: expiresAt };
-
+  const payload = { token, expiresAt };
   sessionStorage.setItem(keys.kResetToken, JSON.stringify(payload));
 };
 
@@ -427,4 +427,30 @@ export const clearResetToken = () => {
 export const clearResetSession = () => {
   sessionStorage.removeItem(keys.kResetEmail);
   sessionStorage.removeItem(keys.kResetToken);
+};
+
+/**
+ * Validates if reset token is still valid
+ * @returns {boolean}
+ */
+export const isResetTokenValid = () => {
+  const stored = sessionStorage.getItem(keys.kResetToken);
+  if (!stored) return false;
+
+  const { token, expiresAt } = JSON.parse(stored);
+
+  if (!token || !expiresAt) {
+    return false;
+  }
+
+  const now = Date.now();
+  const expiry = new Date(expiresAt).getTime();
+
+  if (now >= expiry) {
+    // Token expired - clear it
+    sessionStorage.removeItem(keys.kResetToken);
+    return false;
+  }
+
+  return true;
 };
