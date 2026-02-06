@@ -191,6 +191,7 @@ const handleClientError = (error) => {
     isRecoverable: false,
   };
 };
+
 /**
  * Check if error is recoverable (user can retry)
  * @param {Number} status - Error status code
@@ -346,12 +347,21 @@ const RESET_EMAIL_TTL = 15 * 60 * 1000; // minutes
 export const saveResetEmail = (email) => {
   if (!email) return;
 
-  // Delete any old saved data
-  sessionStorage.removeItem(keys.kResetEmail);
-
   const payload = { email, createdAt: Date.now() };
 
   sessionStorage.setItem(keys.kResetEmail, JSON.stringify(payload));
+};
+
+/**
+ * Saves reset token with expiration
+ *
+ * @param {String} token
+ * @param {timestamp} expiresAt
+ */
+export const saveResetToken = (token, expiresAt) => {
+  const payload = { token, expiresAt: expiresAt };
+
+  sessionStorage.setItem(keys.kResetToken, JSON.stringify(payload));
 };
 
 /**
@@ -408,5 +418,13 @@ export const getResetToken = () => {
  * Clear reset token from sessionStorage
  */
 export const clearResetToken = () => {
+  sessionStorage.removeItem(keys.kResetToken);
+};
+
+/**
+ * Clears all reset-related session data
+ */
+export const clearResetSession = () => {
+  sessionStorage.removeItem(keys.kResetEmail);
   sessionStorage.removeItem(keys.kResetToken);
 };

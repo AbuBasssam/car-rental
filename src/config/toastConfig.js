@@ -38,19 +38,16 @@ export const showSuccessToast = (message, options = {}) => {
 };
 
 /**
- * Updated specialized functions to accept translated messages
+ * Show info toast with a custom 6-second duration
+ * This ensures that even if you pass other options (like position),
+ * the autoClose duration remains 6000ms unless explicitly overwritten.
+ * @param {string} message - The info message to display
+ * @param {Object} [options={}] - Additional toast options
  */
-export const showLoginSuccessToast = (message, options = {}) => {
-  toast.success(message, {
+export const showInfoToast = (message, options = {}) => {
+  toast.info(message, {
     ...defaultToastConfig,
-    ...options,
-  });
-};
-
-export const showNetworkErrorToast = (message, options = {}) => {
-  toast.error(message, {
-    ...defaultToastConfig,
-    autoClose: 7000,
+    autoClose: 6000,
     ...options,
   });
 };

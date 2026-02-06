@@ -158,7 +158,9 @@
     "timeout_error": "Request timed out. Please check your connection and try again",
     "cors_error": "Cross-origin request blocked. Please contact support",
     "connection_error": "Network error. Please check your connection and try again",
-    "request_cancelled": "Request was cancelled"
+    "request_cancelled": "Request was cancelled",
+    "registerSessionExpired": "Please restart the registration process to continue",
+    "resetSessionExpired": "Request expired, please try again"
   },
   "verify": {
     "code_sent_to": "Verification code sent to",
