@@ -11,4 +11,10 @@ export const keys = {
   kAccountVerified: "accountVerified",
   kResetToken: "resetToken",
   kPasswordReset: "passwordResetSuccess",
+  kFlashMessage: "flashMessage",
+};
+export const flashMessageType = {
+  info: "info",
+  success: "success",
+  error: "error",
 };
