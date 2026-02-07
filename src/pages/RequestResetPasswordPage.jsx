@@ -15,7 +15,7 @@ import AnimatedBackground from "../components/login/AnimatedBackground";
 import BackButton from "../components/login/BackButton";
 import FormInput from "../layouts/FormInput";
 import FullWidthButton from "../layouts/FullWidthButton";
-import { useActionToast } from "../hooks/useActionToast";
+import useActionToast from "../hooks/useActionToast";
 import { keys } from "../utils/constants";
 import { arabicTextAdjustment } from "../utils/styles";
 import useFlashMessage from "../hooks/useFlashMessage";

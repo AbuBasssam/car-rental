@@ -7,7 +7,7 @@ export const getAppLanguage = () =>
  */
 export const getErrorMessage = (errorObj, t) => {
   if (!errorObj) return null;
-  if (typeof errorObj === "string") return errorObj;
+  if (typeof errorObj === "string") return errorObj.split(",")[0];
 
   const { key, params } = errorObj;
   if (!params) return t(key);

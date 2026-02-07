@@ -6,7 +6,7 @@ import LoginCard from "../components/login/LoginCard";
 import RoundedThemeToggle from "../utils/RoundedThemeToggle";
 import { useActionData } from "react-router-dom";
 import { useVerificationSuccessToast } from "../hooks/useVerificationSuccessToast";
-import { useActionToast } from "../hooks/useActionToast";
+import useActionToast from "../hooks/useActionToast";
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
   const [showPassword, setShowPassword] = useState(false);

@@ -8,7 +8,7 @@ import VerifyHeader from "../components/Verify/VerifyHeader";
 import OTPInput from "../components/Verify/OTPInput";
 import ResendSection from "../components/Verify/ResendSection";
 import { useActionData } from "react-router-dom";
-import { useActionToast } from "../hooks/useActionToast";
+import useActionToast from "../hooks/useActionToast";
 import { getValidVerificationEmail } from "../utils/authUtils";
 import { resendVerificationCode } from "../api/endpoints/auth";
 

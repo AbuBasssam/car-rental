@@ -4,7 +4,7 @@ import AnimatedBackground from "../components/login/AnimatedBackground";
 import BackButton from "../components/login/BackButton";
 import SignupCard from "../components/signUp/SignupCard";
 import { useActionData } from "react-router-dom";
-import { useActionToast } from "../hooks/useActionToast";
+import useActionToast from "../hooks/useActionToast";
 
 const SignUpPage = () => {
   const [isActive, setIsActive] = useState(false);

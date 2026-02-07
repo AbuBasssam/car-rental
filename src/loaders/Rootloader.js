@@ -47,14 +47,16 @@ export const rootLoader = async () => {
         response.data,
       );
     }
-    return { user: null, isAuthenticated: false };
+    cachedAuthData = { user: null, isAuthenticated: false };
+    return cachedAuthData;
   } catch (error) {
     // Log error in development mode only
     if (import.meta.env.MODE === "development") {
       console.log("Auth verification failed:", error.message);
     }
 
-    return { user: null, isAuthenticated: false };
+    cachedAuthData = { user: null, isAuthenticated: false };
+    return cachedAuthData;
   }
 
   // Test Section

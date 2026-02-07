@@ -8,7 +8,7 @@ import BackButton from "../components/login/BackButton";
 import PasswordInput from "../layouts/PasswordInput";
 import FullWidthButton from "../layouts/FullWidthButton";
 import PasswordRequirements from "../components/signUp/PasswordRequirements";
-import { useActionToast } from "../hooks/useActionToast";
+import useActionToast from "../hooks/useActionToast";
 import { keys } from "../utils/constants";
 
 /**

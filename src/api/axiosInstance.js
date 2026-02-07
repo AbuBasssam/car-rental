@@ -16,7 +16,7 @@ const isDevelopment = import.meta.env.MODE === "development";
  */
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "https://localhost:7137/api/v1";
-const REQUEST_TIMEOUT = import.meta.env.REQUEST_TIMEOUT;
+const REQUEST_TIMEOUT = import.meta.env.VITE_REQUEST_TIMEOUT;
 
 const appLanguage = getAppLanguage();
 

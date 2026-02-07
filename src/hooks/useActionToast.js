@@ -8,7 +8,7 @@ import { getErrorMessage } from "../utils/helpers";
  * The primary Hook for displaying errors.
  * Combines validation errors and action errors into a single flow.
  */
-export const useActionToast = (actionData, options = {}) => {
+const useActionToast = (actionData, options = {}) => {
   const { t } = useTranslation();
   const { maxToasts = 1 } = options;
   const errorState = useActionError(actionData);
@@ -44,3 +44,4 @@ export const useActionToast = (actionData, options = {}) => {
     }
   }, [errorState, t, maxToasts]);
 };
+export default useActionToast;

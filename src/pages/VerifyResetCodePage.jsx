@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { resetPasswordKeys, verifyKeys } from "../utils/localeKeys";
 import { verifyStyles } from "../utils/styles";
@@ -9,6 +9,7 @@ import OTPInput from "../components/Verify/OTPInput";
 import ResendSection from "../components/Verify/ResendSection";
 import { getValidResetEmail } from "../utils/authUtils";
 import resendResetCode from "../actions/ResendResetCodeAction";
+import useActionToast from "../hooks/useActionToast";
 
 /**
  * VerifyResetCode Page Component
@@ -53,6 +54,9 @@ function VerifyResetCodePage() {
     getValidResetEmail, // Function to get email from sessionStorage
     resendResetCode, // Function to resend reset code
   );
+  const actionData = useActionData();
+
+  useActionToast(actionData);
 
   // ============================================
   // 🌐 TRANSLATIONS
