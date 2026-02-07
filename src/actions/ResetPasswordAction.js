@@ -1,15 +1,18 @@
 import { redirect } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
-import { keys } from "../utils/constants";
+import { flashMessageType, keys } from "../utils/constants";
 import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
 import { validationKeys, errorsKeys } from "../utils/localeKeys";
+import { setFlashMessage } from "../utils/flashService";
+
 import {
   clearResetSession,
   normalizeError,
   deleteCsrfToken,
   isResetTokenValid,
   clearResetToken,
+  getResetToken,
 } from "../utils/authUtils";
 import {
   validateStrongPassword,
@@ -40,9 +43,9 @@ const ResetPasswordAction = async ({ request }) => {
   try {
     if (!isResetTokenValid()) {
       // Token expired - redirect to forgot password
-      return redirect(ROUTES.FORGOT_PASSWORD, {
-        state: { message: errorsKeys.resetSessionExpired },
-      });
+      setFlashMessage(errorsKeys.resetSessionExpired, flashMessageType.error);
+
+      return redirect(ROUTES.FORGOT_PASSWORD, { replace: true });
     }
     // ============================================
     // 1️⃣ EXTRACT FORM DATA
@@ -83,24 +86,13 @@ const ResetPasswordAction = async ({ request }) => {
     // ============================================
     // 3️⃣ GET RESET TOKEN
     // ============================================
-    const resetToken = sessionStorage.getItem(keys.kResetToken);
-
-    if (!resetToken) {
-      return {
-        succeeded: false,
-        isMessageKey: true,
-        message: errorsKeys.unauthorized,
-        errors: [
-          "Reset token not found. Please restart the password reset process.",
-        ],
-      };
-    }
+    const resetToken = getResetToken();
 
     // ============================================
     // 4️⃣ PREPARE REQUEST
     // ============================================
     const payload = {
-      password: password,
+      newPassword: password,
       confirmPassword: confirmPassword,
     };
 
@@ -147,9 +139,9 @@ const ResetPasswordAction = async ({ request }) => {
     // Check if error is 401 (expired token)
     if (err.response?.status === 401) {
       clearResetSession();
-      return redirect(ROUTES.FORGOT_PASSWORD, {
-        state: { message: validationKeys.expiredResetToken },
-      });
+      setFlashMessage(errorsKeys.resetSessionExpired, flashMessageType.error);
+
+      return redirect(ROUTES.FORGOT_PASSWORD, { replace: true });
     }
 
     // Special handling for common errors

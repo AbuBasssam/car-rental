@@ -406,12 +406,12 @@ export const getValidResetEmail = () => {
  * @returns {string|null} Reset token or null
  */
 export const getResetToken = () => {
-  try {
-    const token = sessionStorage.getItem(keys.kResetToken);
-    return token || null;
-  } catch {
-    return null;
-  }
+  const stored = sessionStorage.getItem(keys.kResetToken);
+  if (!stored) return null;
+
+  const { token } = JSON.parse(stored);
+
+  return token ?? null;
 };
 
 /**

@@ -3,6 +3,8 @@ import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
 import { redirect } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 import { validationKeys, errorsKeys } from "../utils/localeKeys";
+import { flashMessageType } from "../utils/constants";
+import { setFlashMessage } from "../utils/flashService";
 import {
   clearResetEmail,
   normalizeError,
@@ -47,10 +49,9 @@ const VerifyResetCodeAction = async ({ request }) => {
 
     if (!email) {
       // Session expired - redirect to request reset page
-      return redirect(ROUTES.FORGOT_PASSWORD, {
-        state: { message: errorsKeys.resetSessionExpired },
-        replace: true,
-      });
+      setFlashMessage(errorsKeys.resetSessionExpired, flashMessageType.error);
+
+      return redirect(ROUTES.FORGOT_PASSWORD, { replace: true });
     }
 
     const payload = {
