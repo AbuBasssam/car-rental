@@ -10,6 +10,7 @@ import {
   normalizeError,
   deleteCsrfToken,
   saveResetToken,
+  getValidResetEmail,
 } from "../utils/authUtils";
 
 /**
@@ -44,7 +45,7 @@ const VerifyResetCodeAction = async ({ request }) => {
 
   try {
     const formData = await request.formData();
-    const email = formData.get("email")?.trim() || null;
+    const email = getValidResetEmail();
     const code = formData.get("code")?.trim() || null;
 
     if (!email) {

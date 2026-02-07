@@ -1,6 +1,6 @@
 import { Form } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { verifyKeys, localeKeys } from "../utils/localeKeys";
+import { verifyKeys, localeKeys, errorsKeys } from "../utils/localeKeys";
 import { verifyStyles } from "../utils/styles";
 import { useOtpVerification } from "../hooks/useOtpVerification";
 import FullWidthButton from "../layouts/FullWidthButton";
@@ -11,6 +11,7 @@ import { useActionData } from "react-router-dom";
 import useActionToast from "../hooks/useActionToast";
 import { getValidVerificationEmail } from "../utils/authUtils";
 import { resendVerificationCode } from "../api/endpoints/auth";
+import { ROUTES } from "../routes/paths";
 
 /**
  * Verify Account Page Component
@@ -39,6 +40,8 @@ function VerifyAccountPage() {
     120,
     getValidVerificationEmail,
     resendVerificationCode,
+    ROUTES.SIGNUP,
+    errorsKeys.registerSessionExpired,
   );
 
   const actionData = useActionData();
@@ -73,7 +76,6 @@ function VerifyAccountPage() {
           className={verifyStyles.form.container}
           aria-label={t(localeKeys.verifyAccountTitle)}
         >
-          <input type="hidden" name="email" value={email} />
           <input type="hidden" name="code" value={otp.join("")} />
 
           <OTPInput

@@ -1,38 +1,48 @@
 import { useState, useEffect, useRef } from "react";
-import { Navigate, useActionData, useNavigation } from "react-router-dom";
+import { Navigate, useActionData, useNavigate } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../config/toastConfig";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "../routes/paths";
-import { errorsKeys } from "../utils/localeKeys";
-
+import { flashMessageType } from "../utils/constants";
+import { setFlashMessage } from "../utils/flashService";
 /**
  * useOtpVerification Hook
+ * * A robust, generic hook for managing OTP (One-Time Password) flows.
+ * Features include:
+ * - Independent Session Heartbeat: Monitors session validity (TTL) regardless of timer state.
+ * - Auto-advance & Auto-submit: Seamless UX for 6-digit OTP inputs.
+ * - Resend Logic: Built-in race condition prevention and countdown management.
+ * - Adaptive Redirection: Handles session expiration based on the provided logic.
  *
- * Reusable hook for OTP verification with resend functionality
- *
- * @param {number} initialTimer - Initial countdown timer in seconds (default: 120)
- * @param {Function} getEmailFn - Function to get email from storage
- * @param {Function} resendCodeFn - Function to resend verification code
- * @returns {Object} OTP verification state and handlers
+ * @param {Object} options - Configuration options
+ * @param {number} options.initialTimer - Resend countdown in seconds (default: 120)
+ * @param {Function} options.getEmailFn - Function to retrieve and validate email from storage (supports TTL check)
+ * @param {Function} options.resendCodeFn - Async function to trigger a new OTP code delivery
+ * @param {string} redirectPath - Route to navigate to if the session expires
+ * @param {string} expiryMessageKey - Translation key for the session expiration flash message
+ * * @returns {Object} {
+ * email, otp, timer, canResend, isResending, isSubmitting,
+ * isOtpComplete, formRef, inputRefs, handleChange, handleKeyDown,
+ * handlePaste, handleResend, formatTimer
+ * }
  *
  * @example
- * // For Account Verification
- * const verification = useOtpVerification(
- *   120,
- *   getValidVerificationEmail,
- *   resendVerificationCode
- * );
- *
- * @example
- * // For Password Reset Verification
- * const verification = useOtpVerification(
- *   60,
- *   getValidResetEmail,
- *   resendResetCode
- * );
+ * const { otp, handleChange, handleResend } = useOtpVerification({
+ * initialTimer: 60,
+ * getEmailFn: getValidResetEmail,
+ * resendCodeFn: resendResetCode,
+ * redirectPath: ROUTES.FORGOT_PASSWORD,
+ * expiryMessage: errorsKeys.resetSessionExpired
+ * });
  */
-const useOtpVerification = (initialTimer = 120, getEmailFn, resendCodeFn) => {
-  const navigation = useNavigation();
+const useOtpVerification = (
+  initialTimer = 120,
+  getEmailFn,
+  resendCodeFn,
+  redirectPath,
+  expiryMessageKey,
+) => {
+  const navigation = useNavigate();
   const actionData = useActionData();
   const { t } = useTranslation();
 
@@ -61,17 +71,24 @@ const useOtpVerification = (initialTimer = 120, getEmailFn, resendCodeFn) => {
   const canResend = timer === 0;
 
   // ============================================
-  // ⏱️Session expired Handler
+  // 🛡️UNIFIED SESSION WATCHDOG
   // ============================================
   useEffect(() => {
-    if (!email) {
-      // Session expired - redirect to forgot password with message
-      return Navigate(ROUTES.FORGOT_PASSWORD, {
-        state: { message: errorsKeys.resetSessionExpired },
-        replace: true,
-      });
-    }
-  });
+    const checkAuthSession = () => {
+      const currentEmail = getEmailFn ? getEmailFn() : null;
+      if (!currentEmail) {
+        setFlashMessage(expiryMessageKey, flashMessageType.error);
+        navigation(redirectPath);
+        return false;
+      }
+      return true;
+    };
+    checkAuthSession();
+
+    const heartbeat = setInterval(checkAuthSession, 10000);
+
+    return () => clearInterval(heartbeat);
+  }, [timer, navigation, getEmailFn, redirectPath, expiryMessageKey]);
 
   // ============================================
   // ⏱️ COUNTDOWN TIMER EFFECT

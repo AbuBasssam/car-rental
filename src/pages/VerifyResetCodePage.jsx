@@ -10,6 +10,8 @@ import ResendSection from "../components/Verify/ResendSection";
 import { getValidResetEmail } from "../utils/authUtils";
 import resendResetCode from "../actions/ResendResetCodeAction";
 import useActionToast from "../hooks/useActionToast";
+import { errorsKeys } from "../utils/localeKeys";
+import { ROUTES } from "../routes/paths";
 
 /**
  * VerifyResetCode Page Component
@@ -53,6 +55,8 @@ function VerifyResetCodePage() {
     60, // 60 seconds timer for password reset
     getValidResetEmail, // Function to get email from sessionStorage
     resendResetCode, // Function to resend reset code
+    ROUTES.FORGOT_PASSWORD,
+    errorsKeys.registerSessionExpired,
   );
   const actionData = useActionData();
 
@@ -96,7 +100,6 @@ function VerifyResetCodePage() {
           noValidate
         >
           {/* Hidden Inputs */}
-          <input type="hidden" name="email" value={email || ""} />
           <input type="hidden" name="code" value={otp.join("")} />
 
           {/* OTP Input Component */}

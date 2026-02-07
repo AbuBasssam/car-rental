@@ -1,10 +1,15 @@
 import { redirect } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
-import { keys } from "../utils/constants";
+import { flashMessageType, keys } from "../utils/constants";
 import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
 import { validationKeys, errorsKeys } from "../utils/localeKeys";
-import { clearVerificationEmail, normalizeError } from "../utils/authUtils";
+import {
+  clearVerificationEmail,
+  getValidVerificationEmail,
+  normalizeError,
+} from "../utils/authUtils";
+import { setFlashMessage } from "../utils/flashService";
 
 /**
  * Verify Account Action
@@ -18,9 +23,18 @@ export const AccountVerificationAction = async ({ request }) => {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
+    const email = getValidVerificationEmail();
+    if (!email) {
+      setFlashMessage(
+        errorsKeys.registerSessionExpired,
+        flashMessageType.error,
+      );
+
+      return redirect(ROUTES.SIGNUP);
+    }
 
     const payload = {
-      email: data.email,
+      email: email,
       otpCode: data.code,
     };
 
