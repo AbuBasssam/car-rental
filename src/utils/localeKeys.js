@@ -181,7 +181,8 @@ export const errorsKeys = {
   connectionError: "errors.connection_error",
   requestCancelled: "errors.request_cancelled",
   registerSessionExpired: "errors.registerSessionExpired",
-  resetSessionExpired: "errors.resetSessionExpired"
+  resetSessionExpired: "errors.resetSessionExpired",
+  resetCodeAttemptsExceeded: "errors.reset_code_attempts_exceeded"
 };
 
 /**

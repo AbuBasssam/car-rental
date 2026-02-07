@@ -160,7 +160,8 @@
     "connection_error": "Network error. Please check your connection and try again",
     "request_cancelled": "Request was cancelled",
     "registerSessionExpired": "Please restart the registration process to continue",
-    "resetSessionExpired": "Request expired, please try again"
+    "resetSessionExpired": "Request expired, please try again",
+    "reset_code_attempts_exceeded": "Maximum verification attempts exceeded. Please request a new code."
   },
   "verify": {
     "code_sent_to": "Verification code sent to",

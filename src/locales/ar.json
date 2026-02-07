@@ -167,7 +167,8 @@
     "connection_error": "خطأ في الشبكة. يرجى التحقق من اتصالك والمحاولة مرة أخرى",
     "request_cancelled": "تم إلغاء الطلب",
     "registerSessionExpired": "يرجى إعادة عملية التسجيل للمتابعة",
-    "resetSessionExpired": "انتهت صلاحية الطلب، يرجى المحاولة مرة أخرى"
+    "resetSessionExpired": "انتهت صلاحية الطلب، يرجى المحاولة مرة أخرى",
+    "reset_code_attempts_exceeded": "تم إدخال رمز التحقق بشكل خاطئ عدة مرات.الرجاء طلب رمز جديد."
   },
   "verify": {
     "code_sent_to": "تم إرسال رمز التوثيق إلى",

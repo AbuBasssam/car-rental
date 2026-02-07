@@ -91,6 +91,15 @@ const VerifyResetCodeAction = async ({ request }) => {
     // ============================================
     // 6️⃣ HANDLE NETWORK/SYSTEM ERRORS
     // ============================================
+    if (err.response.status === 410) {
+      // Session expired - redirect to request reset page
+      setFlashMessage(
+        errorsKeys.resetCodeAttemptsExceeded,
+        flashMessageType.info,
+      );
+
+      return redirect(ROUTES.FORGOT_PASSWORD, { replace: true });
+    }
     const normalizedError = normalizeError(err);
 
     // Special handling for invalid/expired code error
