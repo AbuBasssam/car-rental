@@ -50,7 +50,7 @@ const VerifyResetCodeAction = async ({ request }) => {
 
     if (!email) {
       // Session expired - redirect to request reset page
-      setFlashMessage(errorsKeys.resetSessionExpired, flashMessageType.error);
+      setFlashMessage(errorsKeys.resetSessionExpired, flashMessageType.info);
 
       return redirect(ROUTES.FORGOT_PASSWORD, { replace: true });
     }

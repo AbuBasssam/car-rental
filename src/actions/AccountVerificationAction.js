@@ -25,10 +25,7 @@ export const AccountVerificationAction = async ({ request }) => {
     const data = Object.fromEntries(formData);
     const email = getValidVerificationEmail();
     if (!email) {
-      setFlashMessage(
-        errorsKeys.registerSessionExpired,
-        flashMessageType.error,
-      );
+      setFlashMessage(errorsKeys.registerSessionExpired, flashMessageType.info);
 
       return redirect(ROUTES.SIGNUP);
     }

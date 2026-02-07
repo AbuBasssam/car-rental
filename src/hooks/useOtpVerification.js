@@ -77,7 +77,7 @@ const useOtpVerification = (
     const checkAuthSession = () => {
       const currentEmail = getEmailFn ? getEmailFn() : null;
       if (!currentEmail) {
-        setFlashMessage(expiryMessageKey, flashMessageType.error);
+        setFlashMessage(expiryMessageKey, flashMessageType.info);
         navigation(redirectPath);
         return false;
       }
