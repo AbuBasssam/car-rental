@@ -357,6 +357,21 @@ export const verifyStyles = {
 
     hint: "text-sm text-center text-deep-gray dark:text-dark-text-muted mt-4",
   },
+  cooldownAlert: {
+    container:
+      "mb-6 rounded-lg border-2 border-amber-400 dark:border-amber-500/50 bg-amber-50 dark:bg-amber-900/20 p-4 shadow-sm",
+    content: "flex gap-3",
+    iconWrapper: "flex-shrink-0",
+    icon: "h-6 w-6 text-amber-600 dark:text-amber-500",
+    textContent: "flex-1",
+    title: "text-sm font-semibold text-amber-900 dark:text-amber-300 mb-1",
+    message: "text-sm text-amber-800 dark:text-amber-400 mb-3",
+    timerWrapper:
+      "flex items-center gap-2 bg-white dark:bg-gray-800 rounded-md px-3 py-2 border border-amber-200 dark:border-amber-700/50",
+    timerLabel: "text-xs font-medium text-amber-700 dark:text-amber-400",
+    timerValue:
+      "text-lg font-mono font-bold text-amber-600 dark:text-amber-500 tabular-nums",
+  },
 
   // Form section
   form: {

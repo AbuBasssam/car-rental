@@ -161,7 +161,8 @@
     "request_cancelled": "Request was cancelled",
     "registerSessionExpired": "Please restart the registration process to continue",
     "resetSessionExpired": "Request expired, please try again",
-    "reset_code_attempts_exceeded": "Maximum verification attempts exceeded. Please request a new code."
+    "reset_code_attempts_exceeded": "Maximum verification attempts exceeded. Please request a new code.",
+    "verification_attempts_exceeded": "Too many incorrect verification attempts. Please wait before requesting a new code."
   },
   "verify": {
     "code_sent_to": "Verification code sent to",
@@ -172,7 +173,9 @@
     "didnt_receive_code": "Didn't receive the code?",
     "resend_code": "Resend Code",
     "resending_code": "Sending...",
-    "digit_label": "Digit"
+    "digit_label": "Digit",
+    "verification_locked": "Verification Temporarily Locked",
+    "cooldown_message": "verification has been temporarily disabled. You can request a new code after "
   },
   "reset_password": {
     "forgot_password_title": "Forgot Password",

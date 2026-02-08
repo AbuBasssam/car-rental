@@ -182,7 +182,8 @@ export const errorsKeys = {
   requestCancelled: "errors.request_cancelled",
   registerSessionExpired: "errors.registerSessionExpired",
   resetSessionExpired: "errors.resetSessionExpired",
-  resetCodeAttemptsExceeded: "errors.reset_code_attempts_exceeded"
+  resetCodeAttemptsExceeded: "errors.reset_code_attempts_exceeded",
+  verificationAttemptsExceeded: "errors.verification_attempts_exceeded"
 };
 
 /**
@@ -197,7 +198,9 @@ export const verifyKeys = {
   didntReceiveCode: "verify.didnt_receive_code",
   resendCode: "verify.resend_code",
   resendingCode: "verify.resending_code",
-  digitLabel: "verify.digit_label"
+  digitLabel: "verify.digit_label",
+  verificationLocked: "verify.verification_locked",
+  cooldownMessage: "verify.cooldown_message"
 };
 
 /**

@@ -168,7 +168,8 @@
     "request_cancelled": "تم إلغاء الطلب",
     "registerSessionExpired": "يرجى إعادة عملية التسجيل للمتابعة",
     "resetSessionExpired": "انتهت صلاحية الطلب، يرجى المحاولة مرة أخرى",
-    "reset_code_attempts_exceeded": "تم إدخال رمز التحقق بشكل خاطئ عدة مرات.الرجاء طلب رمز جديد."
+    "reset_code_attempts_exceeded": "تم إدخال رمز التحقق بشكل خاطئ عدة مرات.الرجاء طلب رمز جديد.",
+    "verification_attempts_exceeded": "تم تجاوز عدد محاولات التحقق المسموح بها. يرجى الانتظار قبل طلب رمز جديد."
   },
   "verify": {
     "code_sent_to": "تم إرسال رمز التوثيق إلى",
@@ -179,7 +180,9 @@
     "didnt_receive_code": "لم تستلم الرمز؟",
     "resend_code": "إعادة إرسال الرمز",
     "resending_code": "جاري الإرسال...",
-    "digit_label": "رقم"
+    "digit_label": "رقم",
+    "verification_locked": "التحقق معطّل مؤقتاً",
+    "cooldown_message": "تم تعطيل التحقق مؤقتاً. يمكنك طلب رمز جديد بعد "
   },
   "reset_password": {
     "forgot_password_title": "نسيت كلمة المرور",
