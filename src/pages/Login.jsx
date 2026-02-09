@@ -5,13 +5,15 @@ import BackButton from "../components/login/BackButton";
 import LoginCard from "../components/login/LoginCard";
 import RoundedThemeToggle from "../utils/RoundedThemeToggle";
 import { useActionData } from "react-router-dom";
-import { useVerificationSuccessToast } from "../hooks/useVerificationSuccessToast";
+import useFlashMessage from "../hooks/useFlashMessage";
+
 import useActionToast from "../hooks/useActionToast";
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  useVerificationSuccessToast();
+  // Show message from previous redirect if exists (handle auth session expired)
+  useFlashMessage();
 
   // ✅ React Router hooks
   const actionData = useActionData(); //Get Errors from action

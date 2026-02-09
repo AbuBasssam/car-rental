@@ -9,6 +9,7 @@ import React from "react";
  * @param {Object} props
  * @param {boolean} props.canResend - Whether resend is allowed
  * @param {boolean} props.isResending - Resend request state
+ * @param {boolean} props.isLocked - Lock state (prevents resend)
  * @param {number} props.timer - Remaining seconds
  * @param {Function} props.formatTimer - Timer formatting function
  * @param {Function} props.handleResend - Resend button handler
@@ -17,6 +18,7 @@ import React from "react";
 function ResendSection({
   canResend,
   isResending,
+  isLocked = false,
   timer,
   formatTimer,
   handleResend,
@@ -38,6 +40,7 @@ function ResendSection({
           <ResendSection.Action>
             <ResendButton
               isResending={isResending}
+              isLocked={isLocked}
               onResend={handleResend}
               label={translations.resendCode}
               loadingLabel={translations.resendingCode}
@@ -66,6 +69,7 @@ ResendSection.Content = function Content({ isArabic, children }) {
     }
     return acc;
   }, {});
+
   if (import.meta.env.MODE === "development") {
     if (!slots.action || !slots.hint) {
       console.warn(
@@ -90,6 +94,7 @@ ResendSection.Content = function Content({ isArabic, children }) {
     </nav>
   );
 };
+
 ResendSection.Action = function Action({ children }) {
   return children;
 };
@@ -114,13 +119,26 @@ ResendSection.Timer = function Timer({ timer, formatTimer, text }) {
     </p>
   );
 };
-function ResendButton({ isResending, onResend, label, loadingLabel }) {
+
+/**
+ * Resend Button Component
+ *
+ */
+function ResendButton({
+  isResending,
+  isLocked,
+  onResend,
+  label,
+  loadingLabel,
+}) {
   return (
     <button
       type="button"
       onClick={onResend}
-      disabled={isResending}
-      className={`${verifyStyles.resend.button} ${isResending ? verifyStyles.resend.buttonDisabled : ""}`}
+      disabled={isResending || isLocked} // Disable when locked
+      className={`${verifyStyles.resend.button} ${
+        isResending || isLocked ? verifyStyles.resend.buttonDisabled : ""
+      }`}
       aria-busy={isResending}
     >
       {isResending ? loadingLabel : label}

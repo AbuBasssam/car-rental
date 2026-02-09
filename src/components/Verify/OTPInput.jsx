@@ -10,6 +10,7 @@ import { verifyStyles } from "../../utils/styles";
  * @param {Function} props.handleKeyDown - Keyboard event handler
  * @param {Function} props.handlePaste - Paste event handler
  * @param {boolean} props.isSubmitting - Form submission state
+ * @param {boolean} props.isLocked - Lock state (prevents input)
  * @param {Object} props.translations - Translation object
  */
 function OTPInput({
@@ -19,6 +20,7 @@ function OTPInput({
   handleKeyDown,
   handlePaste,
   isSubmitting,
+  isLocked = false,
   translations,
 }) {
   return (
@@ -43,9 +45,11 @@ function OTPInput({
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={index === 0 ? handlePaste : undefined}
-            disabled={isSubmitting}
-            className={`${verifyStyles.otp.input} ${digit ? verifyStyles.otp.inputFilled : verifyStyles.otp.inputEmpty}`}
-            autoFocus={index === 0}
+            disabled={isSubmitting || isLocked} // Disable when locked
+            className={`${verifyStyles.otp.input} ${
+              digit ? verifyStyles.otp.inputFilled : verifyStyles.otp.inputEmpty
+            } ${isLocked ? verifyStyles.otp.inputLocked : ""}`} // Add locked style
+            autoFocus={index === 0 && !isLocked} // Don't autofocus when locked
             aria-label={`${translations.ariaLabel} ${index + 1}`}
             autoComplete={index === 0 ? "one-time-code" : "off"}
           />
