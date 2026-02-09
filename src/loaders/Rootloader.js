@@ -18,9 +18,14 @@ import { verifyAuth } from "../api/endpoints/auth";
  *
  */
 let cachedAuthData = null;
+let isLogout = false;
 export const rootLoader = async () => {
   if (cachedAuthData) {
     return cachedAuthData;
+  }
+  if (isLogout) {
+    //Prevents unnecessary API calls to verify auth after logout.
+    return { user: null, isAuthenticated: false };
   }
   try {
     const response = await verifyAuth();
@@ -82,4 +87,23 @@ export const rootLoader = async () => {
  */
 export const resetAuthCache = () => {
   cachedAuthData = null;
+};
+/**
+ * Updates the authentication cache with new user data.
+ * Used after successful login to update the cache without making another API call.
+ *
+ * @param {Object} authData - Authentication data object
+ * @param {Object} authData.user - User data object
+ * @param {boolean} authData.isAuthenticated - Authentication status
+ */
+export const updateAuthCache = (authData) => {
+  cachedAuthData = authData;
+  isLogout = false;
+};
+
+/**
+ * Marks the user as logged out.
+ */
+export const setUserLogout = () => {
+  isLogout = true;
 };

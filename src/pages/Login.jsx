@@ -36,7 +36,7 @@ const Login = () => {
     <div className={loginStyles.pageContainer}>
       <AnimatedBackground isActive={isActive} />
       <BackButton />
-      <RoundedThemeToggle />
+      {/* <RoundedThemeToggle /> */}
       <LoginCard
         isActive={isActive}
         showPassword={showPassword}
