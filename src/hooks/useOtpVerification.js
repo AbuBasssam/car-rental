@@ -1,39 +1,28 @@
 import { useState, useEffect, useRef } from "react";
-import { Navigate, useActionData, useNavigate } from "react-router-dom";
+import { useActionData, useNavigate, useNavigation } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../config/toastConfig";
 import { useTranslation } from "react-i18next";
-import { ROUTES } from "../routes/paths";
 import { flashMessageType } from "../utils/constants";
 import { setFlashMessage } from "../utils/flashService";
+
 /**
- * useOtpVerification Hook
- * * A robust, generic hook for managing OTP (One-Time Password) flows.
- * Features include:
- * - Independent Session Heartbeat: Monitors session validity (TTL) regardless of timer state.
- * - Auto-advance & Auto-submit: Seamless UX for 6-digit OTP inputs.
- * - Resend Logic: Built-in race condition prevention and countdown management.
- * - Adaptive Redirection: Handles session expiration based on the provided logic.
+ * useOtpVerification Hook (Production-Ready)
  *
- * @param {Object} options - Configuration options
- * @param {number} options.initialTimer - Resend countdown in seconds (default: 120)
- * @param {Function} options.getEmailFn - Function to retrieve and validate email from storage (supports TTL check)
- * @param {Function} options.resendCodeFn - Async function to trigger a new OTP code delivery
- * @param {string} redirectPath - Route to navigate to if the session expires
- * @param {string} expiryMessageKey - Translation key for the session expiration flash message
- * * @returns {Object} {
- * email, otp, timer, canResend, isResending, isSubmitting,
- * isOtpComplete, formRef, inputRefs, handleChange, handleKeyDown,
- * handlePaste, handleResend, formatTimer
- * }
+ * A robust, time-based OTP verification hook with:
+ * - 410 Gone handling for max attempts lockout
+ * - Fully derived cooldown state (no useState for countdown)
+ * - Time-based calculation for accuracy
+ * - Zero cascading renders
+ * - Auto-advance & Auto-submit
+ * - Resend logic with cooldown
  *
- * @example
- * const { otp, handleChange, handleResend } = useOtpVerification({
- * initialTimer: 60,
- * getEmailFn: getValidResetEmail,
- * resendCodeFn: resendResetCode,
- * redirectPath: ROUTES.FORGOT_PASSWORD,
- * expiryMessage: errorsKeys.resetSessionExpired
- * });
+ * @param {number} initialTimer - Resend countdown in seconds (default: 120)
+ * @param {Function} getEmailFn - Function to retrieve email from storage
+ * @param {Function} resendCodeFn - Async function to trigger OTP resend
+ * @param {string} redirectPath - Route to navigate on session expiry
+ * @param {string} expiryMessageKey - Translation key for expiry message
+ *
+ * @returns {Object} Hook API
  */
 const useOtpVerification = (
   initialTimer = 120,
@@ -42,113 +31,153 @@ const useOtpVerification = (
   redirectPath,
   expiryMessageKey,
 ) => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const navigation = useNavigation();
   const actionData = useActionData();
   const { t } = useTranslation();
 
-  // ============================================
-  // 📧 GET EMAIL FROM STORAGE
-  // ============================================
+  // ======================================================
+  // 📌 SESSION
+  // ======================================================
   const email = getEmailFn ? getEmailFn() : null;
 
-  // ============================================
-  // 📊 STATE MANAGEMENT
-  // ============================================
+  // ======================================================
+  // 📊 OTP STATE
+  // ======================================================
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
+  const formRef = useRef(null);
+  const hasAutoSubmitted = useRef(false);
 
+  // ======================================================
+  // ⏱️ RESEND TIMER
+  // ======================================================
   const [timer, setTimer] = useState(initialTimer);
   const [isResending, setIsResending] = useState(false);
-
-  // ============================================
-  // 🔒 RACE CONDITION PREVENTION
-  // ============================================
   const resendRequestRef = useRef(false);
-  const hasAutoSubmitted = useRef(false);
-  const formRef = useRef(null);
 
-  // Computed value: Can resend when timer reaches 0
-  const canResend = timer === 0;
+  // ======================================================
+  // 🔒 LOCK STATE (FULLY DERIVED - NO useState!)
+  // ======================================================
+  // Extract cooldown from actionData (410 Gone response)
+  const cooldownSecondsFromAction = actionData?.meta?.cooldownSeconds ?? 0;
 
-  // ============================================
-  // 🛡️UNIFIED SESSION WATCHDOG
-  // ============================================
+  // Track when lock started (for time-based calculation)
+  const cooldownStartedAtRef = useRef(null);
+
+  // Force re-render ticker (visual updates only)
+  const [, forceTick] = useState(0);
+
+  // ======================================================
+  // 🔒 INITIALIZE LOCK ON 410 GONE
+  // ======================================================
   useEffect(() => {
-    const checkAuthSession = () => {
-      const currentEmail = getEmailFn ? getEmailFn() : null;
-      if (!currentEmail) {
-        setFlashMessage(expiryMessageKey, flashMessageType.info);
-        navigation(redirectPath);
-        return false;
-      }
-      return true;
-    };
-    checkAuthSession();
+    if (cooldownSecondsFromAction <= 0) return;
 
-    const heartbeat = setInterval(checkAuthSession, 10000);
+    // Save lock start time (only once per lock)
+    if (!cooldownStartedAtRef.current) {
+      cooldownStartedAtRef.current = Date.now();
 
-    return () => clearInterval(heartbeat);
-  }, [timer, navigation, getEmailFn, redirectPath, expiryMessageKey]);
+      // Clear OTP inputs
+      setOtp(["", "", "", "", "", ""]);
+      hasAutoSubmitted.current = false;
+    }
+  }, [cooldownSecondsFromAction]);
 
-  // ============================================
-  // ⏱️ COUNTDOWN TIMER EFFECT
-  // ============================================
+  // ======================================================
+  // ⏱️ COOLDOWN REMAINING (COMPUTED - NOT STORED!)
+  // ======================================================
+  const cooldownRemaining =
+    cooldownSecondsFromAction > 0 && cooldownStartedAtRef.current
+      ? Math.max(
+          0,
+          cooldownSecondsFromAction -
+            Math.floor((Date.now() - cooldownStartedAtRef.current) / 1000),
+        )
+      : 0;
+
+  // 🆕 IMPORTANT: isLocked depends on cooldownRemaining, not actionData!
+  const isLocked = cooldownRemaining > 0;
+
+  // Reset lock ref when cooldown expires
+  useEffect(() => {
+    if (cooldownRemaining === 0 && cooldownStartedAtRef.current) {
+      cooldownStartedAtRef.current = null;
+    }
+  }, [cooldownRemaining]);
+
+  // Tick every second for visual updates (doesn't change state logic!)
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return;
+
+    const intervalId = setInterval(() => {
+      forceTick((v) => v + 1); // Just trigger re-render
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [cooldownRemaining]);
+
+  // ======================================================
+  // ⏱️ RESEND TIMER COUNTDOWN
+  // ======================================================
   useEffect(() => {
     if (timer <= 0) {
       resendRequestRef.current = false;
       return;
     }
 
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        const newTime = prev - 1;
-        if (newTime <= 0) {
-          resendRequestRef.current = false;
-        }
-        return newTime;
-      });
+    const intervalId = setInterval(() => {
+      setTimer((prev) => Math.max(0, prev - 1));
     }, 1000);
 
-    return () => clearInterval(interval);
-  }, [timer, email]);
+    return () => clearInterval(intervalId);
+  }, [timer]);
 
-  // ============================================
-  // 🍞 ERROR TOAST HANDLING
-  // ============================================
+  const canResend = timer === 0 && !isLocked;
+
+  // ======================================================
+  // 🛡️ SESSION WATCHDOG
+  // ======================================================
   useEffect(() => {
-    if (actionData?.error) {
-      showErrorToast(actionData.error);
-    }
-  }, [actionData]);
+    const checkAuthSession = () => {
+      const currentEmail = getEmailFn ? getEmailFn() : null;
+      if (!currentEmail) {
+        setFlashMessage(expiryMessageKey, flashMessageType.info);
+        navigate(redirectPath, { replace: true });
+        return false;
+      }
+      return true;
+    };
 
-  // ============================================
-  // 📝 OTP INPUT HANDLERS
-  // ============================================
+    checkAuthSession();
+    const heartbeat = setInterval(checkAuthSession, 10000);
+
+    return () => clearInterval(heartbeat);
+  }, [navigate, getEmailFn, redirectPath, expiryMessageKey]);
+
+  // ======================================================
+  // 🔓 OTP INPUT HANDLERS
+  // ======================================================
 
   /**
    * Handle OTP input change
-   * - Only accepts numeric values
-   * - Auto-advances to next input
-   * - Auto-submits when complete
    */
   const handleChange = (index, value) => {
-    // Only allow numeric input
-    const numericValue = value.replace(/[^0-9]/g, "");
+    if (isLocked) return;
 
-    // Prevent multiple digits in single input
+    const numericValue = value.replace(/\D/g, "");
     if (numericValue.length > 1) return;
 
-    // Update OTP state
     const newOtp = [...otp];
     newOtp[index] = numericValue;
     setOtp(newOtp);
 
-    // Auto-advance to next input
+    // Auto-advance
     if (numericValue && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
 
-    // Auto-submit when last digit is entered
+    // Auto-submit
     if (index === 5 && numericValue && !hasAutoSubmitted.current) {
       const isComplete = newOtp.every((digit) => digit !== "");
       if (isComplete) {
@@ -162,23 +191,20 @@ const useOtpVerification = (
 
   /**
    * Handle keyboard navigation
-   * - Backspace: Delete current or move to previous
-   * - Arrow keys: Navigate between inputs
    */
   const handleKeyDown = (index, e) => {
+    if (isLocked) return;
+
     if (e.key === "Backspace") {
       if (!otp[index] && index > 0) {
-        // Move to previous input if current is empty
         inputRefs.current[index - 1]?.focus();
       } else {
-        // Clear current input
         const newOtp = [...otp];
         newOtp[index] = "";
         setOtp(newOtp);
       }
     }
 
-    // Arrow key navigation
     if (e.key === "ArrowLeft" && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
@@ -189,127 +215,93 @@ const useOtpVerification = (
 
   /**
    * Handle paste event
-   * - Extracts numeric digits from pasted content
-   * - Fills OTP inputs automatically
-   * - Auto-submits if complete
    */
   const handlePaste = (e) => {
+    if (isLocked) return;
+
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").trim();
-    const digits = pastedData
-      .replace(/[^0-9]/g, "")
-      .split("")
-      .slice(0, 6);
+    const digits = pastedData.replace(/\D/g, "").split("").slice(0, 6);
 
-    if (digits.length > 0) {
-      const newOtp = [...otp];
-      digits.forEach((digit, idx) => {
-        if (idx < 6) {
-          newOtp[idx] = digit;
-        }
-      });
-      setOtp(newOtp);
+    if (!digits.length) return;
 
-      // Focus on next empty input or last input
-      const focusIndex = Math.min(digits.length, 5);
-      inputRefs.current[focusIndex]?.focus();
+    const newOtp = ["", "", "", "", "", ""];
+    digits.forEach((digit, idx) => {
+      if (idx < 6) newOtp[idx] = digit;
+    });
+    setOtp(newOtp);
 
-      // Auto-submit if complete
-      if (digits.length === 6 && !hasAutoSubmitted.current) {
-        hasAutoSubmitted.current = true;
-        setTimeout(() => {
-          formRef.current?.requestSubmit();
-        }, 300);
-      }
+    // Focus next empty or last input
+    const focusIndex = Math.min(digits.length, 5);
+    inputRefs.current[focusIndex]?.focus();
+
+    // Auto-submit if complete
+    if (digits.length === 6 && !hasAutoSubmitted.current) {
+      hasAutoSubmitted.current = true;
+      setTimeout(() => {
+        formRef.current?.requestSubmit();
+      }, 300);
     }
   };
 
-  // ============================================
-  // 🔁 RESEND CODE HANDLER
-  // ============================================
+  // ======================================================
+  // 🔄 RESEND CODE HANDLER
+  // ======================================================
 
   /**
    * Handle resend verification code
-   * - Prevents race conditions
-   * - Shows loading state
-   * - Displays toast notifications
-   * - Resets timer on success
    */
-  const handleResend = () => {
-    // Guard clause 1: Check if resend is allowed
-    if (!canResend) {
-      return;
-    }
+  const handleResend = async () => {
+    if (!canResend || resendRequestRef.current || !email) return;
 
-    // Guard clause 2: Check if request already in progress
-    if (resendRequestRef.current) {
-      return;
-    }
-
-    // Guard clause 3: Double-check timer
-    if (timer > 0) {
-      return;
-    }
-
-    // Guard clause 4: Check if resend function is provided
-    if (!resendCodeFn || !email) {
-      console.error("Resend function or email not provided");
-      return;
-    }
-
-    // Mark request as in-progress
     resendRequestRef.current = true;
     setIsResending(true);
 
-    // Call resend function
-    resendCodeFn(email)
-      .then((result) => {
-        if (result.success) {
-          showSuccessToast(t(result.message));
-          // Reset timer on success
-          setTimer(initialTimer);
-        } else {
-          showErrorToast(t(result.message));
-        }
-      })
-      .catch((error) => {
-        console.error("Resend error:", error);
-        showErrorToast(
-          t(error.message || "Failed to resend code. Please try again."),
-        );
-      })
-      .finally(() => {
-        resendRequestRef.current = false;
-        setIsResending(false);
-      });
+    try {
+      const result = await resendCodeFn(email);
+
+      if (result.success) {
+        showSuccessToast(t(result.message));
+        setTimer(initialTimer);
+        setOtp(["", "", "", "", "", ""]);
+        hasAutoSubmitted.current = false;
+
+        setTimeout(() => {
+          inputRefs.current[0]?.focus();
+        }, 100);
+      } else {
+        showErrorToast(t(result.message));
+      }
+    } catch (error) {
+      console.error("Resend error:", error);
+      showErrorToast(t("errors.network_error"));
+    } finally {
+      resendRequestRef.current = false;
+      setIsResending(false);
+    }
   };
 
-  // ============================================
+  // ======================================================
   // 🛠️ UTILITY FUNCTIONS
-  // ============================================
+  // ======================================================
 
   /**
-   * Format timer in MM:SS format
-   * @param {number} seconds - Seconds to format
-   * @returns {string} Formatted time string
+   * Format seconds to MM:SS
    */
   const formatTimer = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
+    return `${mins}:${String(secs).padStart(2, "0")}`;
   };
 
   /**
-   * Check if OTP is complete (all 6 digits filled)
-   * @returns {boolean} True if all digits are filled
+   * Check if OTP is complete
    */
-  const isOtpComplete = () => {
-    return otp.every((digit) => digit !== "");
-  };
+  const isOtpComplete = otp.every((digit) => digit !== "");
 
-  // ============================================
-  // 📤 RETURN VALUES
-  // ============================================
+  // ======================================================
+  // 📤 PUBLIC API
+  // ======================================================
   return {
     email,
     otp,
@@ -317,7 +309,9 @@ const useOtpVerification = (
     canResend,
     isResending,
     isSubmitting: navigation.state === "submitting",
-    isOtpComplete: isOtpComplete(),
+    isOtpComplete,
+    isLocked,
+    cooldownRemaining,
     formRef,
     inputRefs,
     handleChange,
