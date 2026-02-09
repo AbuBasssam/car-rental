@@ -175,7 +175,9 @@
     "resending_code": "Sending...",
     "digit_label": "Digit",
     "verification_locked": "Verification Temporarily Locked",
-    "cooldown_message": "verification has been temporarily disabled. You can request a new code after "
+    "cooldown_message": "verification has been temporarily disabled. You can request a new code after ",
+    "verification_disabled": "Verification Temporarily Disabled",
+    "request_new_code_after_countdown": "You can request a new code after the countdown ends"
   },
   "reset_password": {
     "forgot_password_title": "Forgot Password",

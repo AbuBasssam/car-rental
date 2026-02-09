@@ -182,7 +182,9 @@
     "resending_code": "جاري الإرسال...",
     "digit_label": "رقم",
     "verification_locked": "التحقق معطّل مؤقتاً",
-    "cooldown_message": "تم تعطيل التحقق مؤقتاً. يمكنك طلب رمز جديد بعد "
+    "cooldown_message": "تم تعطيل التحقق مؤقتاً. يمكنك طلب رمز جديد بعد ",
+    "verification_disabled": "التحقق معطّل مؤقتاً",
+    "request_new_code_after_countdown": "يمكنك طلب رمز جديد بعد انتهاء العد التنازلي"
   },
   "reset_password": {
     "forgot_password_title": "نسيت كلمة المرور",

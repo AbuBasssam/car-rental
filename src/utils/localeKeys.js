@@ -200,7 +200,9 @@ export const verifyKeys = {
   resendingCode: "verify.resending_code",
   digitLabel: "verify.digit_label",
   verificationLocked: "verify.verification_locked",
-  cooldownMessage: "verify.cooldown_message"
+  cooldownMessage: "verify.cooldown_message",
+  verificationDisabled: "verify.verification_disabled",
+  requestNewCodeAfterCountdown: "verify.request_new_code_after_countdown"
 };
 
 /**
