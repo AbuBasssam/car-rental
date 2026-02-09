@@ -1,9 +1,13 @@
 import { redirect } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
-import { flashMessageType, keys } from "../utils/constants";
+import { flashMessageType } from "../utils/constants";
 import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
-import { validationKeys, errorsKeys } from "../utils/localeKeys";
+import {
+  validationKeys,
+  errorsKeys,
+  resetPasswordKeys,
+} from "../utils/localeKeys";
 import { setFlashMessage } from "../utils/flashService";
 
 import {
@@ -120,7 +124,11 @@ const ResetPasswordAction = async ({ request }) => {
       deleteCsrfToken();
 
       // Set success flag for toast notification on login page
-      sessionStorage.setItem(keys.kPasswordReset, "true");
+      setFlashMessage(
+        resetPasswordKeys.passwordChangedSuccessfully,
+        flashMessageType.success,
+      );
+      // sessionStorage.setItem(keys.kPasswordReset, "true");
 
       // Redirect to login page
       return redirect(ROUTES.LOGIN, { replace: true });

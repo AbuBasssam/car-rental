@@ -1,9 +1,9 @@
 import { redirect } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
-import { flashMessageType, keys } from "../utils/constants";
+import { flashMessageType } from "../utils/constants";
 import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
-import { validationKeys, errorsKeys } from "../utils/localeKeys";
+import { validationKeys, errorsKeys, authKeys } from "../utils/localeKeys";
 import {
   clearVerificationEmail,
   getValidVerificationEmail,
@@ -42,13 +42,29 @@ export const AccountVerificationAction = async ({ request }) => {
 
     if (response.data?.succeeded) {
       clearVerificationEmail();
-      sessionStorage.setItem(keys.kAccountVerified, "true");
+      setFlashMessage(authKeys.verificationSuccess, flashMessageType.success);
+
       return redirect(ROUTES.LOGIN, { replace: true });
     }
 
     return response.data;
   } catch (err) {
     const normalizedError = normalizeError(err);
+    if (err.response?.status === 410) {
+      const cooldownSeconds = err.response?.data?.meta?.cooldownSeconds || 180; // Default 3 minutes
+
+      return {
+        succeeded: false,
+        isMessageKey: true,
+        message: errorsKeys.verificationAttemptsExceeded,
+        errors: [],
+        validationErrors: {},
+        meta: {
+          cooldownSeconds,
+          isLocked: true,
+        },
+      };
+    }
 
     let finalMessage = normalizedError.message;
     if (
