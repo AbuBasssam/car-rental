@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { isAuthenticated } from "../services/authService";
-import { ROUTES } from "../routes/paths";
+import { ROUTES } from "./paths";
 
 /**
  * Protected Route Component
