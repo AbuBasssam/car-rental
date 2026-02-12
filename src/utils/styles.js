@@ -395,6 +395,12 @@ export const verifyStyles = {
       "text-sm text-premium-orange hover:text-[#e55a2a] font-semibold transition-colors duration-300 cursor-pointer",
     buttonDisabled: "opacity-50 cursor-not-allowed",
   },
+  lock: {
+    container: "mt-6 sm:mt-8 text-center space-y-2",
+    title:
+      "text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center justify-center gap-2",
+    description: "text-[10px] sm:text-xs text-gray-500 dark:text-gray-400",
+  },
 };
 
 // ========================================================================

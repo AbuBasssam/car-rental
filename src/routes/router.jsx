@@ -10,11 +10,12 @@ import { AccountVerificationAction } from "../actions/AccountVerificationAction"
 import ForgetPasswordAction from "../actions/RequestResetPasswordCodeAction";
 import VerifyRoute from "./VerifyRoute";
 import PublicRoute from "./PublicRoute";
+import VerifyResetRoute from "./VerifyResetRoute";
 import { rootLoader } from "../loaders/Rootloader";
 import Root from "../layouts/Root";
 import VerifyResetCodeAction from "../actions/VerifyResetCodeAction";
 import ResetPasswordAction from "../actions/ResetPasswordAction";
-import ResetPasswordRoute from "../routes/ResetpasswordrRoute.jsx";
+import ResetPasswordRoute from "./ResetPasswordRoute.jsx";
 
 // Lazy loaded pages
 const HomePage = Loadable(lazy(() => import("../pages/HomePage.jsx")));
@@ -83,18 +84,6 @@ export const router = createBrowserRouter([
                 element: <ForgetPasswordPage />,
                 action: ForgetPasswordAction,
               },
-              //TODO: Delete VerifyResetCodePage from here it just for test actual place is VerifyRoute
-              {
-                path: ROUTES.VERIFY_RESET,
-                element: <VerifyResetCodePage />,
-                action: VerifyResetCodeAction,
-              },
-              //TODO: Delete ResetPasswordPage from here it just for test actual place is ResetPasswordRoute will be add later
-              {
-                path: ROUTES.RESET_PASSWORD,
-                element: <ResetPasswordPage />,
-                action: ResetPasswordAction,
-              },
             ],
           },
           {
@@ -114,13 +103,23 @@ export const router = createBrowserRouter([
             ],
           },
           {
+            element: <VerifyResetRoute />,
+            children: [
+              {
+                path: ROUTES.VERIFY_RESET,
+                element: <VerifyResetCodePage />,
+                action: VerifyResetCodeAction,
+              },
+            ],
+          },
+          {
             element: <ResetPasswordRoute />,
             children: [
-              // {
-              //   path: ROUTES.RESET_PASSWORD,
-              //   element: <ResetPasswordPage />,
-              //   action: ResetPasswordAction,
-              // },
+              {
+                path: ROUTES.RESET_PASSWORD,
+                element: <ResetPasswordPage />,
+                action: ResetPasswordAction,
+              },
             ],
           },
 

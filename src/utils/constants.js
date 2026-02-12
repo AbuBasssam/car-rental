@@ -8,7 +8,6 @@ export const keys = {
   kTheme: "theme",
   kVerificationEmail: "pendingVerificationEmail",
   kResetEmail: "pendingResetEmail",
-  kAccountVerified: "accountVerified",
   kResetToken: "resetToken",
   kPasswordReset: "passwordResetSuccess",
   kFlashMessage: "flashMessage",

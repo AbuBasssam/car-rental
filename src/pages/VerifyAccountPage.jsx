@@ -121,11 +121,11 @@ function VerifyAccountPage() {
 
         {/* 🆕 Conditional Rendering: Show message when locked, otherwise show ResendSection */}
         {isLocked ? (
-          <aside className="mt-6 text-center space-y-2" aria-live="polite">
-            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <aside className={verifyStyles.lock.container} aria-live="polite">
+            <p className={verifyStyles.lock.title}>
               🔒 {t(verifyKeys.verificationDisabled)}
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className={verifyStyles.lock.description}>
               {t(verifyKeys.requestNewCodeAfterCountdown)}
             </p>
           </aside>
