@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MdOutlineDateRange } from "react-icons/md";
 
 import lightHero from "../../assets/light hero.png";
 
@@ -10,7 +9,8 @@ import OutlineButton from "../../layouts/outlineButton.jsx";
 import HeroIntro from "./heroIntro.jsx";
 import LocationInput from "./LocationInput.jsx";
 import DateInput from "./DateInput.jsx";
-import localeKeys from "../../utils/localeKeys.js";
+import { heroStyles } from "../../utils/styles";
+import { heroKeys, bookingKeys } from "../../utils/localeKeys";
 
 const addDays = (date, days) => {
   if (!date) return null;
@@ -71,25 +71,25 @@ const Hero = () => {
     const newErrors = {};
 
     if (!formData.pickupLocation.trim()) {
-      newErrors.pickupLocation = t(localeKeys.pickupLocationRequired);
+      newErrors.pickupLocation = t(bookingKeys.pickupLocationRequired);
     }
 
     if (!formData.pickupDate) {
-      newErrors.pickupDate = t(localeKeys.pickupDateRequired);
+      newErrors.pickupDate = t(bookingKeys.pickupDateRequired);
     }
 
     if (!formData.dropoffDate) {
-      newErrors.dropoffDate = t(localeKeys.dropoffDateRequired);
+      newErrors.dropoffDate = t(bookingKeys.dropoffDateRequired);
     }
 
     if (formData.pickupDate && formData.dropoffDate) {
       if (formData.dropoffDate <= formData.pickupDate) {
-        newErrors.dropoffDate = t(localeKeys.dropoffDateInvalid);
+        newErrors.dropoffDate = t(bookingKeys.dropoffDateInvalid);
       }
     }
 
     if (differentDropoff && !formData.dropoffLocation.trim()) {
-      newErrors.dropoffLocation = t(localeKeys.dropoffLocationRequired);
+      newErrors.dropoffLocation = t(bookingKeys.dropoffLocationRequired);
     }
 
     setErrors(newErrors);
@@ -124,36 +124,40 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-mercury dark:bg-mirage py-40 lg:py-20 px-5 lg:px-14">
-      <div className="max-w-325 mx-auto flex flex-col lg:flex-row items-center justify-between gap-10 transition-colors duration-300">
-        <div className="flex-1 space-y-6">
+    <section className={heroStyles.section}>
+      <div className={heroStyles.container}>
+        <div className={heroStyles.content.wrapper}>
           <HeroIntro />
 
           {/* BUTTONS */}
-          <div className="flex gap-4" data-aos="fade-up" data-aos-delay="400">
+          <div
+            className={heroStyles.buttonsWrapper}
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
             <PrimaryButton type="button">
-              {t(localeKeys.bookYourRide)}
+              {t(heroKeys.bookYourRide)}
             </PrimaryButton>
 
-            <OutlineButton title={t(localeKeys.sellYourCar)} />
+            <OutlineButton title={t(heroKeys.sellYourCar)} />
           </div>
         </div>
 
         {/* Image */}
         <div data-aos="zoom-in-left">
-          <img src={lightHero} alt={t(localeKeys.luxuryCar)} loading="eager" />
+          <img src={lightHero} alt={t(heroKeys.luxuryCar)} loading="eager" />
         </div>
       </div>
 
       {/* FORM SECTION */}
       <form
         onSubmit={handleSearch}
-        className="bg-white dark:bg-big-stone rounded-xl shadow-md p-5 my-5 transition-colors duration-300"
+        className={heroStyles.form.container}
         data-aos="fade-up"
         data-aos-delay="400"
       >
         {/* Main Fields */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <div className={heroStyles.form.grid}>
           {/* Pickup Location */}
           <div>
             {errors.pickupLocation && (
@@ -161,8 +165,8 @@ const Hero = () => {
             )}
 
             <LocationInput
-              label={t(localeKeys.pickupLocation)}
-              placeholder={t(localeKeys.selectBranch)}
+              label={t(bookingKeys.pickupLocation)}
+              placeholder={t(bookingKeys.selectBranch)}
               name="pickupLocation"
               value={formData.pickupLocation}
               locations={locations}
@@ -177,7 +181,7 @@ const Hero = () => {
             )}
 
             <DateInput
-              label={t(localeKeys.pickupDate)}
+              label={t(bookingKeys.pickupDate)}
               name="pickupDate"
               value={formData.pickupDate}
               onChange={(date) => handleDateChange(date, "pickupDate")}
@@ -192,7 +196,7 @@ const Hero = () => {
             )}
 
             <DateInput
-              label={t(localeKeys.returnDate)}
+              label={t(bookingKeys.returnDate)}
               value={formData.dropoffDate}
               onChange={(date) => handleDateChange(date, "dropoffDate")}
               min={
@@ -210,8 +214,8 @@ const Hero = () => {
                 <p className="error-message">{errors.dropoffLocation}</p>
               )}
               <LocationInput
-                label={t(localeKeys.returnLocation)}
-                placeholder={t(localeKeys.selectBranch)}
+                label={t(bookingKeys.returnLocation)}
+                placeholder={t(bookingKeys.selectBranch)}
                 name="dropoffLocation"
                 value={formData.dropoffLocation}
                 onChange={handleInputChange}
@@ -226,20 +230,20 @@ const Hero = () => {
             className="w-full"
             onClick={handleSearch}
           >
-            {t(localeKeys.search)}
+            {t("search")}
           </PrimaryButton>
         </div>
 
         {/* Divider + Toggle */}
-        <div className="mt-4 pt-3 border-t-2 border-mercury dark:border-pickled-bluewood flex justify-end transition-colors duration-300">
+        <div className={heroStyles.form.divider}>
           <button
             type="button"
             onClick={() => setDifferentDropoff(!differentDropoff)}
-            className="text-sm font-semibold text-orange-500 hover:underline dark:text-neon-orange transition-colors duration-200"
+            className={heroStyles.form.toggleButton}
           >
             {differentDropoff
-              ? t(localeKeys.returnToSameLocation)
-              : t(localeKeys.returnToDifferentLocation)}
+              ? t("booking.return_to_same_location")
+              : t("booking.return_to_different_location")}
           </button>
         </div>
       </form>

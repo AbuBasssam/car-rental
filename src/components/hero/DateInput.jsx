@@ -6,7 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import enUS from "date-fns/locale/en-US";
 import ar from "date-fns/locale/ar-SA";
 import { keys } from "../../utils/constants";
-import localeKeys from "../../utils/localeKeys.js";
+import { formInputStyles } from "../../utils/styles";
+import { bookingKeys } from "../../utils/localeKeys";
 
 registerLocale(keys.kEN, enUS);
 registerLocale(keys.kAR, ar);
@@ -18,24 +19,22 @@ const DateInput = ({ label, value, onChange, name, min, placeholderText }) => {
 
   return (
     <div
-      className="flex flex-col gap-1"
+      className={formInputStyles.container}
       dir={currentLang === keys.kAR ? "rtl" : "ltr"}
     >
-      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
-        {label}
-      </label>
+      <label className={formInputStyles.label}>{label}</label>
 
-      <div className="flex items-center gap-2 border border-mercury dark:border-pickled-bluewood rounded-lg px-3 py-2 bg-white dark:bg-mirage focus-within:border-premium-orange focus-within:ring-2 focus-within:ring-premium-orange/20 transition-all">
+      <div className={formInputStyles.inputWrapper}>
         <DatePicker
-          className="w-full text-sm outline-none bg-transparent text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+          className={formInputStyles.input}
           selected={safeDate}
           onChange={onChange}
           name={name}
           locale={currentLang}
           dateFormat="dd-MM-yyyy"
           minDate={min}
-          placeholderText={placeholderText || t(localeKeys.dateFormat)}
-          todayButton={t(localeKeys.today)}
+          placeholderText={placeholderText || t(bookingKeys.dateFormat)}
+          todayButton={t(bookingKeys.today)}
         />
       </div>
     </div>
