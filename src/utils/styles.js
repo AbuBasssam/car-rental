@@ -480,3 +480,377 @@ export const arabicTextAdjustment = {
   wordWrap: "break-word",
   maxWidth: "100%",
 };
+
+// ========================================================================
+// SECTION STYLES - Common Section Elements
+// ========================================================================
+
+export const sectionStyles = {
+  // Section headers
+  header:
+    "font-heading text-4xl font-bold text-eerie-black dark:text-authentic-white",
+
+  // Section descriptions
+  description:
+    "font-body text-deep-gray dark:text-dark-text-muted text-lg leading-relaxed text-left",
+};
+
+// ========================================================================
+// WHY CHOOSE US STYLES
+// ========================================================================
+
+export const whyChooseUsStyles = {
+  // Main container
+  container:
+    "max-w-7xl mx-auto py-20 px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center overflow-hidden",
+
+  // Image section
+  image: {
+    wrapper: "flex justify-center items-center w-full h-auto",
+    img: "w-full max-w-125 lg:max-w-full h-auto object-contain rounded-2xl transition-transform duration-500 hover:scale-105",
+  },
+
+  // Content section
+  content: {
+    wrapper: "space-y-8 text-left",
+  },
+
+  // Feature cards
+  card: {
+    container:
+      "flex items-start gap-4 p-5 rounded-2xl border border-soft-gray dark:border-dark-border bg-white dark:bg-big-stone transition-all duration-300 hover:shadow-orange dark:hover:shadow-dark-soft",
+
+    iconWrapper:
+      "shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-seashell dark:bg-pickled-bluewood text-premium-orange text-2xl transition-colors duration-300 group-hover:bg-premium-orange group-hover:text-white",
+
+    textWrapper: "text-left",
+
+    title:
+      "font-heading font-bold text-eerie-black dark:text-authentic-white text-lg leading-tight",
+
+    description:
+      "font-body text-sm text-deep-gray dark:text-dark-text-muted mt-1",
+  },
+};
+
+// ========================================================================
+// HOW IT WORKS STYLES
+// ========================================================================
+
+export const howItWorksStyles = {
+  // Section container
+  section: "py-20 bg-white dark:bg-mirage transition-colors duration-300",
+
+  container: "max-w-7xl mx-auto px-6",
+
+  // Header section
+  header: {
+    wrapper: "text-center max-w-2xl mx-auto mb-16",
+    title: "section__header mb-4",
+    description: "section__description",
+  },
+
+  // Steps grid
+  grid: "grid grid-cols-1 md:grid-cols-4 gap-8 relative",
+
+  // Step card
+  stepCard: {
+    container:
+      "step__card group relative flex flex-col items-center text-center p-8 bg-white dark:bg-big-stone rounded-4xl transition-all duration-500 hover:-translate-y-2 border border-soft-gray dark:border-dark-border shadow-sm hover:shadow-orange dark:hover:shadow-dark-soft",
+
+    // Step number badge
+    stepNumber:
+      "absolute top-4 right-6 text-4xl font-black opacity-5 text-eerie-black dark:text-white group-hover:opacity-10 transition-opacity",
+
+    // Icon container
+    iconContainer:
+      "w-24 h-24 mb-6 flex items-center justify-center rounded-2xl bg-seashell dark:bg-pickled-bluewood text-premium-orange text-5xl transition-all duration-300 group-hover:bg-premium-orange group-hover:text-white group-hover:rotate-6",
+
+    // Text elements
+    title:
+      "font-heading font-bold text-xl text-eerie-black dark:text-authentic-white mb-3",
+
+    description:
+      "font-body text-sm text-deep-gray dark:text-dark-text-muted leading-relaxed",
+  },
+};
+
+// ========================================================================
+// FOOTER STYLES
+// ========================================================================
+
+export const footerStyles = {
+  // Main footer section
+  footer:
+    "bg-authentic-white dark:bg-mirage border-t border-soft-gray dark:border-dark-border transition-colors duration-300",
+
+  // Footer container
+  container:
+    "max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12",
+
+  // Brand column
+  brand: {
+    wrapper: "space-y-6",
+    logo: "text-2xl font-black text-premium-orange font-heading",
+    description:
+      "font-body text-deep-gray dark:text-dark-text-muted leading-relaxed",
+    socialWrapper: "flex gap-4",
+  },
+
+  // Footer column
+  column: {
+    wrapper: "",
+    title:
+      "font-heading text-xl font-bold text-eerie-black dark:text-authentic-white mb-6",
+    linksList: "space-y-2",
+    link: "font-body text-deep-gray dark:text-dark-text-muted hover:text-premium-orange dark:hover:text-neon-orange transition-colors duration-300 block mb-3",
+  },
+
+  // Contact info
+  contact: {
+    wrapper: "",
+    title:
+      "font-heading text-xl font-bold text-eerie-black dark:text-authentic-white mb-6",
+    list: "space-y-4",
+    item: "flex items-center gap-3 text-deep-gray dark:text-dark-text-muted",
+    icon: "text-premium-orange",
+    text: "text-sm font-body",
+  },
+
+  // Social icons
+  socialIcon:
+    "w-10 h-10 flex items-center justify-center rounded-full bg-soft-gray dark:bg-big-stone text-eerie-black dark:text-authentic-white hover:bg-premium-orange hover:text-white transition-all duration-300",
+
+  // Copyright section
+  copyright: {
+    wrapper:
+      "border-t border-soft-gray dark:border-dark-border py-8 text-center",
+    text: "text-sm text-light-text-subtle dark:text-dark-text-muted",
+  },
+};
+
+// ========================================================================
+// HERO SECTION STYLES
+// ========================================================================
+
+export const heroStyles = {
+  // Main section
+  section: "bg-mercury dark:bg-mirage py-40 lg:py-20 px-5 lg:px-14",
+
+  // Container
+  container:
+    "max-w-325 mx-auto flex flex-col lg:flex-row items-center justify-between gap-10 transition-colors duration-300",
+
+  // Content area
+  content: {
+    wrapper: "flex-1 space-y-6",
+  },
+
+  // Hero intro
+  intro: {
+    subtitle:
+      "text-premium-orange font-semibold text-sm tracking-widest uppercase mt-5",
+    title:
+      "text-4xl font-extrabold leading-tight text-gray-900 dark:text-gray-100",
+    titleHighlight: "text-premium-orange",
+    description: "text-gray-600 dark:text-gray-400 max-w-xl",
+  },
+
+  // Buttons wrapper
+  buttonsWrapper: "flex gap-4",
+
+  // Form section
+  form: {
+    container:
+      "bg-white dark:bg-big-stone rounded-xl shadow-md p-5 my-5 transition-colors duration-300",
+
+    // Main fields grid
+    grid: "grid grid-cols-1 md:grid-cols-4 gap-4 items-end",
+
+    // Divider + Toggle
+    divider:
+      "mt-4 pt-3 border-t-2 border-mercury dark:border-pickled-bluewood flex justify-end transition-colors duration-300",
+
+    toggleButton:
+      "text-sm font-semibold text-orange-500 hover:underline dark:text-neon-orange transition-colors duration-200",
+  },
+};
+
+// ========================================================================
+// FORM INPUT STYLES
+// ========================================================================
+
+export const formInputStyles = {
+  // Generic input container
+  container: "flex flex-col gap-1",
+
+  // Label
+  label: "text-xs font-semibold text-gray-500 dark:text-gray-400",
+
+  // Input wrapper (with icon)
+  inputWrapper:
+    "flex items-center gap-2 border border-mercury dark:border-pickled-bluewood rounded-lg px-3 py-2 bg-white dark:bg-mirage focus-within:border-premium-orange focus-within:ring-2 focus-within:ring-premium-orange/20 transition-all",
+
+  // Input wrapper with hover
+  inputWrapperHover:
+    "flex items-center gap-2 border border-mercury dark:border-pickled-bluewood rounded-lg px-3 py-2 bg-white dark:bg-mirage hover:bg-soft-gray dark:hover:bg-fiord focus-within:border-premium-orange focus-within:ring-2 focus-within:ring-premium-orange/20 transition-all",
+
+  // Input field
+  input:
+    "w-full text-sm outline-none bg-transparent text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500",
+
+  inputFlex:
+    "flex-1 text-sm outline-none bg-transparent text-gray-800 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500",
+
+  // Icon
+  icon: "text-premium-orange text-sm shrink-0",
+
+  // Dropdown toggle button
+  dropdownToggle:
+    "p-1 rounded-full hover:bg-authentic-white dark:hover:bg-big-stone transition",
+
+  chevron: "text-gray-400 dark:text-gray-500 text-xs transition-transform",
+  chevronOpen:
+    "text-gray-400 dark:text-gray-500 text-xs transition-transform rotate-180",
+
+  // Dropdown menu
+  dropdown:
+    "absolute top-full left-0 right-0 mt-1 bg-white dark:bg-big-stone border border-mercury dark:border-pickled-bluewood rounded-lg shadow-lg max-h-60 overflow-y-auto z-50",
+
+  dropdownItem:
+    "w-full text-left px-4 py-3 text-sm transition-colors text-deep-gray dark:text-gray-300 hover:bg-soft-gray dark:hover:bg-fiord",
+
+  dropdownItemSelected:
+    "w-full text-left px-4 py-3 text-sm transition-colors bg-seashell dark:bg-pickled-bluewood text-premium-orange font-semibold",
+
+  dropdownEmpty:
+    "px-4 py-3 text-sm text-gray-400 dark:text-gray-500 text-center",
+};
+
+// ========================================================================
+// MOST RENTED CARS STYLES
+// ========================================================================
+
+export const mostRentedCarsStyles = {
+  // Main section
+  section:
+    "min-h-screen px-4 py-12 font-body transition-colors duration-300 ease-in-out bg-mercury dark:bg-mirage",
+
+  // Container
+  container: "max-w-350 mx-auto",
+
+  // Header
+  header: {
+    wrapper: "text-center mb-10",
+    title:
+      "font-heading font-bold mb-4 text-eerie-black dark:text-mercury text-4xl md:text-5xl lg:text-6xl tracking-tighter-custom",
+    description:
+      "text-deep-gray dark:text-dark-text-muted text-base md:text-lg lg:text-xl max-w-2xl mx-auto",
+  },
+
+  // Category filter
+  categoryFilter: {
+    wrapper: "flex gap-3 justify-center flex-wrap mb-12 px-4",
+
+    button:
+      "px-6 py-3 rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 ease-in-out hover:scale-105",
+
+    buttonActive:
+      "px-6 py-3 rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 bg-premium-orange text-white shadow-orange scale-105 border-none",
+
+    buttonInactive:
+      "px-6 py-3 rounded-full text-sm font-semibold cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 bg-white dark:bg-big-stone text-eerie-black dark:text-mercury border border-soft-gray dark:border-dark-border shadow-light-soft dark:shadow-dark-soft hover:bg-soft-gray dark:hover:bg-pickled-bluewood",
+  },
+
+  // Cars grid
+  grid: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-2",
+
+  // Car card
+  card: {
+    container:
+      "bg-white dark:bg-big-stone rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ease-in-out shadow-light-soft dark:shadow-dark-soft",
+
+    containerHovered:
+      "bg-white dark:bg-big-stone rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ease-in-out shadow-orange -translate-y-2 scale-[1.02] border-2 border-premium-orange",
+
+    // Image section
+    image: {
+      wrapper: "relative h-60 overflow-hidden",
+      img: "w-full h-full object-cover transition-transform duration-500 ease-in-out",
+      imgHovered:
+        "w-full h-full object-cover transition-transform duration-500 ease-in-out scale-110",
+
+      // Overlay
+      overlay:
+        "absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent transition-opacity duration-300 ease-in-out opacity-70",
+      overlayHovered:
+        "absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent transition-opacity duration-300 ease-in-out opacity-90",
+
+      // Top badges
+      badgesWrapper:
+        "absolute top-4 left-4 right-4 flex justify-between items-center",
+      yearBadge:
+        "px-4 py-2 rounded-full flex items-center gap-2 backdrop-blur-md bg-white/95 dark:bg-big-stone/95 shadow-light-soft dark:shadow-dark-soft",
+      yearText: "font-bold text-sm text-premium-orange",
+      accessibilityBadge:
+        "bg-emerald-500 text-white p-2 rounded-full flex backdrop-blur-md shadow-lg shadow-emerald-500/40",
+
+      // Bottom info
+      bottomInfo: "absolute bottom-4 left-4 right-4",
+      categoryText: "text-xs text-neon-orange font-bold mb-1 tracking-wider",
+      carName: "font-heading text-xl font-bold text-white drop-shadow-lg",
+    },
+
+    // Content padding
+    content: "p-5",
+
+    // Price info
+    price: {
+      wrapper:
+        "flex items-baseline gap-2 mb-4 pb-4 dark:border-dark-border border-soft-gray border-b-2",
+      amount: "text-3xl font-bold text-premium-orange font-heading",
+      period: "text-sm font-medium text-deep-gray dark:text-dark-text-muted",
+    },
+
+    // Features
+    features: {
+      grid: "grid grid-cols-2 gap-3 mb-5",
+      item: "flex items-center gap-2 p-3 rounded-xl transition-all duration-300 ease-in-out bg-seashell dark:bg-pickled-bluewood hover:bg-premium-orange hover:scale-105 group",
+      icon: "text-premium-orange shrink-0 transition- duration-300 group-hover:text-white",
+      label:
+        "text-xs font-semibold whitespace-nowrap overflow-hidden text-ellipsis dark:text-dark-text-muted text-deep-gray group-hover:text-white transition-colors duration-300",
+    },
+
+    // Book button
+    bookButton:
+      "w-full bg-premium-orange text-white py-4 rounded-xl border-none text-lg font-bold cursor-pointer transition-all duration-300 ease-in-out shadow-lg shadow-premium-orange/30 font-heading hover:bg-premium-orange-dark hover:scale-[1.03] hover:shadow-orange",
+  },
+};
+
+// ========================================================================
+// BUTTON STYLES
+// ========================================================================
+
+export const buttonStyles = {
+  // Primary button
+  primary:
+    "inline-flex items-center justify-center px-6 py-2 rounded-lg text-base font-semibold bg-orange-500 text-white transition-all duration-200 hover:bg-orange-600 dark:hover:bg-neon-orange hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/30 active:translate-y-0",
+
+  // Outline button
+  outline: {
+    container:
+      "relative overflow-hidden inline-flex items-center justify-center px-7 py-3 rounded-lg text-base font-semibold border-2 border-gray-900 dark:border-gray-300 text-gray-900 dark:text-mercury transition-all duration-200 group",
+    hoverFill:
+      "absolute right-0 bottom-0 w-full h-0 bg-gray-900 dark:bg-mercury transition-all duration-200 ease-out group-hover:h-full",
+    text: "relative group-hover:text-white dark:group-hover:text-gray-900 transition-colors duration-200",
+  },
+
+  // Full width button
+  fullWidth:
+    "w-full inline-flex items-center justify-center px-6 py-3 my-4 sm:py-4 rounded-xl text-sm sm:text-base font-bold bg-gradient-to-r from-orange-500/90 to-orange-600/90 text-white/95 transition-all duration-300 hover:from-orange-600/90 hover:to-orange-700/90 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-orange-500/30 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-orange-500/70 relative overflow-hidden group",
+
+  fullWidthInner: "relative z-10",
+
+  fullWidthHover:
+    "absolute inset-0 transition-opacity duration-300 z-0 opacity-0 group-hover:opacity-100 bg-linear-to-r from-orange-400/50 to-orange-500/50",
+};

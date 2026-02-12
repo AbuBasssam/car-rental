@@ -28,61 +28,6 @@ export const localeKeys = {
   forgotPassword: "forgot_password",
   accountSettings: "account_settings",
   changeLanguage: "change_language",
-  findYourPerfectRide: "find_your_perfect_ride",
-  rentTheBestQuality: "rent_the_best_quality",
-  cars: "cars",
-  withUs: "with_us",
-  heroDescription: "hero_description",
-  bookYourRide: "book_your_ride",
-  sellYourCar: "sell_your_car",
-  luxuryCar: "luxury_car",
-  pickupLocation: "pickup_location",
-  pickupDate: "pickup_date",
-  returnDate: "return_date",
-  returnLocation: "return_location",
-  selectBranch: "select_branch",
-  returnToDifferentLocation: "return_to_different_location",
-  returnToSameLocation: "return_to_same_location",
-  dateFormat: "date_format",
-  today: "today",
-  noLocationsFound: "no_locations_found",
-  pickupLocationRequired: "pickup_location_required",
-  pickupDateRequired: "pickup_date_required",
-  dropoffDateRequired: "dropoff_date_required",
-  dropoffDateInvalid: "dropoff_date_invalid",
-  dropoffLocationRequired: "dropoff_location_required",
-  whyChooseUs: "why_choose_us",
-  whyChooseUsDesc: "why_choose_us_desc",
-  modernCarFleet: "modern_car_fleet",
-  support_24Per_7: "support_24_per_7",
-  support_24Per_7Desc: "support_24_per_7_desc",
-  competitivePricing: "competitive_pricing",
-  competitivePricingDesc: "competitive_pricing_desc",
-  fullyInsured: "fully_insured",
-  fullyInsuredDesc: "fully_insured_desc",
-  modernFleet: "modern_fleet",
-  modernFleetDesc: "modern_fleet_desc",
-  howItWorks: "how_it_works",
-  howItWorksDesc: "how_it_works_desc",
-  chooseLocation: "choose_location",
-  chooseLocationDesc: "choose_location_desc",
-  pickupDateStep: "pickup_date_step",
-  pickupDateStepDesc: "pickup_date_step_desc",
-  selectYourCar: "select_your_car",
-  selectYourCarDesc: "select_your_car_desc",
-  comfortPickup: "comfort_pickup",
-  comfortPickupDesc: "comfort_pickup_desc",
-  footerDescription: "footer_description",
-  company: "company",
-  quickLinks: "quick_links",
-  getInTouch: "get_in_touch",
-  allRightsReserved: "all_rights_reserved",
-  aboutUs: "about_us",
-  ourFleet: "our_fleet",
-  services: "services",
-  privacyPolicy: "privacy_policy",
-  rentACar: "rent_a_car",
-  backToHome: "back_to_home",
   enterYourEmail: "enter_your_email",
   enterYourPassword: "enter_your_password",
   premiumDrive: "premium_drive",
@@ -133,6 +78,115 @@ export const authKeys = {
   emailPlaceholder: "auth.email_placeholder",
   passwordPlaceholder: "auth.password_placeholder",
   verificationSuccess: "auth.verificationSuccess"
+};
+
+/**
+ * Hero namespace keys
+ */
+export const heroKeys = {
+  findYourPerfectRide: "hero.find_your_perfect_ride",
+  rentTheBestQuality: "hero.rent_the_best_quality",
+  cars: "hero.cars",
+  withUs: "hero.with_us",
+  description: "hero.description",
+  bookYourRide: "hero.book_your_ride",
+  sellYourCar: "hero.sell_your_car",
+  luxuryCar: "hero.luxury_car"
+};
+
+/**
+ * Booking namespace keys
+ */
+export const bookingKeys = {
+  pickupLocation: "booking.pickup_location",
+  pickupDate: "booking.pickup_date",
+  returnDate: "booking.return_date",
+  returnLocation: "booking.return_location",
+  selectBranch: "booking.select_branch",
+  returnToDifferentLocation: "booking.return_to_different_location",
+  returnToSameLocation: "booking.return_to_same_location",
+  dateFormat: "booking.date_format",
+  today: "booking.today",
+  noLocationsFound: "booking.no_locations_found",
+  pickupLocationRequired: "booking.pickup_location_required",
+  pickupDateRequired: "booking.pickup_date_required",
+  dropoffDateRequired: "booking.dropoff_date_required",
+  dropoffDateInvalid: "booking.dropoff_date_invalid",
+  dropoffLocationRequired: "booking.dropoff_location_required"
+};
+
+/**
+ * WhyChooseUs namespace keys
+ */
+export const whyChooseUsKeys = {
+  title: "whyChooseUs.title",
+  description: "whyChooseUs.description",
+  modernCarFleet: "whyChooseUs.modern_car_fleet",
+  support_24Per_7: "whyChooseUs.support_24_per_7",
+  support_24Per_7Desc: "whyChooseUs.support_24_per_7_desc",
+  competitivePricing: "whyChooseUs.competitive_pricing",
+  competitivePricingDesc: "whyChooseUs.competitive_pricing_desc",
+  fullyInsured: "whyChooseUs.fully_insured",
+  fullyInsuredDesc: "whyChooseUs.fully_insured_desc",
+  modernFleet: "whyChooseUs.modern_fleet",
+  modernFleetDesc: "whyChooseUs.modern_fleet_desc"
+};
+
+/**
+ * HowItWorks namespace keys
+ */
+export const howItWorksKeys = {
+  title: "howItWorks.title",
+  description: "howItWorks.description",
+  chooseLocation: "howItWorks.choose_location",
+  chooseLocationDesc: "howItWorks.choose_location_desc",
+  pickupDateStep: "howItWorks.pickup_date_step",
+  pickupDateStepDesc: "howItWorks.pickup_date_step_desc",
+  selectYourCar: "howItWorks.select_your_car",
+  selectYourCarDesc: "howItWorks.select_your_car_desc",
+  comfortPickup: "howItWorks.comfort_pickup",
+  comfortPickupDesc: "howItWorks.comfort_pickup_desc"
+};
+
+/**
+ * MostRentedCars namespace keys
+ */
+export const mostRentedCarsKeys = {
+  title: "mostRentedCars.title",
+  description: "mostRentedCars.description",
+  bookNow: "mostRentedCars.book_now",
+  perDay: "mostRentedCars.per_day",
+  all: "mostRentedCars.all",
+  sedan: "mostRentedCars.sedan",
+  suv: "mostRentedCars.suv",
+  sport: "mostRentedCars.sport",
+  luxury: "mostRentedCars.luxury",
+  electric: "mostRentedCars.electric",
+  seats: "mostRentedCars.seats",
+  bags: "mostRentedCars.bags",
+  automatic: "mostRentedCars.automatic",
+  manual: "mostRentedCars.manual",
+  petrol: "mostRentedCars.petrol",
+  diesel: "mostRentedCars.diesel",
+  electricFuel: "mostRentedCars.electric_fuel",
+  hybrid: "mostRentedCars.hybrid"
+};
+
+/**
+ * Footer namespace keys
+ */
+export const footerKeys = {
+  description: "footer.description",
+  company: "footer.company",
+  quickLinks: "footer.quick_links",
+  getInTouch: "footer.get_in_touch",
+  allRightsReserved: "footer.all_rights_reserved",
+  aboutUs: "footer.about_us",
+  ourFleet: "footer.our_fleet",
+  services: "footer.services",
+  privacyPolicy: "footer.privacy_policy",
+  rentACar: "footer.rent_a_car",
+  backToHome: "footer.back_to_home"
 };
 
 /**
