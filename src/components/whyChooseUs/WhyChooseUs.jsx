@@ -5,7 +5,7 @@ import chooseImg from "../../assets/choose.png";
 
 import FeatureCard from "./FeatureCard";
 import Header from "../whyChooseUs/Header";
-import { whyChooseUsStyles } from "../../utils/styles";
+import { sectionStyles, whyChooseUsStyles } from "../../utils/styles";
 import { whyChooseUsKeys } from "../../utils/localeKeys";
 
 import {
@@ -26,10 +26,14 @@ const WhyChooseUs = () => {
       reset: false,
     });
 
-    sr.reveal(".choose__image img", { origin: "left" });
-    sr.reveal(".section__header", { origin: "top", delay: 500 });
-    sr.reveal(".section__description", { origin: "top", delay: 700 });
-    sr.reveal(".choose__card", {
+    // استخدام الأسماء من ملف styles مباشرة
+    sr.reveal(`.${whyChooseUsStyles.image.reveal}`, { origin: "left" });
+    sr.reveal(`.${sectionStyles.revealHeader}`, { origin: "top", delay: 500 });
+    sr.reveal(`.${sectionStyles.revealDescription}`, {
+      origin: "top",
+      delay: 700,
+    });
+    sr.reveal(`.${whyChooseUsStyles.card.reveal}`, {
       interval: 300,
       origin: "bottom",
       distance: "30px",
@@ -66,7 +70,9 @@ const WhyChooseUs = () => {
     >
       <div className={whyChooseUsStyles.container}>
         {/* Image Sub-section */}
-        <div className={whyChooseUsStyles.image.wrapper + " choose__image"}>
+        <div
+          className={`${whyChooseUsStyles.image.wrapper} ${whyChooseUsStyles.image.reveal}`}
+        >
           <img
             src={chooseImg}
             loading="lazy"

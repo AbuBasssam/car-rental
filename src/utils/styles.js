@@ -493,6 +493,8 @@ export const sectionStyles = {
   // Section descriptions
   description:
     "font-body text-deep-gray dark:text-dark-text-muted text-lg leading-relaxed text-left",
+  revealHeader: "reveal-section-header",
+  revealDescription: "reveal-section-description",
 };
 
 // ========================================================================
@@ -508,6 +510,7 @@ export const whyChooseUsStyles = {
   image: {
     wrapper: "flex justify-center items-center w-full h-auto",
     img: "w-full max-w-125 lg:max-w-full h-auto object-contain rounded-2xl transition-transform duration-500 hover:scale-105",
+    reveal: "reveal-choose-image", // اسم موحد للتحريك
   },
 
   // Content section
@@ -530,6 +533,7 @@ export const whyChooseUsStyles = {
 
     description:
       "font-body text-sm text-deep-gray dark:text-dark-text-muted mt-1",
+    reveal: "reveal-choose-card", // اسم موحد للتحريك
   },
 };
 

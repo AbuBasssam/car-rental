@@ -1,7 +1,9 @@
 import { whyChooseUsStyles } from "../../utils/styles";
 
 const FeatureCard = ({ fcInfo }) => (
-  <div className={whyChooseUsStyles.card.container + " choose__card group"}>
+  <div
+    className={`${whyChooseUsStyles.card.container} ${whyChooseUsStyles.card.reveal} group`}
+  >
     <span className={whyChooseUsStyles.card.iconWrapper}>
       <fcInfo.icon />
     </span>
