@@ -5,7 +5,8 @@ import chooseImg from "../../assets/choose.png";
 
 import FeatureCard from "./FeatureCard";
 import Header from "../whyChooseUs/Header";
-import localeKeys from "../../utils/localeKeys.js";
+import { whyChooseUsStyles } from "../../utils/styles";
+import { whyChooseUsKeys } from "../../utils/localeKeys";
 
 import {
   RiCustomerService2Line,
@@ -38,23 +39,23 @@ const WhyChooseUs = () => {
   const featuresData = [
     {
       icon: RiCustomerService2Line,
-      title: t(localeKeys.support_24Per_7),
-      desc: t(localeKeys.support_24Per_7Desc),
+      title: t(whyChooseUsKeys.support_24Per_7),
+      desc: t(whyChooseUsKeys.support_24Per_7Desc),
     },
     {
       icon: RiPriceTag3Line,
-      title: t(localeKeys.competitivePricing),
-      desc: t(localeKeys.competitivePricingDesc),
+      title: t(whyChooseUsKeys.competitivePricing),
+      desc: t(whyChooseUsKeys.competitivePricingDesc),
     },
     {
       icon: RiShieldCheckLine,
-      title: t(localeKeys.fullyInsured),
-      desc: t(localeKeys.fullyInsuredDesc),
+      title: t(whyChooseUsKeys.fullyInsured),
+      desc: t(whyChooseUsKeys.fullyInsuredDesc),
     },
     {
       icon: RiSteering2Line,
-      title: t(localeKeys.modernFleet),
-      desc: t(localeKeys.modernFleetDesc),
+      title: t(whyChooseUsKeys.modernFleet),
+      desc: t(whyChooseUsKeys.modernFleetDesc),
     },
   ];
 
@@ -63,21 +64,22 @@ const WhyChooseUs = () => {
       id="choose"
       className="bg-authentic-white dark:bg-mirage transition-colors duration-300"
     >
-      <div className="choose__container">
+      <div className={whyChooseUsStyles.container}>
         {/* Image Sub-section */}
-        <div className="choose__image">
+        <div className={whyChooseUsStyles.image.wrapper + " choose__image"}>
           <img
             src={chooseImg}
             loading="lazy"
-            alt={t(localeKeys.modernCarFleet)}
+            alt={t(whyChooseUsKeys.modernCarFleet)}
+            className={whyChooseUsStyles.image.img}
           />
         </div>
 
         {/* Content Sub-section */}
-        <div className="choose__content">
+        <div className={whyChooseUsStyles.content.wrapper}>
           <Header
-            title={t(localeKeys.whyChooseUs)}
-            description={t(localeKeys.whyChooseUsDesc)}
+            title={t(whyChooseUsKeys.title)}
+            description={t(whyChooseUsKeys.description)}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
