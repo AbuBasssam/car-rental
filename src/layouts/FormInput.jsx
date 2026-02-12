@@ -1,5 +1,5 @@
-import React from "react";
 import { loginStyles } from "../utils/styles.js";
+
 const FormInput = ({
   FieldIcon,
   type = "text",
