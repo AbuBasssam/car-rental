@@ -1,10 +1,11 @@
 import React from "react";
 import CarCard from "./CarCard";
+import { mostRentedCarsStyles } from "../../utils/styles";
 
 const CarsGrid = ({ cars, hoveredId, onHoverChange }) => {
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-2"
+      className={mostRentedCarsStyles.grid}
       data-aos="fade-up"
       data-aos-delay={100}
     >

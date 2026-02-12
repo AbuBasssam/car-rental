@@ -1,13 +1,18 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { mostRentedCarsStyles } from "../../utils/styles";
+import { mostRentedCarsKeys } from "../../utils/localeKeys.js";
 
 const Header = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="text-center mb-10" data-aos="fade-up">
-      <h2 className="font-heading font-bold mb-4 text-eerie-black dark:text-mercury text-4xl md:text-5xl lg:text-6xl tracking-tighter-custom">
-        Most Rented Cars
+    <div className={mostRentedCarsStyles.header.wrapper} data-aos="fade-up">
+      <h2 className={mostRentedCarsStyles.header.title}>
+        {t(mostRentedCarsKeys.title)}
       </h2>
-      <p className="text-deep-gray dark:text-dark-text-muted text-base md:text-lg lg:text-xl max-w-2xl mx-auto">
-        Premium cars carefully selected to suit your needs
+      <p className={mostRentedCarsStyles.header.description}>
+        {t(mostRentedCarsKeys.description)}
       </p>
     </div>
   );

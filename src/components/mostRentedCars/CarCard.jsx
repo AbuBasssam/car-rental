@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import CarImage from "./CarImage";
 import CarInfo from "./CarInfo";
 import CarFeatures from "./CarFeatures";
+import { mostRentedCarsStyles } from "../../utils/styles";
+import { mostRentedCarsKeys } from "../../utils/localeKeys.js";
 
 const CarCard = ({
   car,
@@ -10,34 +13,26 @@ const CarCard = ({
   onMouseLeave,
   categoryName,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`bg-white dark:bg-big-stone
-        rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ease-in-out
-        ${
-          isHovered
-            ? "shadow-orange -translate-y-2 scale-[1.02] border-2 border-premium-orange"
-            : "shadow-light-soft dark:shadow-dark-soft"
-        }
-      `}
+      className={
+        isHovered
+          ? mostRentedCarsStyles.card.containerHovered
+          : mostRentedCarsStyles.card.container
+      }
     >
       <CarImage car={car} isHovered={isHovered} categoryName={categoryName} />
 
-      <div className="p-5">
+      <div className={mostRentedCarsStyles.card.content}>
         <CarInfo price={car.price} />
         <CarFeatures car={car} />
 
-        <button
-          className="
-            w-full bg-premium-orange text-white py-4 rounded-xl border-none
-            text-lg font-bold cursor-pointer transition-all duration-300 ease-in-out
-            shadow-lg shadow-premium-orange/30 font-heading
-            hover:bg-premium-orange-dark hover:scale-[1.03] hover:shadow-orange
-          "
-        >
-          احجز الآن
+        <button className={mostRentedCarsStyles.card.bookButton}>
+          {t(mostRentedCarsKeys.bookNow)}
         </button>
       </div>
     </div>
