@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 import FooterColumn from "./FooterColumn";
-import localeKeys from "../../utils/localeKeys.js";
+import { footerStyles } from "../../utils/styles";
+import localeKeys, { footerKeys } from "../../utils/localeKeys";
+
 import {
   RiFacebookCircleLine,
   RiInstagramLine,
   RiTwitterXLine,
-  RiLinkedinBoxLine,
   RiMapPinLine,
   RiPhoneLine,
   RiMailLine,
@@ -15,16 +16,16 @@ const Footer = () => {
   const { t } = useTranslation();
 
   const companyLinks = [
-    { label: t(localeKeys.aboutUs), url: "#" },
-    { label: t(localeKeys.ourFleet), url: "#" },
-    { label: t(localeKeys.services), url: "#" },
-    { label: t(localeKeys.privacyPolicy), url: "#" },
+    { label: t(footerKeys.aboutUs), url: "#" },
+    { label: t(footerKeys.ourFleet), url: "#" },
+    { label: t(footerKeys.services), url: "#" },
+    { label: t(footerKeys.privacyPolicy), url: "#" },
   ];
 
   const quickLinks = [
-    { label: t(localeKeys.howItWorks), url: "#how-it-works" },
-    { label: t(localeKeys.whyChooseUs), url: "#choose" },
-    { label: t(localeKeys.rentACar), url: "#cars" },
+    { label: t(footerKeys.title), url: "#how-it-works" },
+    { label: t(footerKeys.title), url: "#choose" },
+    { label: t(footerKeys.rentACar), url: "#cars" },
     { label: t(localeKeys.contact), url: "#contact" },
   ];
 
@@ -35,46 +36,55 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-authentic-white dark:bg-mirage border-t border-soft-gray dark:border-dark-border transition-colors duration-300">
-      <div className="footer__container">
+    <footer className={footerStyles.footer}>
+      <div className={footerStyles.container}>
         {/* First column: Brand and description */}
-        <div className="space-y-6">
-          <div className="text-2xl font-black text-premium-orange font-heading">
-            {t(localeKeys.appName)}
-          </div>
-          <p className="footer__link leading-relaxed">
-            {t(localeKeys.footerDescription)}
+        <div className={footerStyles.brand.wrapper}>
+          <div className={footerStyles.brand.logo}>{t(localeKeys.appName)}</div>
+          <p className={footerStyles.brand.description}>
+            {t(footerKeys.description)}
           </p>
-          <div className="flex gap-4">
-            <a href="#" className="footer__social-icon" aria-label="Facebook">
+          <div className={footerStyles.brand.socialWrapper}>
+            <a
+              href="#"
+              className={footerStyles.socialIcon}
+              aria-label="Facebook"
+            >
               <RiFacebookCircleLine size={20} />
             </a>
-            <a href="#" className="footer__social-icon" aria-label="Instagram">
+            <a
+              href="#"
+              className={footerStyles.socialIcon}
+              aria-label="Instagram"
+            >
               <RiInstagramLine size={20} />
             </a>
-            <a href="#" className="footer__social-icon" aria-label="Twitter">
+            <a
+              href="#"
+              className={footerStyles.socialIcon}
+              aria-label="Twitter"
+            >
               <RiTwitterXLine size={20} />
             </a>
           </div>
         </div>
 
         {/* Second column: Company links */}
-        <FooterColumn title={t(localeKeys.company)} links={companyLinks} />
+        <FooterColumn title={t(footerKeys.company)} links={companyLinks} />
 
         {/* Third column: Quick links */}
-        <FooterColumn title={t(localeKeys.quickLinks)} links={quickLinks} />
+        <FooterColumn title={t(footerKeys.quickLinks)} links={quickLinks} />
 
         {/* Fourth column: Contact */}
-        <div>
-          <h4 className="footer__title">{t(localeKeys.getInTouch)}</h4>
-          <ul className="space-y-4">
+        <div className={footerStyles.contact.wrapper}>
+          <h4 className={footerStyles.contact.title}>
+            {t(footerKeys.getInTouch)}
+          </h4>
+          <ul className={footerStyles.contact.list}>
             {contactInfo.map((item, index) => (
-              <li
-                key={index}
-                className="flex items-center gap-3 text-deep-gray dark:text-dark-text-muted"
-              >
-                <item.icon className="text-premium-orange" size={20} />
-                <span className="text-sm font-body">{item.text}</span>
+              <li key={index} className={footerStyles.contact.item}>
+                <item.icon className={footerStyles.contact.icon} size={20} />
+                <span className={footerStyles.contact.text}>{item.text}</span>
               </li>
             ))}
           </ul>
@@ -82,10 +92,10 @@ const Footer = () => {
       </div>
 
       {/* Bottom: Copyright */}
-      <div className="border-t border-soft-gray dark:border-dark-border py-8 text-center">
-        <p className="text-sm text-light-text-subtle dark:text-dark-text-muted">
+      <div className={footerStyles.copyright.wrapper}>
+        <p className={footerStyles.copyright.text}>
           © {new Date().getFullYear()} {t(localeKeys.appName)}.{" "}
-          {t(localeKeys.allRightsReserved)}
+          {t(footerKeys.allRightsReserved)}
         </p>
       </div>
     </footer>
