@@ -47,6 +47,7 @@ const CSRF_REQUIRED_ENDPOINTS = [
   AUTH_ENDPOINTS.FORGOT_PASSWORD,
   AUTH_ENDPOINTS.VERIFY_PASSWORD,
   AUTH_ENDPOINTS.RESEND_PASSWORD_RESET,
+  AUTH_ENDPOINTS.REFRESH_TOKEN,
 ];
 
 /**
@@ -54,10 +55,7 @@ const CSRF_REQUIRED_ENDPOINTS = [
  * These are typically read-only or token initialization endpoints
  * @constant {string[]}
  */
-const CSRF_EXCLUDED_ENDPOINTS = [
-  AUTH_ENDPOINTS.CSRF_TOKEN,
-  AUTH_ENDPOINTS.REFRESH_TOKEN,
-];
+const CSRF_EXCLUDED_ENDPOINTS = [AUTH_ENDPOINTS.CSRF_TOKEN];
 
 /**
  * Determines if a CSRF token is required for the given URL and method.

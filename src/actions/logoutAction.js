@@ -3,6 +3,7 @@ import { ROUTES } from "../routes/paths";
 import { AUTH_ENDPOINTS } from "../api/endpoints/endpoints";
 import axiosInstance from "../api/axiosInstance";
 import { resetAuthCache, setUserLogout } from "../loaders/Rootloader";
+import { triggerAuthUpdate } from "../context/AuthBridge";
 /**
  * Logout Action for React Router
  * Handles the complete logout flow
@@ -17,6 +18,7 @@ export const logoutAction = async () => {
   } finally {
     resetAuthCache();
     setUserLogout();
+    triggerAuthUpdate(null, false);
   }
   return redirect(ROUTES.HOME, { replace: true });
 };

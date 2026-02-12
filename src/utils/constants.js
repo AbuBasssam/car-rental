@@ -12,6 +12,8 @@ export const keys = {
   kResetToken: "resetToken",
   kPasswordReset: "passwordResetSuccess",
   kFlashMessage: "flashMessage",
+  kLastUserEmail: "LastUserEmail",
+  kWasLoggedIn: "WasLoggedIn",
 };
 export const flashMessageType = {
   info: "info",

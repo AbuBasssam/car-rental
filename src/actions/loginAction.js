@@ -9,6 +9,7 @@ import {
 import { validateEmail, validatePassword } from "../utils/validators";
 import { ROUTES } from "../routes/paths";
 import { updateAuthCache } from "../loaders/Rootloader"; // أضف هذا
+import { triggerAuthUpdate } from "../context/AuthBridge";
 
 export const loginAction = async ({ request }) => {
   const formData = await request.formData();
@@ -42,15 +43,10 @@ export const loginAction = async ({ request }) => {
 
       deleteCsrfToken();
       updateAuthCache({
-        user: {
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          email: email,
-          imagePath: userData.imagePath || null,
-          fullName: `${userData.firstName} ${userData.lastName}`.trim(),
-        },
+        user: userData,
         isAuthenticated: true,
       });
+      triggerAuthUpdate(userData, false);
 
       return redirect(ROUTES.HOME, { replace: true });
     }
