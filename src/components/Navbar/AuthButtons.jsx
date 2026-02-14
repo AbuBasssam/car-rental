@@ -11,7 +11,7 @@ import localeKeys from "../../utils/localeKeys.js";
  *
  * @param {boolean} isMobile - Whether to render mobile or desktop version
  */
-const AuthButtons = ({ isMobile }) => {
+const AuthButtons = ({ isMobile = false }) => {
   const { t } = useTranslation();
 
   const btnRegisterStyle = `inline-flex items-center justify-center

@@ -28,11 +28,7 @@ const Navbar = () => {
           <LanguageSelector />
           <ThemeToggle />
 
-          {!isAuthenticated ? (
-            <AuthButtons isMobile={mobileOpen} />
-          ) : (
-            <UserMenu />
-          )}
+          {!isAuthenticated ? <AuthButtons /> : <UserMenu />}
         </div>
 
         {/* Mobile Action Buttons section */}
