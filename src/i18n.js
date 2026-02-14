@@ -28,10 +28,15 @@ i18n
     },
   });
 
-// تحديث اتجاه الصفحة عند تغيير اللغة
 i18n.on("languageChanged", (lng) => {
-  document.dir = lng === keys.kAR ? "rtl" : "ltr";
-  document.documentElement.lang = lng;
+  if (!window.location.pathname.includes("/login")) {
+    const isRTL = lng === keys.kAR;
+    document.dir = isRTL ? "rtl" : "ltr";
+    document.documentElement.dir = isRTL ? "rtl" : "ltr";
+    document.documentElement.lang = lng;
+    document.body.dir = isRTL ? "rtl" : "ltr";
+  }
+
   localStorage.setItem(keys.kLanguage, lng);
 });
 

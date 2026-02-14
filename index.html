@@ -10,6 +10,32 @@
         if (theme === "dark") {
           document.documentElement.classList.add("dark");
         }
+        if (window.location.pathname.includes("/login")) {
+          document.documentElement.dir = "ltr";
+          document.body.dir = "ltr";
+        } else {
+          const language =
+            localStorage.getItem("language") ||
+            localStorage.getItem("i18nextLng") ||
+            "en";
+          const isRTL = language === "ar";
+          document.documentElement.dir = isRTL ? "rtl" : "ltr";
+          document.documentElement.lang = language;
+          document.body.dir = isRTL ? "rtl" : "ltr";
+        }
+        if (window.location.pathname.includes("/login")) {
+          document.documentElement.dir = "ltr";
+          document.body.dir = "ltr";
+        } else {
+          const language =
+            localStorage.getItem("language") ||
+            localStorage.getItem("i18nextLng") ||
+            "en";
+          const isRTL = language === "ar";
+          document.documentElement.dir = isRTL ? "rtl" : "ltr";
+          document.documentElement.lang = language;
+          document.body.dir = isRTL ? "rtl" : "ltr";
+        }
       })();
     </script>
     <title>car-rental</title>
