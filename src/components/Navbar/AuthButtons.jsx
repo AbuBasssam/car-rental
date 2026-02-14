@@ -10,9 +10,8 @@ import localeKeys from "../../utils/localeKeys.js";
  * Uses React Router <Link> instead of <a> for client-side navigation
  *
  * @param {boolean} isMobile - Whether to render mobile or desktop version
- * @param {function} onLogin - Optional callback when login link is clicked
  */
-const AuthButtons = ({ isMobile = false, onLogin }) => {
+const AuthButtons = ({ isMobile }) => {
   const { t } = useTranslation();
 
   const btnRegisterStyle = `inline-flex items-center justify-center
@@ -33,7 +32,6 @@ const AuthButtons = ({ isMobile = false, onLogin }) => {
         <Link
           to={ROUTES.LOGIN}
           className="font-heading interactive-text transition"
-          onClick={onLogin}
         >
           {t(localeKeys.login)}
         </Link>
@@ -52,7 +50,6 @@ const AuthButtons = ({ isMobile = false, onLogin }) => {
       <Link
         to={ROUTES.LOGIN}
         className="font-heading text-eerie-black interactive-text transition"
-        onClick={onLogin}
       >
         {t(localeKeys.login)}
       </Link>

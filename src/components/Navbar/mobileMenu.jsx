@@ -8,7 +8,7 @@ import { useLogout as logout } from "../../hooks/useLogout";
 import { navbarStyles } from "../../utils/styles.js";
 import useClickOutside from "../../hooks/useClickOutside.js";
 
-const MobileMenu = ({ isOpen, onClose, onLogin }) => {
+const MobileMenu = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { isAuthenticated, user } = useAuth();
   const menuRef = useClickOutside(onClose, isOpen);
@@ -31,10 +31,6 @@ const MobileMenu = ({ isOpen, onClose, onLogin }) => {
     onClose();
   };
 
-  const handleLogin = () => {
-    onLogin();
-    onClose();
-  };
   return (
     <div className={navbarStyles.mobileMenu.container}>
       <div ref={menuRef} className={navbarStyles.mobileMenu.wrapper}>
@@ -55,7 +51,7 @@ const MobileMenu = ({ isOpen, onClose, onLogin }) => {
 
         <div className="flex flex-col gap-5 pt-2">
           {!isAuthenticated ? (
-            <AuthButtons isMobile={true} onLogin={handleLogin} />
+            <AuthButtons isMobile={true} />
           ) : (
             <>
               <button

@@ -7,9 +7,7 @@ import MobileMenu from "./MobileMenu";
 import ThemeToggle from "./themeToggle";
 import LanguageSelector from "./languageSelector";
 import AuthButtons from "./AuthButtons";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
-import { ROUTES } from "../../routes/paths.js";
 import { navbarStyles } from "../../utils/styles.js";
 import useScrollLock from "../../hooks/useScrollLock";
 
@@ -18,8 +16,6 @@ const Navbar = () => {
   // Scroll Lock Hook
   useScrollLock(mobileOpen);
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-  const handleLogin = () => navigate(ROUTES.LOGIN);
 
   return (
     <header className={navbarStyles.header}>
@@ -33,7 +29,7 @@ const Navbar = () => {
           <ThemeToggle />
 
           {!isAuthenticated ? (
-            <AuthButtons onLogin={handleLogin} />
+            <AuthButtons isMobile={mobileOpen} />
           ) : (
             <UserMenu />
           )}
@@ -58,11 +54,7 @@ const Navbar = () => {
 
         {/* End Navbar */}
       </nav>
-      <MobileMenu
-        isOpen={mobileOpen}
-        onLogin={handleLogin}
-        onClose={() => setMobileOpen(false)}
-      />
+      <MobileMenu isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
     </header>
   );
 };

@@ -119,10 +119,9 @@
     "our_fleet": "Our Fleet",
     "services": "Services",
     "privacy_policy": "Privacy Policy",
-    "rent_a_car": "Rent a Car",
-    "back_to_home": "Back to Home"
+    "rent_a_car": "Rent a Car"
   },
-
+  "back_to_home": "Back to Home",
   "enter_your_email": "Enter your email",
   "enter_your_password": "Enter your password",
   "premium_drive": "PremiumDrive",

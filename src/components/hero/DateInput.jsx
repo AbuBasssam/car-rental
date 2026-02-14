@@ -18,10 +18,7 @@ const DateInput = ({ label, value, onChange, name, min, placeholderText }) => {
   const safeDate = value instanceof Date && !isNaN(value) ? value : null;
 
   return (
-    <div
-      className={formInputStyles.container}
-      dir={currentLang === keys.kAR ? "rtl" : "ltr"}
-    >
+    <div className={formInputStyles.container}>
       <label className={formInputStyles.label}>{label}</label>
 
       <div className={formInputStyles.inputWrapper}>
