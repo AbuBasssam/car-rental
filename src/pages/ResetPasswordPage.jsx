@@ -148,6 +148,7 @@ const ResetPassword = () => {
                 disabled={isSubmitting}
                 autoComplete="new-password"
                 aria-label={t(resetPasswordKeys.newPassword)}
+                dir="ltr"
               />
 
               {/* Confirm Password Input */}
@@ -162,6 +163,7 @@ const ResetPassword = () => {
                 disabled={isSubmitting}
                 autoComplete="new-password"
                 aria-label={t(localeKeys.confirmPassword)}
+                dir="ltr"
               />
               {/* Password Requirements */}
               <PasswordRequirements password={password} />

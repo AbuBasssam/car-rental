@@ -16,6 +16,7 @@ const LoginForm = ({ showPassword, onTogglePassword }) => {
         FieldIcon={FaUser}
         name="email"
         placeholder={t(localeKeys.enterYourEmail)}
+        dir="ltr"
       />
 
       <div>
@@ -24,6 +25,7 @@ const LoginForm = ({ showPassword, onTogglePassword }) => {
           showPassword={showPassword}
           onTogglePassword={onTogglePassword}
           placeholder={t(localeKeys.enterYourPassword)}
+          dir="ltr"
         />
         <ForgotPasswordLink />
       </div>

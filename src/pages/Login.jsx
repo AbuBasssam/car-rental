@@ -32,18 +32,17 @@ const Login = () => {
 
   useActionToast(actionData);
 
-  useEffect(() => {
-    document.documentElement.dir = "ltr";
-    document.body.dir = "ltr";
+  // useEffect(() => {
+  //   document.documentElement.dir = "ltr";
+  //   document.body.dir = "ltr";
 
-    // عند مغادرة الصفحة، أعد الاتجاه حسب اللغة
-    return () => {
-      const currentLang = localStorage.getItem("language") || "en";
-      const isRTL = currentLang === "ar";
-      document.documentElement.dir = isRTL ? "rtl" : "ltr";
-      document.body.dir = isRTL ? "rtl" : "ltr";
-    };
-  }, []);
+  //   return () => {
+  //     const currentLang = localStorage.getItem("language") || "en";
+  //     const isRTL = currentLang === "ar";
+  //     document.documentElement.dir = isRTL ? "rtl" : "ltr";
+  //     document.body.dir = isRTL ? "rtl" : "ltr";
+  //   };
+  // }, []);
   return (
     <div className={loginStyles.pageContainer}>
       <AnimatedBackground isActive={isActive} />

@@ -155,6 +155,7 @@ const ResetPasswordForm = ({ isSubmitting, onSubmit }) => {
         autoComplete="email"
         aria-label={t(localeKeys.email)}
         aria-required="true"
+        dir="ltr"
       />
 
       {/* Submit Button */}
