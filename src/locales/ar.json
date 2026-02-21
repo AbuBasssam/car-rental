@@ -239,5 +239,11 @@
     "password_changed_successfully": "تم تغيير كلمة المرور بنجاح!",
     "changing_password": "جاري تغيير كلمة المرور...",
     "change_password": "تغيير كلمة المرور"
+  },
+  "admin_navbar": {
+    "add_car": "إضافة سيارة",
+    "manage_cars": "إدارة السيارات",
+    "bookings": "الحجوزات",
+    "branches": "الفروع"
   }
 }

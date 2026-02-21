@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App.jsx";
-import { ROUTES } from "./paths.js";
+import { ADMIN_ROUTES, ROUTES } from "./paths.js";
 import Loadable from "../utils/Loadable.jsx";
 import { loginAction } from "../actions/loginAction.js";
 import { logoutAction } from "../actions/logoutAction.js";
@@ -33,7 +33,7 @@ const VerifyResetCodePage = Loadable(
 const ResetPasswordPage = Loadable(
   lazy(() => import("../pages/ResetPasswordPage.jsx")),
 );
-
+const BranchesPage = Loadable(lazy(() => import("../pages/BranchesPage.jsx")));
 /**
  * Router Configuration - Phase 3 Complete
  *
@@ -137,4 +137,13 @@ export const router = createBrowserRouter([
       },
     ],
   },
+]);
+export const testRouter = createBrowserRouter([
+  {
+    // Test route for BranchesPage - can be used for development/testing purposes, the right one is ADMIN_ROUTES.Branches
+    path: ADMIN_ROUTES.Dashboard,
+    element: <BranchesPage />,
+    index: true,
+  },
+  
 ]);

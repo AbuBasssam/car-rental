@@ -12,3 +12,11 @@ export const ROUTES = Object.freeze({
   ABOUT: "/about",
   CONTACT: "/contact",
 });
+
+export const ADMIN_ROUTES = Object.freeze({
+  Dashboard: "/",
+  MANAGE_CARS: "/manage-cars",
+  BOOKINGS: "/bookings",
+  BRANCHES: "/branches",
+  ADD_CAR: "/add-car",
+});

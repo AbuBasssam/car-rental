@@ -235,5 +235,11 @@
     "password_changed_successfully": "Password has been changed successfully!",
     "changing_password": "Changing password...",
     "change_password": "Change Password"
+  },
+  "admin_navbar": {
+    "add_car": "Add Car",
+    "manage_cars": "Manage Cars",
+    "bookings": "Bookings",
+    "branches": "Branches"
   }
 }

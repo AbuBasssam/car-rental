@@ -58,7 +58,7 @@ export const localeKeys = {
   passwordStrong: "password_strong",
   passwordVeryStrong: "password_very_strong",
   verifyAccountTitle: "verifyAccountTitle",
-  codeSentSuccess: "code_sent_success",
+  codeSentSuccess: "code_sent_success"
 };
 
 /**
@@ -66,7 +66,7 @@ export const localeKeys = {
  */
 export const languagesKeys = {
   arabic: "languages.arabic",
-  english: "languages.english",
+  english: "languages.english"
 };
 
 /**
@@ -78,7 +78,7 @@ export const authKeys = {
   registerTitle: "auth.register_title",
   emailPlaceholder: "auth.email_placeholder",
   passwordPlaceholder: "auth.password_placeholder",
-  verificationSuccess: "auth.verificationSuccess",
+  verificationSuccess: "auth.verificationSuccess"
 };
 
 /**
@@ -92,7 +92,7 @@ export const heroKeys = {
   description: "hero.description",
   bookYourRide: "hero.book_your_ride",
   sellYourCar: "hero.sell_your_car",
-  luxuryCar: "hero.luxury_car",
+  luxuryCar: "hero.luxury_car"
 };
 
 /**
@@ -113,7 +113,7 @@ export const bookingKeys = {
   pickupDateRequired: "booking.pickup_date_required",
   dropoffDateRequired: "booking.dropoff_date_required",
   dropoffDateInvalid: "booking.dropoff_date_invalid",
-  dropoffLocationRequired: "booking.dropoff_location_required",
+  dropoffLocationRequired: "booking.dropoff_location_required"
 };
 
 /**
@@ -130,7 +130,7 @@ export const whyChooseUsKeys = {
   fullyInsured: "whyChooseUs.fully_insured",
   fullyInsuredDesc: "whyChooseUs.fully_insured_desc",
   modernFleet: "whyChooseUs.modern_fleet",
-  modernFleetDesc: "whyChooseUs.modern_fleet_desc",
+  modernFleetDesc: "whyChooseUs.modern_fleet_desc"
 };
 
 /**
@@ -146,7 +146,7 @@ export const howItWorksKeys = {
   selectYourCar: "howItWorks.select_your_car",
   selectYourCarDesc: "howItWorks.select_your_car_desc",
   comfortPickup: "howItWorks.comfort_pickup",
-  comfortPickupDesc: "howItWorks.comfort_pickup_desc",
+  comfortPickupDesc: "howItWorks.comfort_pickup_desc"
 };
 
 /**
@@ -170,7 +170,7 @@ export const mostRentedCarsKeys = {
   petrol: "mostRentedCars.petrol",
   diesel: "mostRentedCars.diesel",
   electricFuel: "mostRentedCars.electric_fuel",
-  hybrid: "mostRentedCars.hybrid",
+  hybrid: "mostRentedCars.hybrid"
 };
 
 /**
@@ -186,7 +186,7 @@ export const footerKeys = {
   ourFleet: "footer.our_fleet",
   services: "footer.services",
   privacyPolicy: "footer.privacy_policy",
-  rentACar: "footer.rent_a_car",
+  rentACar: "footer.rent_a_car"
 };
 
 /**
@@ -207,7 +207,7 @@ export const validationKeys = {
   termsRequired: "validation.terms_required",
   registrationFailed: "validation.registration_failed",
   otpIncomplete: "validation.otp_incomplete",
-  invalidOrExpiredCode: "validation.invalid_or_expired_code",
+  invalidOrExpiredCode: "validation.invalid_or_expired_code"
 };
 
 /**
@@ -237,7 +237,7 @@ export const errorsKeys = {
   registerSessionExpired: "errors.registerSessionExpired",
   resetSessionExpired: "errors.resetSessionExpired",
   resetCodeAttemptsExceeded: "errors.reset_code_attempts_exceeded",
-  verificationAttemptsExceeded: "errors.verification_attempts_exceeded",
+  verificationAttemptsExceeded: "errors.verification_attempts_exceeded"
 };
 
 /**
@@ -256,7 +256,7 @@ export const verifyKeys = {
   verificationLocked: "verify.verification_locked",
   cooldownMessage: "verify.cooldown_message",
   verificationDisabled: "verify.verification_disabled",
-  requestNewCodeAfterCountdown: "verify.request_new_code_after_countdown",
+  requestNewCodeAfterCountdown: "verify.request_new_code_after_countdown"
 };
 
 /**
@@ -281,12 +281,21 @@ export const resetPasswordKeys = {
   resettingPassword: "reset_password.resetting_password",
   passwordResetSuccess: "reset_password.password_reset_success",
   enterNewPassword: "reset_password.enter_new_password",
-  confirmNewPasswordPlaceholder:
-    "reset_password.confirm_new_password_placeholder",
+  confirmNewPasswordPlaceholder: "reset_password.confirm_new_password_placeholder",
   passwordsMustMatch: "reset_password.passwords_must_match",
   passwordChangedSuccessfully: "reset_password.password_changed_successfully",
   changingPassword: "reset_password.changing_password",
-  changePassword: "reset_password.change_password",
+  changePassword: "reset_password.change_password"
+};
+
+/**
+ * AdminNavbar namespace keys
+ */
+export const adminNavbarKeys = {
+  addCar: "admin_navbar.add_car",
+  manageCars: "admin_navbar.manage_cars",
+  bookings: "admin_navbar.bookings",
+  branches: "admin_navbar.branches"
 };
 
 // Default export

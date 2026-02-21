@@ -480,7 +480,49 @@ export const arabicTextAdjustment = {
   wordWrap: "break-word",
   maxWidth: "100%",
 };
+export const adminNavbarStyles = {
+  // Navbar container
+  navbar: (scrolled) =>
+    `fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? "py-3" : "py-5"}`,
 
+  // Navbar inner container
+  navbarInner: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+  navbarCenter: "flex justify-center",
+
+  // Navbar background
+  navbarBackground: (scrolled) =>
+    `bg-white backdrop-blur-lg w-full rounded-full shadow-lg border border-gray-200 transition-all
+  dark:bg-pickled-bluewood dark:border-eerie-black duration-300 ${scrolled ? "py-2 px-6" : "py-3 px-8"}`,
+
+  // Content container
+  contentContainer: "flex justify-between items-center h-full",
+
+  // Logo
+  logoLink: "flex items-center",
+  logoContainer:
+    "header-spacing flex items-center justify-center gap-2 sm:gap-3",
+  logoImage: "h-20 w-auto  object-contain",
+  logoText:
+    "font-heading font-bold text-lg sm:text-xl md:text-2xl text-premium-orange",
+
+  // Desktop navigation
+  desktopNav: "hidden lg:flex items-center",
+  navLinksContainer: "flex space-x-1 mx-6 ",
+  navLink:
+    "flex items-center gap-2 px-4 py-2 font-heading font-medium text-base interactive-text",
+  navDivider: "h-5 w-px bg-gray-300 my-auto",
+
+  // Mobile menu button
+  mobileMenuButton: "lg:hidden flex items-center",
+  menuButton: "interactive-text focus:outline-none",
+
+  // Mobile menu
+  mobileMenu:
+    "lg:hidden bg-white border-t border-gray-200 shadow-lg mt-1 dark:bg-pickled-bluewood dark:border-eerie-black",
+  mobileMenuContainer: "px-4 pt-2 pb-8 space-y-1",
+  mobileNavLink:
+    "block px-4 py-3 rounded-lg flex items-center gap-3 font-heading font-medium text-base interactive-text transition-colors ",
+};
 // ========================================================================
 // SECTION STYLES - Common Section Elements
 // ========================================================================
