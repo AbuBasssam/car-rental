@@ -20,6 +20,8 @@ export const flashMessageType = {
   error: "error",
 };
 export const formModes = {
+  view: "view",
   create: "create",
   edit: "edit",
+  delete: "delete",
 };
