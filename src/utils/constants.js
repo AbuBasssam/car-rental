@@ -19,3 +19,7 @@ export const flashMessageType = {
   success: "success",
   error: "error",
 };
+export const formModes = {
+  create: "create",
+  edit: "edit",
+};

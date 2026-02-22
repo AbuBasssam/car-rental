@@ -165,3 +165,83 @@ export const validateOTP = (code) => {
   }
   return null;
 };
+// ─── Branch Validators ────────────────────────────────────────────────────────
+
+/**
+ * Validate Branch Name (EN or AR)
+ * @param {string} value
+ * @param {"en"|"ar"} lang
+ * @returns {string|null} error message or null
+ */
+export const validateBranchName = (value, lang = "en") => {
+  if (!value || !value.trim())
+    return lang === "ar" ? "الاسم مطلوب" : "Name is required";
+  if (value.trim().length > 75)
+    return lang === "ar" ? "الحد الأقصى 75 حرفاً" : "Maximum 75 characters";
+  return null;
+};
+
+/**
+ * Validate City Name (EN or AR)
+ * @param {string} value
+ * @param {"en"|"ar"} lang
+ * @returns {string|null}
+ */
+export const validateCityName = (value, lang = "en") => {
+  if (!value || !value.trim())
+    return lang === "ar" ? "المدينة مطلوبة" : "City is required";
+  return null;
+};
+
+/**
+ * Validate GPS Latitude
+ * @param {string|number} value
+ * @returns {string|null}
+ */
+export const validateLatitude = (value) => {
+  const lat = parseFloat(value);
+  if (isNaN(lat) || lat < -90 || lat > 90)
+    return "Invalid Latitude (must be between −90 and 90)";
+  return null;
+};
+
+/**
+ * Validate GPS Longitude
+ * @param {string|number} value
+ * @returns {string|null}
+ */
+export const validateLongitude = (value) => {
+  const lng = parseFloat(value);
+  if (isNaN(lng) || lng < -180 || lng > 180)
+    return "Invalid Longitude (must be between −180 and 180)";
+  return null;
+};
+
+/**
+ * Validate full branch form
+ * @param {{ nameEN, nameAR, cityEN, cityAR, latitude, longitude }} form
+ * @returns {Object} errors object — empty means valid
+ */
+export const validateBranchForm = (form) => {
+  const errors = {};
+
+  const nameENError = validateBranchName(form.nameEN, "en");
+  if (nameENError) errors.nameEN = nameENError;
+
+  const nameARError = validateBranchName(form.nameAR, "ar");
+  if (nameARError) errors.nameAR = nameARError;
+
+  const cityENError = validateCityName(form.cityEN, "en");
+  if (cityENError) errors.cityEN = cityENError;
+
+  const cityARError = validateCityName(form.cityAR, "ar");
+  if (cityARError) errors.cityAR = cityARError;
+
+  const latError = validateLatitude(form.latitude);
+  if (latError) errors.latitude = latError;
+
+  const lngError = validateLongitude(form.longitude);
+  if (lngError) errors.longitude = lngError;
+
+  return errors;
+};

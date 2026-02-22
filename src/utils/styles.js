@@ -900,3 +900,215 @@ export const buttonStyles = {
   fullWidthHover:
     "absolute inset-0 transition-opacity duration-300 z-0 opacity-0 group-hover:opacity-100 bg-linear-to-r from-orange-400/50 to-orange-500/50",
 };
+
+// ========================================================================
+// BRANCHES PAGE STYLES
+// Add this export to src/utils/styles.js
+// ========================================================================
+
+export const branchesPageStyles = {
+  // ── Page Layout ────────────────────────────────────────────────────────
+  page: "min-h-screen bg-mercury dark:bg-mirage transition-colors duration-300 pt-28 pb-12 px-4 sm:px-6 lg:px-8",
+  container: "max-w-7xl mx-auto",
+
+  // ── Page Header ────────────────────────────────────────────────────────
+  header: {
+    wrapper:
+      "flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 mt-8",
+    titleGroup: "space-y-1",
+    eyebrow:
+      "text-xs font-semibold tracking-widest uppercase text-premium-orange font-body",
+    title:
+      "text-3xl sm:text-4xl font-bold font-heading text-eerie-black dark:text-mercury",
+    subtitle: "text-sm text-deep-gray dark:text-dark-text-muted font-body mt-1",
+    addBtn:
+      "inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm font-heading text-white bg-premium-orange hover:bg-neon-orange transition-all duration-200 shadow-orange hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0",
+  },
+
+  // ── Stats Row ───────────────────────────────────────────────────────────
+  stats: {
+    grid: "grid grid-cols-3 gap-4 mb-6",
+    card: "bg-white dark:bg-big-stone rounded-2xl p-4 border border-soft-gray dark:border-dark-border shadow-light-soft dark:shadow-dark-soft transition-colors duration-300",
+    value: "text-2xl font-bold font-heading text-eerie-black dark:text-mercury",
+    label: "text-xs text-deep-gray dark:text-dark-text-muted font-body mb-1",
+    dot: (color) => `w-2 h-2 rounded-full ${color} mt-1`,
+    valueActive:
+      "text-2xl font-bold font-heading text-green-600 dark:text-green-400 mt-0.5",
+    valueInactive:
+      "text-2xl font-bold font-heading text-red-500 dark:text-red-400 mt-0.5",
+  },
+
+  // ── Filter Bar ──────────────────────────────────────────────────────────
+  filterBar: {
+    wrapper:
+      "bg-white dark:bg-big-stone rounded-2xl p-4 mb-6 border border-soft-gray dark:border-dark-border shadow-light-soft dark:shadow-dark-soft flex flex-col sm:flex-row gap-3 items-stretch sm:items-center transition-colors duration-300",
+    searchWrapper: "relative flex-1",
+    searchIcon:
+      "absolute left-3 top-1/2 -translate-y-1/2 text-deep-gray dark:text-dark-text-muted w-4 h-4 pointer-events-none",
+    searchInput:
+      "w-full pl-9 pr-4 py-2.5 rounded-xl text-sm font-body border border-soft-gray dark:border-dark-border bg-authentic-white dark:bg-pickled-bluewood text-eerie-black dark:text-mercury placeholder:text-light-text-subtle dark:placeholder:text-dark-text-subtle focus:outline-none focus:ring-2 focus:ring-premium-orange/30 focus:border-premium-orange transition-all duration-200",
+    select:
+      "px-4 py-2.5 rounded-xl text-sm font-body border border-soft-gray dark:border-dark-border bg-authentic-white dark:bg-pickled-bluewood text-eerie-black dark:text-mercury focus:outline-none focus:ring-2 focus:ring-premium-orange/30 focus:border-premium-orange transition-all duration-200 cursor-pointer",
+    clearBtn:
+      "px-4 py-2.5 rounded-xl text-sm font-body border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:text-premium-orange hover:border-premium-orange transition-all duration-200",
+  },
+
+  // ── Branches Grid ───────────────────────────────────────────────────────
+  grid: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8",
+
+  // ── Branch Card ─────────────────────────────────────────────────────────
+  card: {
+    wrapper:
+      "bg-white dark:bg-big-stone rounded-2xl border border-soft-gray dark:border-dark-border shadow-light-soft dark:shadow-dark-soft hover:shadow-orange dark:hover:shadow-dark-soft hover:border-premium-orange/30 transition-all duration-300 overflow-hidden group cursor-pointer",
+    header:
+      "bg-gradient-to-br from-seashell to-authentic-white dark:from-pickled-bluewood dark:to-big-stone p-5 flex items-start justify-between",
+    iconWrapper:
+      "w-11 h-11 rounded-xl bg-premium-orange/10 dark:bg-premium-orange/15 flex items-center justify-center text-premium-orange group-hover:bg-premium-orange group-hover:text-white transition-all duration-300",
+    statusBadge: (isActive) =>
+      `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold font-body ${
+        isActive
+          ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+          : "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+      }`,
+    statusDot: (isActive) =>
+      `w-1.5 h-1.5 rounded-full ${isActive ? "bg-green-500" : "bg-red-500"}`,
+    body: "p-5 pt-4",
+    name: "text-lg font-bold font-heading text-eerie-black dark:text-mercury mb-0.5 truncate",
+    city: "text-sm text-deep-gray dark:text-dark-text-muted font-body flex items-center gap-1.5",
+    cityIcon: "w-3.5 h-3.5 text-premium-orange shrink-0",
+    divider: "border-t border-soft-gray dark:border-dark-border my-4",
+    metaRow: "flex items-center justify-between",
+    metaItem: "flex items-center gap-2",
+    metaLabel:
+      "text-xs text-light-text-subtle dark:text-dark-text-subtle font-body",
+    metaValue:
+      "text-xs font-semibold font-body text-eerie-black dark:text-mercury",
+    actions: "flex gap-2 p-5 pt-4",
+    actionBtn: (variant) => {
+      const variants = {
+        view: "flex-1 py-2 rounded-xl text-xs font-semibold font-body border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange dark:hover:text-premium-orange transition-all duration-200",
+        edit: "flex-1 py-2 rounded-xl text-xs font-semibold font-body bg-seashell dark:bg-pickled-bluewood text-eerie-black dark:text-mercury hover:bg-premium-orange hover:text-white transition-all duration-200",
+        delete:
+          "p-2 rounded-xl text-xs font-semibold font-body border border-soft-gray dark:border-dark-border text-light-text-subtle dark:text-dark-text-subtle hover:border-red-500 hover:text-red-500 transition-all duration-200",
+        toggle:
+          "p-2 rounded-xl text-xs border border-soft-gray dark:border-dark-border text-light-text-subtle dark:text-dark-text-subtle hover:border-amber-500 hover:text-amber-500 transition-all duration-200",
+      };
+      return variants[variant] || variants.view;
+    },
+  },
+
+  // ── Empty State ─────────────────────────────────────────────────────────
+  empty: {
+    wrapper:
+      "text-center py-20 bg-white dark:bg-big-stone rounded-2xl border border-soft-gray dark:border-dark-border",
+    iconWrapper:
+      "mx-auto w-20 h-20 rounded-2xl bg-seashell dark:bg-pickled-bluewood flex items-center justify-center text-premium-orange mb-5",
+    title:
+      "text-xl font-bold font-heading text-eerie-black dark:text-mercury mb-2",
+    desc: "text-sm text-deep-gray dark:text-dark-text-muted font-body",
+  },
+
+  // ── Pagination ──────────────────────────────────────────────────────────
+  pagination: {
+    wrapper: "flex items-center justify-between",
+    info: "text-sm font-body text-deep-gray dark:text-dark-text-muted",
+    controls: "flex items-center gap-2",
+    pageBtn: (active) =>
+      `w-9 h-9 rounded-xl text-sm font-semibold font-body transition-all duration-200 ${
+        active
+          ? "bg-premium-orange text-white shadow-orange"
+          : "bg-white dark:bg-big-stone border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange"
+      }`,
+    navBtn: (disabled) =>
+      `w-9 h-9 rounded-xl text-sm border border-soft-gray dark:border-dark-border transition-all duration-200 flex items-center justify-center ${
+        disabled
+          ? "opacity-40 cursor-not-allowed text-light-text-subtle dark:text-dark-text-subtle"
+          : "bg-white dark:bg-big-stone text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange"
+      }`,
+  },
+
+  // ── Modal Overlay ───────────────────────────────────────────────────────
+  overlay:
+    "fixed inset-0 bg-eerie-black/60 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn",
+
+  // ── Modal: View Details ─────────────────────────────────────────────────
+  detailModal: {
+    wrapper:
+      "bg-white dark:bg-big-stone rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden",
+    header:
+      "bg-gradient-to-br from-seashell to-authentic-white dark:from-pickled-bluewood dark:to-big-stone p-6 flex items-center justify-between border-b border-soft-gray dark:border-dark-border",
+    title: "text-xl font-bold font-heading text-eerie-black dark:text-mercury",
+    closeBtn:
+      "w-9 h-9 rounded-xl flex items-center justify-center text-deep-gray dark:text-dark-text-muted hover:bg-soft-gray dark:hover:bg-fiord transition-all duration-200",
+    body: "p-6 space-y-4",
+    row: "flex items-start gap-3",
+    rowIcon:
+      "w-9 h-9 rounded-xl bg-seashell dark:bg-pickled-bluewood flex items-center justify-center text-premium-orange shrink-0 mt-0.5",
+    rowLabel:
+      "text-xs font-semibold text-light-text-subtle dark:text-dark-text-subtle font-body uppercase tracking-wider",
+    rowValue:
+      "text-sm font-medium text-eerie-black dark:text-mercury font-body mt-0.5",
+    bilingualRow: "grid grid-cols-2 gap-3",
+    statusRow:
+      "flex items-center gap-3 p-3 rounded-xl bg-seashell dark:bg-pickled-bluewood",
+    footer: "p-5 border-t border-soft-gray dark:border-dark-border flex gap-3",
+    editBtn:
+      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading bg-premium-orange text-white hover:bg-neon-orange transition-all duration-200",
+    closeFooterBtn:
+      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange transition-all duration-200",
+  },
+
+  // ── Modal: Create / Edit Form ───────────────────────────────────────────
+  formModal: {
+    wrapper:
+      "bg-white dark:bg-big-stone rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col",
+    header:
+      "bg-gradient-to-br from-seashell to-authentic-white dark:from-pickled-bluewood dark:to-big-stone p-6 flex items-center justify-between border-b border-soft-gray dark:border-dark-border shrink-0",
+    title: "text-xl font-bold font-heading text-eerie-black dark:text-mercury",
+    closeBtn:
+      "w-9 h-9 rounded-xl flex items-center justify-center text-deep-gray dark:text-dark-text-muted hover:bg-soft-gray dark:hover:bg-fiord transition-all duration-200",
+    body: "p-6 space-y-5 overflow-y-auto flex-1",
+    grid2: "grid grid-cols-1 sm:grid-cols-2 gap-4",
+    fieldLabel:
+      "block text-sm font-semibold font-body text-deep-gray dark:text-dark-text-muted mb-1.5",
+    fieldRequired: "text-premium-orange ml-0.5",
+    input:
+      "w-full px-4 py-2.5 rounded-xl text-sm font-body border border-soft-gray dark:border-dark-border bg-authentic-white dark:bg-pickled-bluewood text-eerie-black dark:text-mercury placeholder:text-light-text-subtle dark:placeholder:text-dark-text-subtle focus:outline-none focus:ring-2 focus:ring-premium-orange/30 focus:border-premium-orange transition-all duration-200",
+    inputError:
+      "w-full px-4 py-2.5 rounded-xl text-sm font-body border border-red-400 bg-red-50 dark:bg-red-900/10 text-eerie-black dark:text-mercury placeholder:text-light-text-subtle focus:outline-none focus:ring-2 focus:ring-red-400/30 transition-all duration-200",
+    errorMsg: "text-xs text-red-500 mt-1 font-body",
+    sectionTitle:
+      "text-xs font-bold font-heading uppercase tracking-widest text-light-text-subtle dark:text-dark-text-subtle border-b border-soft-gray dark:border-dark-border pb-2 mb-1",
+    footer:
+      "p-5 border-t border-soft-gray dark:border-dark-border flex gap-3 shrink-0",
+    cancelBtn:
+      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange transition-all duration-200",
+    submitBtn:
+      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading bg-premium-orange text-white hover:bg-neon-orange disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2",
+  },
+
+  // ── Modal: Delete Confirm ───────────────────────────────────────────────
+  deleteModal: {
+    wrapper:
+      "bg-white dark:bg-big-stone rounded-3xl w-full max-w-md shadow-2xl overflow-hidden",
+    header: "p-6 flex flex-col items-center text-center gap-3",
+    iconWrapper:
+      "w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center",
+    title: "text-xl font-bold font-heading text-eerie-black dark:text-mercury",
+    desc: "text-sm text-deep-gray dark:text-dark-text-muted font-body leading-relaxed",
+    branchName: "font-semibold text-premium-orange",
+    footer: "p-5 border-t border-soft-gray dark:border-dark-border flex gap-3",
+    cancelBtn:
+      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange transition-all duration-200",
+    deleteBtn:
+      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 transition-all duration-200 flex items-center justify-center gap-2",
+  },
+
+  // ── Loading Skeleton ────────────────────────────────────────────────────
+  skeleton: {
+    card: "bg-white dark:bg-big-stone rounded-2xl border border-soft-gray dark:border-dark-border overflow-hidden animate-pulse",
+    header: "bg-seashell dark:bg-pickled-bluewood h-20 w-full",
+    body: "p-5 space-y-3",
+    line: (w) => `h-3 bg-soft-gray dark:bg-fiord rounded-full ${w}`,
+  },
+};
