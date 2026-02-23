@@ -5,6 +5,7 @@ import { localeKeys } from "../../utils/localeKeys";
 import { checkPasswordRequirements } from "../../utils/validators";
 import { calculatePasswordStrength } from "../../utils/Passwordhelpers";
 import { keys } from "../../utils/constants";
+import { flexRow } from "../../utils/styles";
 
 /**
  * PasswordRequirements Component
@@ -124,7 +125,7 @@ const RequirementItem = ({ met, label, hasPassword }) => {
 
   return (
     <li
-      className={`flex items-center gap-2 sm:gap-3 transition-all duration-300 ${
+      className={`${flexRow} sm:gap-3 transition-all duration-300 ${
         met && hasPassword ? "transform scale-105" : ""
       }`}
     >

@@ -5,7 +5,7 @@ import AuthButtons from "./AuthButtons";
 import localeKeys from "../../utils/localeKeys.js";
 import { useAuth } from "../../hooks/useAuth";
 import { useLogout as logout } from "../../hooks/useLogout";
-import { navbarStyles } from "../../utils/styles.js";
+import { flexRow, navbarStyles } from "../../utils/styles.js";
 import useClickOutside from "../../hooks/useClickOutside.js";
 
 const MobileMenu = ({ isOpen, onClose }) => {
@@ -58,7 +58,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                 className={navbarStyles.mobileMenu.link}
                 onClick={onClose} // Will be Change later
               >
-                <div className="flex items-center gap-2">
+                <div className={flexRow}>
                   <Settings size={20} />
                   {t(localeKeys.accountSettings)}
                 </div>

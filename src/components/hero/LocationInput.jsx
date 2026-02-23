@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { FaLocationArrow, FaChevronDown } from "react-icons/fa";
 import { useClickOutside } from "../../hooks/useClickOutside";
-import { formInputStyles } from "../../utils/styles";
+import { flexRow, formInputStyles } from "../../utils/styles";
 import { bookingKeys } from "../../utils/localeKeys";
 
 const LocationInput = ({
@@ -105,7 +105,7 @@ const LocationInput = ({
                     : formInputStyles.dropdownItem
                 }
               >
-                <div className="flex items-center gap-2">{location.label}</div>
+                <div className={flexRow}>{location.label}</div>
               </button>
             ))
           ) : (
