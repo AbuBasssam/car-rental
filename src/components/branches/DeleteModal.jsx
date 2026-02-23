@@ -1,6 +1,7 @@
 import React from "react";
-import { branchesPageStyles as s } from "../../utils/styles";
+import { buttonStyles, branchesPageStyles as s } from "../../utils/styles";
 import { AlertTriangle, Loader2 } from "lucide-react";
+import DangerButton from "../../layouts/DangerButton";
 
 /**
  * Delete Confirm Modal
@@ -44,14 +45,14 @@ const DeleteModal = ({ branch, onClose, onConfirm, loading }) => {
           <button className={s.deleteModal.cancelBtn} onClick={onClose}>
             Cancel
           </button>
-          <button
-            className={s.deleteModal.deleteBtn}
+          <DangerButton
+            className={buttonStyles.roundedDisabled}
             onClick={() => onConfirm(branch.id)}
             disabled={loading || hasCars}
           >
             {loading && <Loader2 className="w-4 h-4 animate-spin" />}
             {hasCars ? "Cannot Delete" : "Delete"}
-          </button>
+          </DangerButton>
         </div>
       </div>
     </div>

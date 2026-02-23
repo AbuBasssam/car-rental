@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { branchesPageStyles as s } from "../../utils/styles";
+import { buttonStyles, branchesPageStyles as s } from "../../utils/styles";
 import { X, Loader2 } from "lucide-react";
 import { formModes } from "../../utils/constants";
 import { validateBranchForm } from "../../utils/validators";
+import PrimaryButton from "../../layouts/PrimaryButton";
 
 //
 /**
@@ -24,30 +25,6 @@ const FormModal = ({ mode, branch, onClose, onSubmit, loading }) => {
     mode === formModes.edit && branch ? { ...branch } : INITIAL_FORM,
   );
   const [errors, setErrors] = useState({});
-
-  // const validate = () => {
-  //   const e = {};
-  //   const exceedMax = (val) => val.trim().length > 75;
-
-  //   if (!form.nameEN.trim()) e.nameEN = "Name (EN) is required";
-  //   else if (exceedMax(form.nameEN)) e.nameEN = "Maximum 75 characters allowed";
-
-  //   if (!form.nameAR.trim()) e.nameAR = "الاسم العربي مطلوب";
-  //   else if (exceedMax(form.nameAR)) e.nameAR = "الحد الأقصى 75 حرفاً";
-
-  //   if (!form.cityEN.trim()) e.cityEN = "City (EN) is required";
-  //   if (!form.cityAR.trim()) e.cityAR = "المدينة مطلوبة";
-
-  //   const lat = parseFloat(form.latitude);
-  //   const lng = parseFloat(form.longitude);
-  //   if (isNaN(lat) || lat < -90 || lat > 90)
-  //     e.latitude = "Invalid Latitude (-90 to 90)";
-  //   if (isNaN(lng) || lng < -180 || lng > 180)
-  //     e.longitude = "Invalid Longitude (-180 to 180)";
-
-  //   return e;
-  // };
-
   const onFormSubmit = (event) => {
     event.preventDefault();
 
@@ -174,14 +151,14 @@ const FormModal = ({ mode, branch, onClose, onSubmit, loading }) => {
             >
               Cancel
             </button>
-            <button
-              type="submit" // هذا هو الزر الذي يطلق الـ onFormSubmit
-              className={s.formModal.submitBtn}
+            <PrimaryButton
+              type="submit"
+              className={buttonStyles.roundedDisabled}
               disabled={loading}
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {mode === formModes.edit ? "Save Changes" : "Create Branch"}
-            </button>
+            </PrimaryButton>
           </footer>
         </form>
       </div>

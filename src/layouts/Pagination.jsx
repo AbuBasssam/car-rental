@@ -38,7 +38,7 @@ const Pagination = ({
           <ChevronLeft className="w-4 h-4" />
         </button>
 
-        {/* أرقام الصفحات */}
+        {/* Page Numbers */}
         <div className="flex items-center gap-1">
           {pageNumbers.map((p, i) => (
             <React.Fragment key={`page-wrapper-${p}`}>

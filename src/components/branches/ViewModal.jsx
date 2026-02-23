@@ -1,6 +1,7 @@
 import React from "react";
 import { X, Building2, MapPin, Navigation, Car, Pencil } from "lucide-react";
-import { branchesPageStyles as s } from "../../utils/styles.js";
+import { buttonStyles, branchesPageStyles as s } from "../../utils/styles.js";
+import PrimaryButton from "../../layouts/PrimaryButton";
 
 const ViewModal = ({ branch, onClose, onEdit }) => {
   if (!branch) return null;
@@ -131,17 +132,17 @@ const ViewModal = ({ branch, onClose, onEdit }) => {
           >
             Close
           </button>
-          <button
-            className={s.detailModal.editBtn}
+          <PrimaryButton
             type="button"
+            className={buttonStyles.rounded}
             onClick={() => {
               onClose();
               onEdit(branch);
             }}
           >
-            <Pencil className="w-4 h-4 inline-block mr-2" />
+            <Pencil className="w-4 h-4" />
             Edit Branch
-          </button>
+          </PrimaryButton>
         </footer>
       </div>
     </aside>

@@ -102,6 +102,7 @@ const sharedSwitchSection = {
   button:
     "inline-block w-full rounded-xl font-medium transition-all duration-300 transform hover:-translate-y-0.5 bg-transparent border",
 };
+export const flexRow = "flex items-center gap-2";
 
 // ========================================================================
 // COMPONENT STYLES
@@ -734,12 +735,10 @@ export const formInputStyles = {
   label: "text-xs font-semibold text-gray-500 dark:text-gray-400",
 
   // Input wrapper (with icon)
-  inputWrapper:
-    "flex items-center gap-2 border border-mercury dark:border-pickled-bluewood rounded-lg px-3 py-2 bg-white dark:bg-mirage focus-within:border-premium-orange focus-within:ring-2 focus-within:ring-premium-orange/20 transition-all",
+  inputWrapper: `${flexRow} border border-mercury dark:border-pickled-bluewood rounded-lg px-3 py-2 bg-white dark:bg-mirage focus-within:border-premium-orange focus-within:ring-2 focus-within:ring-premium-orange/20 transition-all`,
 
   // Input wrapper with hover
-  inputWrapperHover:
-    "flex items-center gap-2 border border-mercury dark:border-pickled-bluewood rounded-lg px-3 py-2 bg-white dark:bg-mirage hover:bg-soft-gray dark:hover:bg-fiord focus-within:border-premium-orange focus-within:ring-2 focus-within:ring-premium-orange/20 transition-all",
+  inputWrapperHover: `${flexRow} border border-mercury dark:border-pickled-bluewood rounded-lg px-3 py-2 bg-white dark:bg-mirage hover:bg-soft-gray dark:hover:bg-fiord focus-within:border-premium-orange focus-within:ring-2 focus-within:ring-premium-orange/20 transition-all`,
 
   // Input field
   input:
@@ -876,11 +875,19 @@ export const mostRentedCarsStyles = {
 // ========================================================================
 // BUTTON STYLES
 // ========================================================================
+const _ghostBase =
+  "inline-flex items-center justify-center font-semibold border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange transition-all duration-200";
+
+const _primaryBase =
+  "inline-flex items-center justify-center font-semibold text-white transition-all duration-200";
+const _baseRounded = "flex-1 py-2.5 rounded-xl text-sm font-heading";
 
 export const buttonStyles = {
-  // Primary button
-  primary:
-    "inline-flex items-center justify-center px-6 py-2 rounded-lg text-base font-semibold bg-orange-500 text-white transition-all duration-200 hover:bg-orange-600 dark:hover:bg-neon-orange hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/30 active:translate-y-0",
+  primary: `${_primaryBase} px-6 py-2 rounded-lg text-base bg-orange-500 hover:bg-orange-600 dark:hover:bg-neon-orange hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/30 active:translate-y-0`,
+  danger: `${_primaryBase} px-6 py-2 rounded-lg text-base bg-red-500 hover:bg-red-600 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/30 active:translate-y-0`,
+  ghost: _ghostBase,
+  cardEdit:
+    "flex-1 py-2 rounded-xl text-xs font-semibold font-body bg-seashell dark:bg-pickled-bluewood text-eerie-black dark:text-mercury hover:bg-premium-orange hover:text-white transition-all duration-200",
 
   // Outline button
   outline: {
@@ -899,12 +906,35 @@ export const buttonStyles = {
 
   fullWidthHover:
     "absolute inset-0 transition-opacity duration-300 z-0 opacity-0 group-hover:opacity-100 bg-linear-to-r from-orange-400/50 to-orange-500/50",
+  rounded: _baseRounded,
+  roundedDisabled: `${_baseRounded}disabled:opacity-50 disabled:cursor-not-allowed`,
 };
 
 // ========================================================================
 // BRANCHES PAGE STYLES
 // Add this export to src/utils/styles.js
 // ========================================================================
+const modalSharedStyles = {
+  wrapperBase:
+    "bg-white dark:bg-big-stone rounded-3xl w-full shadow-2xl overflow-hidden",
+
+  headerBase:
+    "bg-gradient-to-br from-seashell to-authentic-white dark:from-pickled-bluewood dark:to-big-stone p-6 flex items-center justify-between border-b border-soft-gray dark:border-dark-border",
+
+  title: "text-xl font-bold font-heading text-eerie-black dark:text-mercury",
+
+  closeBtn:
+    "w-9 h-9 rounded-xl flex items-center justify-center text-deep-gray dark:text-dark-text-muted hover:bg-soft-gray dark:hover:bg-fiord transition-all duration-200",
+
+  footerBase:
+    "p-5 border-t border-soft-gray dark:border-dark-border flex gap-3",
+
+  cancelBtn: `${_ghostBase} flex-1 py-2.5 rounded-xl text-sm font-heading`,
+
+  // أساس الزر الرئيسي (Primary): مشترك بين editBtn و submitBtn
+  primaryBtnBase:
+    "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading bg-premium-orange text-white hover:bg-neon-orange transition-all duration-200",
+};
 
 export const branchesPageStyles = {
   // ── Page Layout ────────────────────────────────────────────────────────
@@ -978,7 +1008,7 @@ export const branchesPageStyles = {
     cityIcon: "w-3.5 h-3.5 text-premium-orange shrink-0",
     divider: "border-t border-soft-gray dark:border-dark-border my-4",
     metaRow: "flex items-center justify-between",
-    metaItem: "flex items-center gap-2",
+    metaItem: `${flexRow}`,
     metaLabel:
       "text-xs text-light-text-subtle dark:text-dark-text-subtle font-body",
     metaValue:
@@ -986,8 +1016,9 @@ export const branchesPageStyles = {
     actions: "flex gap-2 p-5 pt-4",
     actionBtn: (variant) => {
       const variants = {
-        view: "flex-1 py-2 rounded-xl text-xs font-semibold font-body border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange dark:hover:text-premium-orange transition-all duration-200",
-        edit: "flex-1 py-2 rounded-xl text-xs font-semibold font-body bg-seashell dark:bg-pickled-bluewood text-eerie-black dark:text-mercury hover:bg-premium-orange hover:text-white transition-all duration-200",
+        view: `${_ghostBase} flex-1 py-2 rounded-xl text-xs font-body dark:hover:text-premium-orange`,
+        edit: buttonStyles.cardEdit,
+
         delete:
           "p-2 rounded-xl text-xs font-semibold font-body border border-soft-gray dark:border-dark-border text-light-text-subtle dark:text-dark-text-subtle hover:border-red-500 hover:text-red-500 transition-all duration-200",
         toggle:
@@ -1033,13 +1064,10 @@ export const branchesPageStyles = {
 
   // ── Modal: View Details ─────────────────────────────────────────────────
   detailModal: {
-    wrapper:
-      "bg-white dark:bg-big-stone rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden",
-    header:
-      "bg-gradient-to-br from-seashell to-authentic-white dark:from-pickled-bluewood dark:to-big-stone p-6 flex items-center justify-between border-b border-soft-gray dark:border-dark-border",
-    title: "text-xl font-bold font-heading text-eerie-black dark:text-mercury",
-    closeBtn:
-      "w-9 h-9 rounded-xl flex items-center justify-center text-deep-gray dark:text-dark-text-muted hover:bg-soft-gray dark:hover:bg-fiord transition-all duration-200",
+    wrapper: `${modalSharedStyles.wrapperBase} max-w-lg`,
+    header: modalSharedStyles.headerBase,
+    title: modalSharedStyles.title,
+    closeBtn: modalSharedStyles.closeBtn,
     body: "p-6 space-y-4",
     row: "flex items-start gap-3",
     rowIcon:
@@ -1051,22 +1079,16 @@ export const branchesPageStyles = {
     bilingualRow: "grid grid-cols-2 gap-3",
     statusRow:
       "flex items-center gap-3 p-3 rounded-xl bg-seashell dark:bg-pickled-bluewood",
-    footer: "p-5 border-t border-soft-gray dark:border-dark-border flex gap-3",
-    editBtn:
-      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading bg-premium-orange text-white hover:bg-neon-orange transition-all duration-200",
-    closeFooterBtn:
-      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange transition-all duration-200",
+    footer: modalSharedStyles.footerBase,
+    closeFooterBtn: modalSharedStyles.cancelBtn,
   },
 
   // ── Modal: Create / Edit Form ───────────────────────────────────────────
   formModal: {
-    wrapper:
-      "bg-white dark:bg-big-stone rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col",
-    header:
-      "bg-gradient-to-br from-seashell to-authentic-white dark:from-pickled-bluewood dark:to-big-stone p-6 flex items-center justify-between border-b border-soft-gray dark:border-dark-border shrink-0",
-    title: "text-xl font-bold font-heading text-eerie-black dark:text-mercury",
-    closeBtn:
-      "w-9 h-9 rounded-xl flex items-center justify-center text-deep-gray dark:text-dark-text-muted hover:bg-soft-gray dark:hover:bg-fiord transition-all duration-200",
+    wrapper: `${modalSharedStyles.wrapperBase} max-w-2xl max-h-[90vh] flex flex-col`,
+    header: `${modalSharedStyles.headerBase} shrink-0`,
+    title: modalSharedStyles.title,
+    closeBtn: modalSharedStyles.closeBtn,
     body: "p-6 space-y-5 overflow-y-auto flex-1",
     grid2: "grid grid-cols-1 sm:grid-cols-2 gap-4",
     fieldLabel:
@@ -1079,31 +1101,22 @@ export const branchesPageStyles = {
     errorMsg: "text-xs text-red-500 mt-1 font-body",
     sectionTitle:
       "text-xs font-bold font-heading uppercase tracking-widest text-light-text-subtle dark:text-dark-text-subtle border-b border-soft-gray dark:border-dark-border pb-2 mb-1",
-    footer:
-      "p-5 border-t border-soft-gray dark:border-dark-border flex gap-3 shrink-0",
-    cancelBtn:
-      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange transition-all duration-200",
-    submitBtn:
-      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading bg-premium-orange text-white hover:bg-neon-orange disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2",
+    footer: `${modalSharedStyles.footerBase} shrink-0`,
+    cancelBtn: modalSharedStyles.cancelBtn,
   },
 
   // ── Modal: Delete Confirm ───────────────────────────────────────────────
   deleteModal: {
-    wrapper:
-      "bg-white dark:bg-big-stone rounded-3xl w-full max-w-md shadow-2xl overflow-hidden",
+    wrapper: `${modalSharedStyles.wrapperBase} max-w-md`,
     header: "p-6 flex flex-col items-center text-center gap-3",
     iconWrapper:
       "w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center",
-    title: "text-xl font-bold font-heading text-eerie-black dark:text-mercury",
+    title: modalSharedStyles.title,
     desc: "text-sm text-deep-gray dark:text-dark-text-muted font-body leading-relaxed",
     branchName: "font-semibold text-premium-orange",
-    footer: "p-5 border-t border-soft-gray dark:border-dark-border flex gap-3",
-    cancelBtn:
-      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading border border-soft-gray dark:border-dark-border text-deep-gray dark:text-dark-text-muted hover:border-premium-orange hover:text-premium-orange transition-all duration-200",
-    deleteBtn:
-      "flex-1 py-2.5 rounded-xl text-sm font-semibold font-heading bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 transition-all duration-200 flex items-center justify-center gap-2",
+    footer: modalSharedStyles.footerBase,
+    cancelBtn: modalSharedStyles.cancelBtn,
   },
-
   // ── Loading Skeleton ────────────────────────────────────────────────────
   skeleton: {
     card: "bg-white dark:bg-big-stone rounded-2xl border border-soft-gray dark:border-dark-border overflow-hidden animate-pulse",
