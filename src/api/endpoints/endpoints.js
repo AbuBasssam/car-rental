@@ -33,6 +33,15 @@ export const AUTH_ENDPOINTS = {
   VERIFY: `${API_BASE_URL}/authentication/token/validation`,
 };
 
+export const BRANCH_ENDPOINTS = {
+  QUERY: `${API_BASE_URL}/branches`,
+  GET_BY_ID: (id) => `${API_BASE_URL}/branches/${id}`,
+  CREATE: `${API_BASE_URL}/branches`,
+  UPDATE: (id) => `${API_BASE_URL}/branches/${id}`,
+  DELETE: (id) => `${API_BASE_URL}/branches/${id}`,
+  TOGGLE: (id) => `${API_BASE_URL}/branches/${id}/toggle-status`,
+};
+
 /**
  * List of endpoints that require CSRF token protection
  * These endpoints perform state-changing operations that need CSRF validation
