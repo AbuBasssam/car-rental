@@ -1,4 +1,4 @@
-import { branchesPageStyles as s } from "../../utils/styles.js";
+import { flexRow, branchesPageStyles as s } from "../../utils/styles.js";
 import { Search, X } from "lucide-react";
 /*
 const FilterBar = () => {
@@ -124,7 +124,7 @@ const FilterBar = ({
         </div>
 
         {/* Status Filter */}
-        <div className="flex items-center gap-2">
+        <div className={flexRow}>
           <label
             htmlFor="status-filter"
             className="text-sm font-medium text-gray-600 dark:text-gray-300"
@@ -144,7 +144,7 @@ const FilterBar = ({
         </div>
 
         {/* Page Size Selector */}
-        <div className="flex items-center gap-2">
+        <div className={flexRow}>
           <label
             htmlFor="page-size"
             className="text-sm font-medium text-gray-600 dark:text-gray-300"
