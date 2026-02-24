@@ -259,9 +259,9 @@
   },
 
   "branch_header": {
-    "page_title": "الفروع",
-    "page_eyebrow": "إدارة الأسطول",
-    "page_subtitle": "إدارة جميع مواقع التأجير",
+    "title": "إدارة الأسطول",
+    "subtitle": "الفروع",
+    "description": "إدارة جميع مواقع التأجير",
     "add_branch": "إضافة فرع"
   },
 

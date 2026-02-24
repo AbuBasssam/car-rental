@@ -256,9 +256,9 @@
   },
 
   "branch_header": {
-    "page_title": "Branches",
-    "page_eyebrow": "Fleet Management",
-    "page_subtitle": "Manage all rental locations",
+    "title": "Fleet Management",
+    "subtitle": "Branches",
+    "description": "Manage all rental locations",
     "add_branch": "Add Branch"
   },
 

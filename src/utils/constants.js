@@ -25,3 +25,8 @@ export const formModes = {
   edit: "edit",
   delete: "delete",
 };
+export const branchFilters = {
+  city: "city",
+  status: "status",
+  pageSize: "pageSize",
+};

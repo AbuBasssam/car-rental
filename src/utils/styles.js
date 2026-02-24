@@ -946,11 +946,11 @@ export const branchesPageStyles = {
     wrapper:
       "flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 mt-8",
     titleGroup: "space-y-1",
-    eyebrow:
-      "text-xs font-semibold tracking-widest uppercase text-premium-orange font-body",
-    title:
-      "text-3xl sm:text-4xl font-bold font-heading text-eerie-black dark:text-mercury",
-    subtitle: "text-sm text-deep-gray dark:text-dark-text-muted font-body mt-1",
+    title: "text-3xl sm:text-4xl font-bold font-heading text-premium-orange",
+    subtitle:
+      "text-2xl sm:text-3xl font-semibold tracking-widest  text-eerie-black dark:text-mercury font-body",
+    description:
+      "text-xl sm:text-2xl text-deep-gray dark:text-dark-text-muted font-body mt-1",
     addBtn:
       "inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm font-heading text-white bg-premium-orange hover:bg-neon-orange transition-all duration-200 shadow-orange hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0",
   },

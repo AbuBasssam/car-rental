@@ -309,9 +309,9 @@ export const adminNavbarKeys = {
  * BranchHeader namespace keys
  */
 export const branchHeaderKeys = {
-  pageTitle: "branch_header.page_title",
-  pageEyebrow: "branch_header.page_eyebrow",
-  pageSubtitle: "branch_header.page_subtitle",
+  title: "branch_header.title",
+  subtitle: "branch_header.subtitle",
+  description: "branch_header.description",
   addBranch: "branch_header.add_branch"
 };
 
