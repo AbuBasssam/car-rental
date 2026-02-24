@@ -1,34 +1,41 @@
 import { branchesPageStyles as s } from "../../utils/styles";
-import StatsCard from "./statsCard";
+import { branchStatsKeys as tk } from "../../utils/localeKeys";
+import { useTranslation } from "react-i18next";
+import StatsCard from "./StatsCard";
 import { CheckCircle2, XCircle } from "lucide-react";
 
+const _col = "flex flex-col";
+const _colHeader = "flex items-center gap-1.5 mb-1";
+
+/**
+ * Displays three summary stat cards: Total, Active, and Inactive branch counts.
+ * @param {{ stats: { total: number, active: number, inactive: number } }} props
+ */
 const StatsSection = ({ stats }) => {
+  const { t } = useTranslation();
+
   return (
     <section className={s.stats.grid}>
-      {/* Total Branches Card */}
       <StatsCard>
-        <p className={s.stats.label}>Total Branches</p>
-
+        <p className={s.stats.label}>{t(tk.total)}</p>
         <strong className={s.stats.value}>{stats.total}</strong>
       </StatsCard>
 
-      {/* Active Branches */}
       <StatsCard>
-        <div className="flex flex-col">
-          <div className="flex items-center gap-1.5 mb-1">
+        <div className={_col}>
+          <div className={_colHeader}>
             <CheckCircle2 className="w-3 h-3 text-green-500" />
-            <span className={s.stats.label}>Active</span>
+            <span className={s.stats.label}>{t(tk.active)}</span>
           </div>
           <strong className={s.stats.valueActive}>{stats.active}</strong>
         </div>
       </StatsCard>
 
-      {/* Deactivated Branches */}
       <StatsCard>
-        <div className="flex flex-col">
-          <div className="flex items-center gap-1.5 mb-1">
+        <div className={_col}>
+          <div className={_colHeader}>
             <XCircle className="w-3 h-3 text-red-500" />
-            <span className={s.stats.label}>Inactive</span>
+            <span className={s.stats.label}>{t(tk.inactive)}</span>
           </div>
           <strong className={s.stats.valueInactive}>{stats.inactive}</strong>
         </div>
@@ -36,4 +43,5 @@ const StatsSection = ({ stats }) => {
     </section>
   );
 };
+
 export default StatsSection;
