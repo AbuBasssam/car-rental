@@ -10,7 +10,9 @@
   "save": "Save",
   "cancel": "Cancel",
   "delete": "Delete",
+  "clear": "Clear",
   "edit": "Edit",
+  "close": "Close",
   "submit": "Submit",
   "search": "Search",
   "login": "Login",
@@ -22,6 +24,38 @@
   "account_settings": "Account Settings",
 
   "change_language": "Change Language",
+  "back_to_home": "Back to Home",
+  "enter_your_email": "Enter your email",
+  "enter_your_password": "Enter your password",
+  "premium_drive": "PremiumDrive",
+  "luxury_mobility_experience": "LUXURY MOBILITY EXPERIENCE",
+  "dont_have_account": "Don't have an account yet?",
+  "create_account": "Create Account",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "confirm_password": "Confirm password",
+  "create_password": "Create password",
+  "already_have_account": "Already have an account?",
+  "join_premium_drive": "Join Premium Drive",
+  "create_exclusive_account": "Create your Exclusive Account",
+  "i_agree_to": "I agree to the",
+  "terms_of_service": "Terms of Service",
+  "and": "and",
+  "privacy_policy_link": "Privacy Policy",
+  "password_requirements": "Password Requirements",
+  "password_length": "Between 8 and 16 characters",
+  "password_uppercase": "At least one uppercase letter",
+  "password_lowercase": "At least one lowercase letter",
+  "password_special": "At least one special character",
+  "password_number": "At least one number",
+  "password_strength": "Password Strength",
+  "password_weak": "Weak",
+  "password_medium": "Medium",
+  "password_strong": "Strong",
+  "password_very_strong": "Very Strong",
+  "verifyAccountTitle": "Please Verify Your Account",
+  "code_sent_success": "The code has been sent successfully",
+
   "languages": { "arabic": "Arabic", "english": "English" },
   "auth": {
     "login_title": "Login to your account",
@@ -121,37 +155,6 @@
     "privacy_policy": "Privacy Policy",
     "rent_a_car": "Rent a Car"
   },
-  "back_to_home": "Back to Home",
-  "enter_your_email": "Enter your email",
-  "enter_your_password": "Enter your password",
-  "premium_drive": "PremiumDrive",
-  "luxury_mobility_experience": "LUXURY MOBILITY EXPERIENCE",
-  "dont_have_account": "Don't have an account yet?",
-  "create_account": "Create Account",
-  "first_name": "First Name",
-  "last_name": "Last Name",
-  "confirm_password": "Confirm password",
-  "create_password": "Create password",
-  "already_have_account": "Already have an account?",
-  "join_premium_drive": "Join Premium Drive",
-  "create_exclusive_account": "Create your Exclusive Account",
-  "i_agree_to": "I agree to the",
-  "terms_of_service": "Terms of Service",
-  "and": "and",
-  "privacy_policy_link": "Privacy Policy",
-  "password_requirements": "Password Requirements",
-  "password_length": "Between 8 and 16 characters",
-  "password_uppercase": "At least one uppercase letter",
-  "password_lowercase": "At least one lowercase letter",
-  "password_special": "At least one special character",
-  "password_number": "At least one number",
-  "password_strength": "Password Strength",
-  "password_weak": "Weak",
-  "password_medium": "Medium",
-  "password_strong": "Strong",
-  "password_very_strong": "Very Strong",
-  "verifyAccountTitle": "Please Verify Your Account",
-  "code_sent_success": "The code has been sent successfully",
 
   "validation": {
     "required": "This field is required",
@@ -168,8 +171,14 @@
     "terms_required": "You must accept the terms and conditions",
     "registration_failed": "Invalid email and/or password",
     "otp_incomplete": "Please enter the complete 6-digit verification code.",
-    "invalid_or_expired_code": "The code is invalid or has expired."
+    "invalid_or_expired_code": "The code is invalid or has expired.",
+    "branch_name_required": "Branch name is required",
+    "validation_name_max": "Maximum {{max}} characters allowed",
+    "city_required": "City is required",
+    "lat_invalid": "Invalid latitude (must be between −90 and 90)",
+    "lng_invalid": "Invalid longitude (must be between −180 and 180)"
   },
+
   "errors": {
     "bad_request": "Invalid request. Please check your input",
     "unauthorized": "Your session has expired. Please log in again",
@@ -196,6 +205,7 @@
     "reset_code_attempts_exceeded": "Maximum verification attempts exceeded. Please request a new code.",
     "verification_attempts_exceeded": "Too many incorrect verification attempts. Please wait before requesting a new code."
   },
+
   "verify": {
     "code_sent_to": "Verification code sent to",
     "enter_six_digit_code": "Enter the 6-digit code",
@@ -211,6 +221,7 @@
     "verification_disabled": "Verification Temporarily Disabled",
     "request_new_code_after_countdown": "You can request a new code after the countdown ends"
   },
+
   "reset_password": {
     "forgot_password_title": "Forgot Password",
     "forgot_password_description": "Enter your email and we'll send you a verification code",
@@ -236,10 +247,88 @@
     "changing_password": "Changing password...",
     "change_password": "Change Password"
   },
+
   "admin_navbar": {
     "add_car": "Add Car",
     "manage_cars": "Manage Cars",
     "bookings": "Bookings",
     "branches": "Branches"
+  },
+
+  "branch_header": {
+    "page_title": "Branches",
+    "page_eyebrow": "Fleet Management",
+    "page_subtitle": "Manage all rental locations",
+    "add_branch": "Add Branch"
+  },
+
+  "branch_stats": {
+    "total": "Total Branches",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+
+  "branch_filter_bar": {
+    "search_placeholder": "Search by city...",
+    "search_label": "Search by city",
+    "status_label": "Status",
+    "status_all": "All Statuses",
+    "status_active": "Active Only",
+    "status_inactive": "Inactive Only",
+    "show_label": "Show",
+    "per_page": "{{count}} per page"
+  },
+
+  "branch_card": {
+    "status_active": "Active",
+    "status_inactive": "Inactive",
+    "action_view": "View",
+    "action_edit": "Edit",
+    "action_toggle": "Toggle status",
+    "action_delete": "Delete",
+    "cars_count": "Cars"
+  },
+
+  "branch_form": {
+    "title_create": "Add New Branch",
+    "section_identity": "Identity Information",
+    "section_location": "Location Details",
+    "section_gps": "GPS Coordinates",
+    "field_name_en": "Name (English)",
+    "field_name_ar": "Name (Arabic)",
+    "field_city_en": "City (English)",
+    "field_city_ar": "City (Arabic)",
+    "field_latitude": "Latitude",
+    "field_longitude": "Longitude",
+    "placeholder_name_en": "e.g. Riyadh Main",
+    "placeholder_name_ar": "e.g. Riyadh Branch",
+    "placeholder_city_en": "e.g. Riyadh",
+    "placeholder_city_ar": "e.g. Riyadh",
+    "btn_save": "Save Changes"
+  },
+
+  "branch_view": {
+    "title": "Branch Details",
+    "status": "Status",
+    "name_en": "Name (English)",
+    "name_ar": "Name (Arabic)",
+    "city_en": "City (English)",
+    "city_ar": "City (Arabic)",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "fleet": "Fleet",
+    "fleet_summary": "{{cars}} cars across {{categories}} categories"
+  },
+
+  "branch_delete_dialog": {
+    "delete_btn_blocked": "Cannot Delete",
+    "delete_confirm_msg": "Are you sure you want to delete {{name}}? This action cannot be undone.",
+    "delete_blocked_msg": "Cannot delete {{name}} because it has {{count}} cars assigned to it. Reassign or remove cars first."
+  },
+
+  "branch_actions": {
+    "create_branch": "Create Branch",
+    "edit_branch": "Edit Branch",
+    "delete_branch": "Delete Branch"
   }
 }

@@ -17,7 +17,9 @@ export const localeKeys = {
   save: "save",
   cancel: "cancel",
   delete: "delete",
+  clear: "clear",
   edit: "edit",
+  close: "close",
   submit: "submit",
   search: "search",
   login: "login",
@@ -207,7 +209,12 @@ export const validationKeys = {
   termsRequired: "validation.terms_required",
   registrationFailed: "validation.registration_failed",
   otpIncomplete: "validation.otp_incomplete",
-  invalidOrExpiredCode: "validation.invalid_or_expired_code"
+  invalidOrExpiredCode: "validation.invalid_or_expired_code",
+  branchNameRequired: "validation.branch_name_required",
+  validationNameMax: "validation.validation_name_max",
+  cityRequired: "validation.city_required",
+  latInvalid: "validation.lat_invalid",
+  lngInvalid: "validation.lng_invalid"
 };
 
 /**
@@ -296,6 +303,108 @@ export const adminNavbarKeys = {
   manageCars: "admin_navbar.manage_cars",
   bookings: "admin_navbar.bookings",
   branches: "admin_navbar.branches"
+};
+
+/**
+ * BranchHeader namespace keys
+ */
+export const branchHeaderKeys = {
+  pageTitle: "branch_header.page_title",
+  pageEyebrow: "branch_header.page_eyebrow",
+  pageSubtitle: "branch_header.page_subtitle",
+  addBranch: "branch_header.add_branch"
+};
+
+/**
+ * BranchStats namespace keys
+ */
+export const branchStatsKeys = {
+  total: "branch_stats.total",
+  active: "branch_stats.active",
+  inactive: "branch_stats.inactive"
+};
+
+/**
+ * BranchFilterBar namespace keys
+ */
+export const branchFilterBarKeys = {
+  searchPlaceholder: "branch_filter_bar.search_placeholder",
+  searchLabel: "branch_filter_bar.search_label",
+  statusLabel: "branch_filter_bar.status_label",
+  statusAll: "branch_filter_bar.status_all",
+  statusActive: "branch_filter_bar.status_active",
+  statusInactive: "branch_filter_bar.status_inactive",
+  showLabel: "branch_filter_bar.show_label",
+  perPage: "branch_filter_bar.per_page"
+};
+
+/**
+ * BranchCard namespace keys
+ */
+export const branchCardKeys = {
+  statusActive: "branch_card.status_active",
+  statusInactive: "branch_card.status_inactive",
+  actionView: "branch_card.action_view",
+  actionEdit: "branch_card.action_edit",
+  actionToggle: "branch_card.action_toggle",
+  actionDelete: "branch_card.action_delete",
+  carsCount: "branch_card.cars_count"
+};
+
+/**
+ * BranchForm namespace keys
+ */
+export const branchFormKeys = {
+  titleCreate: "branch_form.title_create",
+  titleEdit: "branch_form.title_edit",
+  sectionIdentity: "branch_form.section_identity",
+  sectionLocation: "branch_form.section_location",
+  sectionGps: "branch_form.section_gps",
+  fieldNameEn: "branch_form.field_name_en",
+  fieldNameAr: "branch_form.field_name_ar",
+  fieldCityEn: "branch_form.field_city_en",
+  fieldCityAr: "branch_form.field_city_ar",
+  fieldLatitude: "branch_form.field_latitude",
+  fieldLongitude: "branch_form.field_longitude",
+  placeholderNameEn: "branch_form.placeholder_name_en",
+  placeholderNameAr: "branch_form.placeholder_name_ar",
+  placeholderCityEn: "branch_form.placeholder_city_en",
+  placeholderCityAr: "branch_form.placeholder_city_ar",
+  btnSave: "branch_form.btn_save"
+};
+
+/**
+ * BranchView namespace keys
+ */
+export const branchViewKeys = {
+  title: "branch_view.title",
+  status: "branch_view.status",
+  nameEn: "branch_view.name_en",
+  nameAr: "branch_view.name_ar",
+  cityEn: "branch_view.city_en",
+  cityAr: "branch_view.city_ar",
+  latitude: "branch_view.latitude",
+  longitude: "branch_view.longitude",
+  fleet: "branch_view.fleet",
+  fleetSummary: "branch_view.fleet_summary"
+};
+
+/**
+ * BranchDeleteDialog namespace keys
+ */
+export const branchDeleteDialogKeys = {
+  deleteBtnBlocked: "branch_delete_dialog.delete_btn_blocked",
+  deleteConfirmMsg: "branch_delete_dialog.delete_confirm_msg",
+  deleteBlockedMsg: "branch_delete_dialog.delete_blocked_msg"
+};
+
+/**
+ * BranchActions namespace keys
+ */
+export const branchActionsKeys = {
+  createBranch: "branch_actions.create_branch",
+  editBranch: "branch_actions.edit_branch",
+  deleteBranch: "branch_actions.delete_branch"
 };
 
 // Default export

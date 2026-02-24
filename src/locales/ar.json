@@ -11,7 +11,9 @@
   "save": "حفظ",
   "cancel": "إلغاء",
   "delete": "حذف",
+  "clear": "مسح",
   "edit": "تعديل",
+  "close": "إغلاق",
   "submit": "إرسال",
   "search": "بحث",
 
@@ -24,6 +26,38 @@
   "account_settings": "إعدادات الحساب",
 
   "change_language": "تغيير اللغة",
+
+  "back_to_home": "العودة للصفحة الرئيسية",
+  "enter_your_email": "أدخل بريدك الإلكتروني",
+  "enter_your_password": "أدخل كلمة المرور",
+  "premium_drive": "قيادة متميزة",
+  "luxury_mobility_experience": "تجربة تنقل فاخرة",
+  "dont_have_account": "ليس لديك حساب بعد؟",
+  "create_account": "إنشاء حساب",
+  "first_name": "الاسم الأول",
+  "last_name": "اسم العائلة",
+  "confirm_password": "تأكيد كلمة المرور",
+  "create_password": "إنشاء كلمة المرور",
+  "already_have_account": "هل لديك حساب بالفعل؟",
+  "join_premium_drive": "انضم إلى القيادة المتميزة",
+  "create_exclusive_account": "أنشئ حسابك الحصري",
+  "i_agree_to": "أوافق على",
+  "terms_of_service": "شروط الخدمة",
+  "and": "و",
+  "privacy_policy_link": "سياسة الخصوصية",
+  "password_requirements": "متطلبات كلمة المرور",
+  "password_length": "بين 8 و 16 حرفاً",
+  "password_uppercase": "حرف كبير واحد على الأقل",
+  "password_lowercase": "حرف صغير واحد على الأقل",
+  "password_special": "رمز خاص واحد على الأقل",
+  "password_number": "رقم واحد على الأقل",
+  "password_strength": "قوة كلمة المرور",
+  "password_weak": "ضعيفة",
+  "password_medium": "متوسطة",
+  "password_strong": "قوية",
+  "password_very_strong": "قوية جداً",
+  "verifyAccountTitle": "الرجاء توثيق الحساب",
+  "code_sent_success": "تم إرسال الرمز بنجاح",
 
   "languages": { "arabic": "العربية", "english": "الإنجليزية" },
 
@@ -124,38 +158,6 @@
     "privacy_policy": "سياسة الخصوصية",
     "rent_a_car": "استأجر سيارة"
   },
-  "back_to_home": "العودة للصفحة الرئيسية",
-
-  "enter_your_email": "أدخل بريدك الإلكتروني",
-  "enter_your_password": "أدخل كلمة المرور",
-  "premium_drive": "قيادة متميزة",
-  "luxury_mobility_experience": "تجربة تنقل فاخرة",
-  "dont_have_account": "ليس لديك حساب بعد؟",
-  "create_account": "إنشاء حساب",
-  "first_name": "الاسم الأول",
-  "last_name": "اسم العائلة",
-  "confirm_password": "تأكيد كلمة المرور",
-  "create_password": "إنشاء كلمة المرور",
-  "already_have_account": "هل لديك حساب بالفعل؟",
-  "join_premium_drive": "انضم إلى القيادة المتميزة",
-  "create_exclusive_account": "أنشئ حسابك الحصري",
-  "i_agree_to": "أوافق على",
-  "terms_of_service": "شروط الخدمة",
-  "and": "و",
-  "privacy_policy_link": "سياسة الخصوصية",
-  "password_requirements": "متطلبات كلمة المرور",
-  "password_length": "بين 8 و 16 حرفاً",
-  "password_uppercase": "حرف كبير واحد على الأقل",
-  "password_lowercase": "حرف صغير واحد على الأقل",
-  "password_special": "رمز خاص واحد على الأقل",
-  "password_number": "رقم واحد على الأقل",
-  "password_strength": "قوة كلمة المرور",
-  "password_weak": "ضعيفة",
-  "password_medium": "متوسطة",
-  "password_strong": "قوية",
-  "password_very_strong": "قوية جداً",
-  "verifyAccountTitle": "الرجاء توثيق الحساب",
-  "code_sent_success": "تم إرسال الرمز بنجاح",
 
   "validation": {
     "required": "هذا الحقل مطلوب",
@@ -172,8 +174,14 @@
     "terms_required": "يجب الموافقة على الشروط والأحكام",
     "registration_failed": "البريد الإلكتروني أو كلمة المرور غير صالحة",
     "otp_incomplete": "يرجى إدخال رمز التحقق المكون من 6 أرقام بالكامل.",
-    "invalid_or_expired_code": "الرمز غير صالح أو منتهي الصلاحية"
+    "invalid_or_expired_code": "الرمز غير صالح أو منتهي الصلاحية",
+    "branch_name_required": "اسم الفرع مطلوب",
+    "validation_name_max": "الحد الأقصى {{max}} حرفاً",
+    "city_required": "المدينة مطلوبة",
+    "lat_invalid": "خط العرض غير صالح (يجب أن يكون بين −90 و 90)",
+    "lng_invalid": "خط الطول غير صالح (يجب أن يكون بين −180 و 180)"
   },
+
   "errors": {
     "bad_request": "طلب غير صالح. يرجى التحقق من المدخلات",
     "unauthorized": "انتهت جلستك. يرجى تسجيل الدخول مرة أخرى",
@@ -200,6 +208,7 @@
     "reset_code_attempts_exceeded": "تم إدخال رمز التحقق بشكل خاطئ عدة مرات.الرجاء طلب رمز جديد.",
     "verification_attempts_exceeded": "تم تجاوز عدد محاولات التحقق المسموح بها. يرجى الانتظار قبل طلب رمز جديد."
   },
+
   "verify": {
     "code_sent_to": "تم إرسال رمز التوثيق إلى",
     "enter_six_digit_code": "أدخل الرمز المكون من 6 أرقام",
@@ -215,6 +224,7 @@
     "verification_disabled": "التحقق معطّل مؤقتاً",
     "request_new_code_after_countdown": "يمكنك طلب رمز جديد بعد انتهاء العد التنازلي"
   },
+
   "reset_password": {
     "forgot_password_title": "نسيت كلمة المرور",
     "forgot_password_description": "أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق",
@@ -240,10 +250,87 @@
     "changing_password": "جاري تغيير كلمة المرور...",
     "change_password": "تغيير كلمة المرور"
   },
+
   "admin_navbar": {
     "add_car": "إضافة سيارة",
     "manage_cars": "إدارة السيارات",
     "bookings": "الحجوزات",
     "branches": "الفروع"
+  },
+
+  "branch_header": {
+    "page_title": "الفروع",
+    "page_eyebrow": "إدارة الأسطول",
+    "page_subtitle": "إدارة جميع مواقع التأجير",
+    "add_branch": "إضافة فرع"
+  },
+
+  "branch_stats": {
+    "total": "إجمالي الفروع",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+
+  "branch_filter_bar": {
+    "search_placeholder": "البحث عن طريق المدينة...",
+    "search_label": "البحث بالمدينة",
+    "status_label": "الحالة",
+    "status_all": "جميع الحالات",
+    "status_active": "النشطة فقط",
+    "status_inactive": "غير النشطة فقط",
+    "show_label": "عرض",
+    "per_page": "{{count}} في الصفحة"
+  },
+  "branch_card": {
+    "status_active": "نشط",
+    "status_inactive": "غير نشط",
+    "action_view": "عرض",
+    "action_edit": "تعديل",
+    "action_toggle": "تبديل الحالة",
+    "action_delete": "حذف",
+    "cars_count": "سيارة"
+  },
+  "branch_form": {
+    "title_create": "إضافة فرع جديد",
+    "title_edit": "تعديل الفرع",
+    "section_identity": "معلومات الهوية",
+    "section_location": "تفاصيل الموقع",
+    "section_gps": "إحداثيات GPS",
+    "field_name_en": "الاسم (إنجليزي)",
+    "field_name_ar": "الاسم (عربي)",
+    "field_city_en": "المدينة (إنجليزي)",
+    "field_city_ar": "المدينة (عربي)",
+    "field_latitude": "خط العرض",
+    "field_longitude": "خط الطول",
+    "placeholder_name_en": "مثال: Riyadh Main",
+    "placeholder_name_ar": "مثال: فرع الرياض",
+    "placeholder_city_en": "مثال: Riyadh",
+    "placeholder_city_ar": "مثال: الرياض",
+    "btn_save": "حفظ التغييرات"
+  },
+
+  "branch_view": {
+    "title": "تفاصيل الفرع",
+    "status": "الحالة",
+    "name_en": "الاسم (إنجليزي)",
+    "name_ar": "الاسم (عربي)",
+    "city_en": "المدينة (إنجليزي)",
+    "city_ar": "المدينة (عربي)",
+    "latitude": "خط العرض",
+    "longitude": "خط الطول",
+    "fleet": "الأسطول",
+    "fleet_summary": "{{cars}} سيارة في {{categories}} فئة"
+  },
+
+  "branch_delete_dialog": {
+    "delete_btn_blocked": "لا يمكن الحذف",
+    "delete_confirm_msg": "هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.",
+    "delete_blocked_msg": "لا يمكن حذف {{name}} لأنه يحتوي على {{count}} سيارة مرتبطة به. يرجى إعادة تعيين السيارات أو إزالتها أولاً."
+  },
+
+  "branch_actions": {
+    "create_branch": "إنشاء فرع",
+    "edit_branch": "تعديل بيانات الفرع",
+    "delete_branch": "حذف الفرع"
   }
 }
