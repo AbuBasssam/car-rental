@@ -285,9 +285,7 @@
     "status_active": "نشط",
     "status_inactive": "غير نشط",
     "action_view": "عرض",
-    "action_edit": "تعديل",
     "action_toggle": "تبديل الحالة",
-    "action_delete": "حذف",
     "cars_count": "سيارة"
   },
   "branch_form": {

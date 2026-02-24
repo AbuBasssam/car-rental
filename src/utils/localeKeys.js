@@ -345,9 +345,7 @@ export const branchCardKeys = {
   statusActive: "branch_card.status_active",
   statusInactive: "branch_card.status_inactive",
   actionView: "branch_card.action_view",
-  actionEdit: "branch_card.action_edit",
   actionToggle: "branch_card.action_toggle",
-  actionDelete: "branch_card.action_delete",
   carsCount: "branch_card.cars_count"
 };
 

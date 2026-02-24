@@ -40,7 +40,7 @@ const axiosInstance = axios.create({
   withCredentials: true, // ⚠️ CRITICAL: This enables httpOnly cookie handling
   headers: {
     "Content-Type": "application/json",
-    "Accept-Language": { appLanguage },
+    "Accept-Language": appLanguage,
     Accept: "application/json",
   },
 });

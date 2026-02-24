@@ -42,17 +42,20 @@ const CardHeader = ({ isActive }) => {
 const MainSection = ({ branch }) => {
   return (
     <section className={s.card.body}>
-      <h3 className={s.card.name}>{branch.nameEN}</h3>
+      <h3 className={s.card.name}>{branch.name}</h3>
       <p className={s.card.city}>
         <MapPin className={s.card.cityIcon} />
-        {branch.cityEN}
+        {branch.city}
       </p>
       <div className={s.card.divider} />
       <div className={s.card.metaRow}>
         <div className={s.card.metaItem}>
+          {/*
+          //TODO: Handle null/undefined carsCount or delete whole section will handle later
           <Car className="w-3.5 h-3.5 text-premium-orange" />
-          <span className={s.card.metaValue}>{branch.carsCount}</span>
-          <span className={s.card.metaLabel}>Cars</span>
+          <span className={s.card.metaValue}>{branch.carsCount ?? 0}</span>
+          
+          <span className={s.card.metaLabel}>Cars</span>*/}
         </div>
       </div>
     </section>

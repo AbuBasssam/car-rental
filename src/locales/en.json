@@ -283,9 +283,7 @@
     "status_active": "Active",
     "status_inactive": "Inactive",
     "action_view": "View",
-    "action_edit": "Edit",
     "action_toggle": "Toggle status",
-    "action_delete": "Delete",
     "cars_count": "Cars"
   },
 
