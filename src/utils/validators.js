@@ -7,6 +7,7 @@ export const VALIDATION_CONSTANTS = {
   NAME_MIN_LENGTH: 3,
   NAME_MAX_LENGTH: 50,
   OTP_LENGTH: 6,
+  BRANCH_NAME_MAX_LENGTH: 75,
 };
 const validationResult = (translationKey, paramsObj = null) => {
   return {
@@ -165,76 +166,92 @@ export const validateOTP = (code) => {
   }
   return null;
 };
+
 // ─── Branch Validators ────────────────────────────────────────────────────────
 
 /**
- * Validate Branch Name (EN or AR)
+ * Validates a branch name (English or Arabic).
+ * Returns a structured validation result using branchKeys — no hardcoded strings.
  * @param {string} value
- * @param {"en"|"ar"} lang
- * @returns {string|null} error message or null
+ * @returns {{ key: string, params: Object|null }|null}
  */
-export const validateBranchName = (value, lang = "en") => {
-  if (!value || !value.trim())
-    return lang === "ar" ? "الاسم مطلوب" : "Name is required";
-  if (value.trim().length > 75)
-    return lang === "ar" ? "الحد الأقصى 75 حرفاً" : "Maximum 75 characters";
+export const validateBranchName = (value) => {
+  if (!value || !value.trim()) {
+    return validationResult(validationKeys.branchNameRequired);
+  }
+
+  if (value.trim().length > VALIDATION_CONSTANTS.BRANCH_NAME_MAX_LENGTH) {
+    return validationResult(validationKeys.validationNameMax, {
+      max: VALIDATION_CONSTANTS.BRANCH_NAME_MAX_LENGTH,
+    });
+  }
+
   return null;
 };
 
 /**
- * Validate City Name (EN or AR)
+ * Validates a city name (English or Arabic).
+ * Returns a structured validation result using branchKeys — no hardcoded strings.
  * @param {string} value
- * @param {"en"|"ar"} lang
- * @returns {string|null}
+ * @returns {{ key: string, params: Object|null }|null}
  */
-export const validateCityName = (value, lang = "en") => {
-  if (!value || !value.trim())
-    return lang === "ar" ? "المدينة مطلوبة" : "City is required";
+export const validateCityName = (value) => {
+  if (!value || !value.trim()) {
+    return validationResult(validationKeys.cityRequired);
+  }
+  if (value.trim().length > VALIDATION_CONSTANTS.BRANCH_NAME_MAX_LENGTH) {
+    return validationResult(validationKeys.validationNameMax, {
+      max: VALIDATION_CONSTANTS.BRANCH_NAME_MAX_LENGTH,
+    });
+  }
   return null;
 };
 
 /**
- * Validate GPS Latitude
+ * Validates a GPS latitude value (must be a number between −90 and 90).
  * @param {string|number} value
- * @returns {string|null}
+ * @returns {{ key: string, params: Object|null }|null}
  */
 export const validateLatitude = (value) => {
   const lat = parseFloat(value);
-  if (isNaN(lat) || lat < -90 || lat > 90)
-    return "Invalid Latitude (must be between −90 and 90)";
+  if (isNaN(lat) || lat < -90 || lat > 90) {
+    return validationResult(validationKeys.latInvalid);
+  }
   return null;
 };
 
 /**
- * Validate GPS Longitude
+ * Validates a GPS longitude value (must be a number between −180 and 180).
  * @param {string|number} value
- * @returns {string|null}
+ * @returns {{ key: string, params: Object|null }|null}
  */
 export const validateLongitude = (value) => {
   const lng = parseFloat(value);
-  if (isNaN(lng) || lng < -180 || lng > 180)
-    return "Invalid Longitude (must be between −180 and 180)";
+  if (isNaN(lng) || lng < -180 || lng > 180) {
+    return validationResult(validationKeys.lngInvalid);
+  }
   return null;
 };
 
 /**
- * Validate full branch form
- * @param {{ nameEN, nameAR, cityEN, cityAR, latitude, longitude }} form
- * @returns {Object} errors object — empty means valid
+ * Validates the full branch form object.
+ * All individual validators use branchKeys — fully i18n-compatible.
+ * @param {{ nameEN: string, nameAR: string, cityEN: string, cityAR: string, latitude: string|number, longitude: string|number }} form
+ * @returns {Object} Errors map — empty object means the form is valid
  */
 export const validateBranchForm = (form) => {
   const errors = {};
 
-  const nameENError = validateBranchName(form.nameEN, "en");
+  const nameENError = validateBranchName(form.nameEN);
   if (nameENError) errors.nameEN = nameENError;
 
-  const nameARError = validateBranchName(form.nameAR, "ar");
+  const nameARError = validateBranchName(form.nameAR);
   if (nameARError) errors.nameAR = nameARError;
 
-  const cityENError = validateCityName(form.cityEN, "en");
+  const cityENError = validateCityName(form.cityEN);
   if (cityENError) errors.cityEN = cityENError;
 
-  const cityARError = validateCityName(form.cityAR, "ar");
+  const cityARError = validateCityName(form.cityAR);
   if (cityARError) errors.cityAR = cityARError;
 
   const latError = validateLatitude(form.latitude);

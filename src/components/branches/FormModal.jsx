@@ -1,73 +1,157 @@
-import React, { useState } from "react";
+import React from "react";
 import { buttonStyles, branchesPageStyles as s } from "../../utils/styles";
 import { X, Loader2 } from "lucide-react";
 import { formModes } from "../../utils/constants";
-import { validateBranchForm } from "../../utils/validators";
+import {
+  branchFormKeys as branchKeys,
+  localeKeys as ltk,
+  branchActionsKeys,
+} from "../../utils/localeKeys";
+import { useTranslation } from "react-i18next";
 import PrimaryButton from "../../layouts/PrimaryButton";
+import useFormModal from "../../hooks/branches/UseBranchFormModal";
 
-//
+// ─── Field Definitions ────────────────────────────────────────────────────────
+
 /**
- * Create / Edit Form Modal
- * @param {*} param0
- * @returns
+ * Returns the ordered list of form field descriptors.
+ * Each descriptor maps a form key to its label/placeholder keys and input config.
+ * @param {Function} t - i18next translation function
+ * @returns {Array<{ key: string, label: string, placeholder: string, dir: string, type: string, section: string }>}
+ */
+const getFieldDescriptors = (t) => [
+  // Identity
+  {
+    key: "nameEN",
+    section: "identity",
+    label: t(branchKeys.fieldNameEn),
+    placeholder: t(branchKeys.placeholderNameEn),
+    dir: "ltr",
+    type: "text",
+  },
+  {
+    key: "nameAR",
+    section: "identity",
+    label: t(branchKeys.fieldNameAr),
+    placeholder: t(branchKeys.placeholderNameAr),
+    dir: "rtl",
+    type: "text",
+  },
+  // Location
+  {
+    key: "cityEN",
+    section: "location",
+    label: t(branchKeys.fieldCityEn),
+    placeholder: t(branchKeys.placeholderCityEn),
+    dir: "ltr",
+    type: "text",
+  },
+  {
+    key: "cityAR",
+    section: "location",
+    label: t(branchKeys.fieldCityAr),
+    placeholder: t(branchKeys.placeholderCityAr),
+    dir: "rtl",
+    type: "text",
+  },
+  // GPS
+  {
+    key: "latitude",
+    section: "gps",
+    label: t(branchKeys.formFieldLatitude),
+    placeholder: "24.7136",
+    dir: "ltr",
+    type: "number",
+  },
+  {
+    key: "longitude",
+    section: "gps",
+    label: t(branchKeys.formFieldLongitude),
+    placeholder: "46.6753",
+    dir: "ltr",
+    type: "number",
+  },
+];
+
+// ─── Sub-Components ───────────────────────────────────────────────────────────
+
+/**
+ * Single labeled input with inline error display.
+ * @param {{ descriptor: object, value: string, error: string, onChange: Function }} props
+ */
+const FormField = ({ descriptor, value, error, onChange }) => {
+  const fieldId = `field-${descriptor.key}`;
+  const { t } = useTranslation();
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={fieldId} className={s.formModal.fieldLabel}>
+        {descriptor.label} <span className="text-red-500">*</span>
+      </label>
+      <input
+        id={fieldId}
+        type={descriptor.type}
+        value={value}
+        onChange={(e) => onChange(descriptor.key, e.target.value)}
+        placeholder={descriptor.placeholder}
+        dir={descriptor.dir}
+        aria-invalid={error ? "true" : "false"}
+        className={error ? s.formModal.inputError : s.formModal.input}
+      />
+      {error && (
+        <p className={s.formModal.errorMsg} role="alert">
+          {error.key ? t(error.key) : error}
+        </p>
+      )}
+    </div>
+  );
+};
+
+/**
+ * A labeled fieldset containing a 2-column grid of form fields.
+ * @param {{ legend: string, fields: Array, form: object, errors: object, onChange: Function }} props
+ */
+const FormSection = ({ legend, fields, form, errors, onChange }) => (
+  <fieldset className="space-y-4">
+    <legend className={s.formModal.sectionTitle}>{legend}</legend>
+    <div className={s.formModal.grid2}>
+      {fields.map((descriptor) => (
+        <FormField
+          key={descriptor.key}
+          descriptor={descriptor}
+          value={form[descriptor.key]}
+          error={errors[descriptor.key]}
+          onChange={onChange}
+        />
+      ))}
+    </div>
+  </fieldset>
+);
+
+// ─── Root Component ───────────────────────────────────────────────────────────
+
+/**
+ * Branch create / edit form modal.
+ * All state and validation logic lives in `useFormModal` — this component is UI-only.
+ *
+ * @param {{
+ *   mode: "create"|"edit",
+ *   branch: object|null,
+ *   loading: boolean,
+ *   onClose: Function,
+ *   onSubmit: Function
+ * }} props
  */
 const FormModal = ({ mode, branch, onClose, onSubmit, loading }) => {
-  const INITIAL_FORM = {
-    nameEN: "",
-    nameAR: "",
-    cityEN: "",
-    cityAR: "",
-    latitude: "",
-    longitude: "",
-  };
+  const { t } = useTranslation();
+  const { form, errors, handleFieldChange, handleSubmit } = useFormModal({
+    mode,
+    branch,
+    onSubmit,
+  });
 
-  const [form, setForm] = useState(
-    mode === formModes.edit && branch ? { ...branch } : INITIAL_FORM,
-  );
-  const [errors, setErrors] = useState({});
-  const onFormSubmit = (event) => {
-    event.preventDefault();
-
-    const validationErrors = validateBranchForm(form);
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-    onSubmit({
-      ...form,
-      latitude: parseFloat(form.latitude),
-      longitude: parseFloat(form.longitude),
-    });
-  };
-
-  const renderField = (key, label, placeholder, dir = "ltr", type = "text") => {
-    const fieldId = `field-${key}`;
-    return (
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor={fieldId} className={s.formModal.fieldLabel}>
-          {label} <span className="text-red-500">*</span>
-        </label>
-        <input
-          id={fieldId}
-          type={type}
-          value={form[key]}
-          onChange={(e) => {
-            setForm((p) => ({ ...p, [key]: e.target.value }));
-            if (errors[key]) setErrors((p) => ({ ...p, [key]: "" }));
-          }}
-          placeholder={placeholder}
-          dir={dir}
-          aria-invalid={errors[key] ? "true" : "false"}
-          className={errors[key] ? s.formModal.inputError : s.formModal.input}
-        />
-        {errors[key] && (
-          <p className={s.formModal.errorMsg} role="alert">
-            {errors[key]}
-          </p>
-        )}
-      </div>
-    );
-  };
+  const isEdit = mode === formModes.edit;
+  const allFields = getFieldDescriptors(t);
+  const bySection = (sec) => allFields.filter((f) => f.section === sec);
 
   return (
     <aside
@@ -77,10 +161,10 @@ const FormModal = ({ mode, branch, onClose, onSubmit, loading }) => {
       aria-modal="true"
     >
       <div className={s.formModal.wrapper} onClick={(e) => e.stopPropagation()}>
-        {/* 1. Header */}
+        {/* Header */}
         <header className={s.formModal.header}>
           <h2 className={s.formModal.title}>
-            {mode === formModes.edit ? "Edit Branch" : "Add New Branch"}
+            {isEdit ? t(branchKeys.titleEdit) : t(branchKeys.titleCreate)}
           </h2>
           <button
             className={s.formModal.closeBtn}
@@ -91,65 +175,46 @@ const FormModal = ({ mode, branch, onClose, onSubmit, loading }) => {
           </button>
         </header>
 
-        <form onSubmit={onFormSubmit} noValidate>
+        <form onSubmit={handleSubmit} noValidate>
           <main className={s.formModal.body}>
-            <fieldset className="space-y-4">
-              <legend className={s.formModal.sectionTitle}>
-                Identity Information
-              </legend>
-              <div className={s.formModal.grid2}>
-                {renderField("nameEN", "Name (English)", "e.g. Riyadh Main")}
-                {renderField(
-                  "nameAR",
-                  "الاسم (عربي)",
-                  "مثال: فرع الرياض",
-                  "rtl",
-                )}
-              </div>
-            </fieldset>
+            <FormSection
+              legend={t(branchKeys.sectionIdentity)}
+              fields={bySection("identity")}
+              form={form}
+              errors={errors}
+              onChange={handleFieldChange}
+            />
 
-            <fieldset className="space-y-4 mt-6">
-              <legend className={s.formModal.sectionTitle}>
-                Location Details
-              </legend>
-              <div className={s.formModal.grid2}>
-                {renderField("cityEN", "City (English)", "e.g. Riyadh")}
-                {renderField("cityAR", "المدينة (عربي)", "مثال: الرياض", "rtl")}
-              </div>
-            </fieldset>
+            <div className="mt-6">
+              <FormSection
+                legend={t(branchKeys.sectionLocation)}
+                fields={bySection("location")}
+                form={form}
+                errors={errors}
+                onChange={handleFieldChange}
+              />
+            </div>
 
-            <fieldset className="space-y-4 mt-6">
-              <legend className={s.formModal.sectionTitle}>
-                GPS Coordinates
-              </legend>
-              <div className={s.formModal.grid2}>
-                {renderField(
-                  "latitude",
-                  "Latitude",
-                  "24.7136",
-                  "ltr",
-                  "number",
-                )}
-                {renderField(
-                  "longitude",
-                  "Longitude",
-                  "46.6753",
-                  "ltr",
-                  "number",
-                )}
-              </div>
-            </fieldset>
+            <div className="mt-6">
+              <FormSection
+                legend={t(branchKeys.sectionGps)}
+                fields={bySection("gps")}
+                form={form}
+                errors={errors}
+                onChange={handleFieldChange}
+              />
+            </div>
           </main>
 
           {/* Footer */}
           <footer className={s.formModal.footer}>
             <button
-              type="button" // مهم جداً: لكي لا يقوم بعمل Submit
+              type="button"
               className={s.formModal.cancelBtn}
               onClick={onClose}
               disabled={loading}
             >
-              Cancel
+              {t(ltk.cancel)}
             </button>
             <PrimaryButton
               type="submit"
@@ -157,7 +222,9 @@ const FormModal = ({ mode, branch, onClose, onSubmit, loading }) => {
               disabled={loading}
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {mode === formModes.edit ? "Save Changes" : "Create Branch"}
+              {isEdit
+                ? t(branchKeys.btnSave)
+                : t(branchActionsKeys.createBranch)}
             </PrimaryButton>
           </footer>
         </form>
@@ -165,4 +232,5 @@ const FormModal = ({ mode, branch, onClose, onSubmit, loading }) => {
     </aside>
   );
 };
+
 export default FormModal;
