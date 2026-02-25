@@ -33,7 +33,7 @@ const useBranchFilters = () => {
 
     const controller = new AbortController();
 
-    const fetch = async function () {
+    const fetch = async () => {
       setLoading(true);
       setError(null);
       try {
@@ -47,11 +47,11 @@ const useBranchFilters = () => {
 
         setBranches(result.branches);
         setPaginationInfo(result.paginationInfo);
+        setLoading(false);
       } catch (err) {
         if (err.name === "AbortError" || err.code === "ERR_CANCELED") return;
 
         setError(err);
-      } finally {
         setLoading(false);
       }
     };

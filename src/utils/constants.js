@@ -28,5 +28,6 @@ export const formModes = {
 export const branchFilters = {
   city: "city",
   status: "status",
+  page: "page",
   pageSize: "pageSize",
 };

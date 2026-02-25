@@ -1,4 +1,17 @@
-import { branchesPageStyles as s } from "../../utils/styles.js";
+import { branchesPageStyles as s } from "../../utils/styles";
+
+/**
+ * Animated placeholder shown while branches are loading.
+ * @param {{ count: number }} props
+ */
+const BranchSkeletonGrid = ({ count = 6 }) => (
+  <div className={s.grid}>
+    {Array.from({ length: count }).map((_, i) => (
+      <SkeletonCard key={i} />
+    ))}
+  </div>
+);
+export default BranchSkeletonGrid;
 
 const SkeletonCard = () => (
   <div className={s.skeleton.card}>
@@ -15,4 +28,3 @@ const SkeletonCard = () => (
     </div>
   </div>
 );
-export default SkeletonCard;
