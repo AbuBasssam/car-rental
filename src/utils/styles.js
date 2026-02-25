@@ -907,7 +907,7 @@ export const buttonStyles = {
   fullWidthHover:
     "absolute inset-0 transition-opacity duration-300 z-0 opacity-0 group-hover:opacity-100 bg-linear-to-r from-orange-400/50 to-orange-500/50",
   rounded: _baseRounded,
-  roundedDisabled: `${_baseRounded}disabled:opacity-50 disabled:cursor-not-allowed`,
+  roundedDisabled: `${_baseRounded} disabled:opacity-50 disabled:cursor-not-allowed`,
 };
 
 // ========================================================================
