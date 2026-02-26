@@ -405,5 +405,22 @@ export const branchActionsKeys = {
   deleteBranch: "branch_actions.delete_branch"
 };
 
+/**
+ * BranchEmptyState namespace keys
+ */
+export const branchEmptyStateKeys = {
+  emptyStateTitle: "branch_empty_state.empty_state_title",
+  emptyStateSubtitle: "branch_empty_state.empty_state_subtitle",
+  noResultsTitle: "branch_empty_state.no_results_title",
+  noResultsSubtitle: "branch_empty_state.no_results_subtitle"
+};
+
+/**
+ * BranchPagination namespace keys
+ */
+export const branchPaginationKeys = {
+  info: "branch_pagination.info"
+};
+
 // Default export
 export default localeKeys;

@@ -1,26 +1,31 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 import { branchesPageStyles as s } from "../utils/styles.js";
-
+import { useTranslation } from "react-i18next";
+import { branchPaginationKeys as tk } from "../utils/localeKeys.js";
 const Pagination = ({
   currentPage,
   totalPages,
   pageSize,
   totalItems,
+  currentCount,
   onPageChange,
   pageNumbers,
 }) => {
-  const startRange = (currentPage - 1) * pageSize + 1;
-  const endRange = Math.min(currentPage * pageSize, totalItems);
+  const { t } = useTranslation();
+  const startRange = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const endRange = startRange + currentCount - 1;
 
   if (totalPages <= 1) return null;
 
   return (
     <nav aria-label="Pagination Navigation" className={s.pagination.wrapper}>
       <p className={s.pagination.info}>
-        Showing <span className="font-medium">{startRange}</span>–
-        <span className="font-medium">{endRange}</span> of{" "}
-        <span className="font-medium">{totalItems}</span> branches
+        {t(tk.info, {
+          start: startRange,
+          end: endRange,
+          total: totalItems,
+        })}
       </p>
 
       <div
@@ -42,7 +47,6 @@ const Pagination = ({
         <div className="flex items-center gap-1">
           {pageNumbers.map((p, i) => (
             <React.Fragment key={`page-wrapper-${p}`}>
-              {/* */}
               {i > 0 && pageNumbers[i - 1] !== p - 1 && (
                 <span
                   className="text-light-text-subtle dark:text-dark-text-subtle px-1"

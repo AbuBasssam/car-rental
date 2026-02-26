@@ -330,5 +330,14 @@
     "create_branch": "إنشاء فرع",
     "edit_branch": "تعديل بيانات الفرع",
     "delete_branch": "حذف الفرع"
+  },
+  "branch_empty_state": {
+    "empty_state_title": "لا يوجد فروع بعد.",
+    "empty_state_subtitle": "أبدا بإضافة فرع",
+    "no_results_title": "لم يتم العثور على نتائج",
+    "no_results_subtitle": "جرب تغيير فلاتر البحث أو المدينة للوصول لنتائج أفضل"
+  },
+  "branch_pagination": {
+    "info": "عرض {{start}}–{{end}} من أصل {{total}} فرع"
   }
 }

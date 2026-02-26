@@ -70,7 +70,7 @@ const BranchesPage = () => {
               {/* Branch Grid */}
               <section aria-label="Branches list" aria-live="polite">
                 {branches.length === 0 ? (
-                  <EmptyState onClear={hasFilters ? clearFilters : null} />
+                  <EmptyState isFiltering={hasFilters} />
                 ) : (
                   <div className={s.grid}>
                     {branches.map((branch) => (
@@ -94,6 +94,7 @@ const BranchesPage = () => {
                 totalPages={totalPages}
                 pageSize={filters.pageSize}
                 totalItems={stats.total}
+                currentCount={branches.length}
                 onPageChange={(p) => setFilter(f.page, p)}
                 pageNumbers={pageNumbers}
               />

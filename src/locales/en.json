@@ -328,5 +328,14 @@
     "create_branch": "Create Branch",
     "edit_branch": "Edit Branch",
     "delete_branch": "Delete Branch"
+  },
+  "branch_empty_state": {
+    "empty_state_title": "No braches yet.",
+    "empty_state_subtitle": "Start by Adding ones",
+    "no_results_title": "No Results Found",
+    "no_results_subtitle": "Try changing the search filters or city for better results."
+  },
+  "branch_pagination": {
+    "info": "Showing {{start}}–{{end}} of {{total}} branches"
   }
 }
