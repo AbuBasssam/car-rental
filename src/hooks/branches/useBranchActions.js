@@ -5,7 +5,6 @@ import {
   deleteBranch,
   toggleBranchStatus,
 } from "../../api/branches/branchesApi";
-import { refresh } from "aos";
 
 // Internal debounce to prevent repeated toggles
 const useDebounce = (fn, delay = 400) => {
@@ -27,7 +26,7 @@ const useDebounce = (fn, delay = 400) => {
  * @param {Function} setBranches - setter from the parent
  * @param {Function} onSuccess   - called after every successful operation (to close modal)
  */
-const useBranchActions = (refetch, onSuccess) => {
+const useBranchActions = (refetch, onSuccess, setBranches) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -71,29 +70,32 @@ const useBranchActions = (refetch, onSuccess) => {
     }
   };
   // ── Toggle — Optimistic + Rollback ────────────────────────────────────────
-  const _toggleImmediate = useCallback(async (branch) => {
-    // 1. Optimistic update — the UI responds immediately
+  const _toggleImmediate = useCallback(
+    async (branch) => {
+      // 1. Optimistic update — the UI responds immediately
 
-    refresh((prev) =>
-      prev.map((b) =>
-        b.id === branch.id ? { ...b, isActive: !b.isActive } : b,
-      ),
-    );
-    try {
-      // 2. Server request
-
-      await toggleBranchStatus(branch.id, !branch.isActive);
-    } catch (err) {
-      // 3. Rollback on failure
-
-      refresh((prev) =>
+      setBranches((prev) =>
         prev.map((b) =>
-          b.id === branch.id ? { ...b, isActive: branch.isActive } : b,
+          b.id === branch.id ? { ...b, isActive: !b.isActive } : b,
         ),
       );
-      setError(err);
-    }
-  }, []);
+      try {
+        // 2. Server request
+
+        await toggleBranchStatus(branch.id, !branch.isActive);
+      } catch (err) {
+        // 3. Rollback on failure
+
+        setBranches((prev) =>
+          prev.map((b) =>
+            b.id === branch.id ? { ...b, isActive: branch.isActive } : b,
+          ),
+        );
+        setError(err);
+      }
+    },
+    [setBranches],
+  );
 
   const handleToggle = useDebounce(_toggleImmediate, 400);
 

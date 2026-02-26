@@ -5,6 +5,7 @@ const MIN_SEARCH_CHARS = 3;
 
 const useBranchFilters = () => {
   const [branches, setBranches] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0); // Force Refresh key
   const [paginationInfo, setPaginationInfo] = useState({
     currentPage: 1,
     totalPages: 1,
@@ -60,7 +61,13 @@ const useBranchFilters = () => {
 
     // ← Cleanup: abort the previous request before starting a new one
     return () => controller.abort();
-  }, [filters.city, filters.status, filters.page, filters.pageSize]);
+  }, [
+    filters.city,
+    filters.status,
+    filters.page,
+    filters.pageSize,
+    refreshKey,
+  ]);
 
   // Setters
 
@@ -78,10 +85,12 @@ const useBranchFilters = () => {
 
   //  Refetch — called after CRUD operations to refresh the list with current filters
   const refetch = useCallback(() => {
-    // force the useEffect to re-run by making a no-op change then returning it
-    // the cleaner approach: use an external key
-    setFilters((prev) => ({ ...prev }));
+    setRefreshKey((prev) => prev + 1);
   }, []);
+
+  /*const refetch = useCallback(() => {
+    setRefreshKey((prev) => (prev < 5 ? prev + 1 : 0));
+  }, []);*/
 
   //  Derived stats
   const hasFilters = filters.city !== "" || filters.status !== "all";
@@ -107,6 +116,7 @@ const useBranchFilters = () => {
   return {
     // Data
     branches,
+    setBranches,
     loading,
     error,
     // Filters

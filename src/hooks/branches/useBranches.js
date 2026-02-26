@@ -8,6 +8,7 @@ const useBranches = () => {
 
   const {
     branches,
+    setBranches,
     loading: pageLoading,
     error,
     filters,
@@ -23,7 +24,7 @@ const useBranches = () => {
 
   // Actions: receives refetch so the list is reloaded after CRUD operations.
   // Pass modals.close to automatically close modals on success.
-  const actions = useBranchActions(refetch, modals.close);
+  const actions = useBranchActions(refetch, modals.close, setBranches);
 
   // ── Action wrappers ───────────────────────────────────────────────────────
   // Wrap action handlers so they can be passed directly to UI components.
