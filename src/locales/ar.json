@@ -1,0 +1,343 @@
+{
+  "app_name": "رينتو",
+  "rento_logo": "شعار رينتو",
+  "home": "الرئيسية",
+  "fleet": "الأسطول",
+  "locations": "المواقع",
+  "about": "من نحن",
+  "contact": "اتصل بنا",
+  "settings": "الإعدادات",
+
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "clear": "مسح",
+  "edit": "تعديل",
+  "close": "إغلاق",
+  "submit": "إرسال",
+  "search": "بحث",
+
+  "login": "تسجيل الدخول",
+  "logout": "تسجيل الخروج",
+  "register": "إنشاء حساب",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forgot_password": "نسيت كلمة المرور؟",
+  "account_settings": "إعدادات الحساب",
+
+  "change_language": "تغيير اللغة",
+
+  "back_to_home": "العودة للصفحة الرئيسية",
+  "enter_your_email": "أدخل بريدك الإلكتروني",
+  "enter_your_password": "أدخل كلمة المرور",
+  "premium_drive": "قيادة متميزة",
+  "luxury_mobility_experience": "تجربة تنقل فاخرة",
+  "dont_have_account": "ليس لديك حساب بعد؟",
+  "create_account": "إنشاء حساب",
+  "first_name": "الاسم الأول",
+  "last_name": "اسم العائلة",
+  "confirm_password": "تأكيد كلمة المرور",
+  "create_password": "إنشاء كلمة المرور",
+  "already_have_account": "هل لديك حساب بالفعل؟",
+  "join_premium_drive": "انضم إلى القيادة المتميزة",
+  "create_exclusive_account": "أنشئ حسابك الحصري",
+  "i_agree_to": "أوافق على",
+  "terms_of_service": "شروط الخدمة",
+  "and": "و",
+  "privacy_policy_link": "سياسة الخصوصية",
+  "password_requirements": "متطلبات كلمة المرور",
+  "password_length": "بين 8 و 16 حرفاً",
+  "password_uppercase": "حرف كبير واحد على الأقل",
+  "password_lowercase": "حرف صغير واحد على الأقل",
+  "password_special": "رمز خاص واحد على الأقل",
+  "password_number": "رقم واحد على الأقل",
+  "password_strength": "قوة كلمة المرور",
+  "password_weak": "ضعيفة",
+  "password_medium": "متوسطة",
+  "password_strong": "قوية",
+  "password_very_strong": "قوية جداً",
+  "verifyAccountTitle": "الرجاء توثيق الحساب",
+  "code_sent_success": "تم إرسال الرمز بنجاح",
+
+  "languages": { "arabic": "العربية", "english": "الإنجليزية" },
+
+  "auth": {
+    "login_title": "تسجيل الدخول إلى حسابك",
+    "login_button": "دخول",
+    "register_title": "إنشاء حساب جديد",
+    "email_placeholder": "أدخل بريدك الإلكتروني",
+    "password_placeholder": "أدخل كلمة المرور",
+    "verificationSuccess": "تم توثيق حسابك بنجاح، يمكنك تسجيل الدخول الآن"
+  },
+
+  "hero": {
+    "find_your_perfect_ride": "ابحث عن سيارتك المثالية",
+    "rent_the_best_quality": "استأجر أفضل",
+    "cars": "السيارات",
+    "with_us": "معنا",
+    "description": "نحن نقدم خدمات تأجير سيارات من الدرجة الأولى بأسعار معقولة وخيارات مرنة. سواء كنت ذاهباً في رحلة أو تحتاج إلى سيارة في المدينة - نحن هنا لخدمتك.",
+    "book_your_ride": "احجز سيارتك",
+    "sell_your_car": "بع سيارتك",
+    "luxury_car": "سيارة فاخرة"
+  },
+
+  "booking": {
+    "pickup_location": "موقع الاستلام",
+    "pickup_date": "تاريخ الاستلام",
+    "return_date": "تاريخ الإرجاع",
+    "return_location": "موقع الإرجاع",
+    "select_branch": "اختر الفرع",
+    "return_to_different_location": "الإرجاع إلى موقع مختلف",
+    "return_to_same_location": "الإرجاع إلى موقع الاستلام",
+    "date_format": "يوم-شهر-سنة",
+    "today": "اليوم",
+    "no_locations_found": "لم يتم العثور على مواقع",
+    "pickup_location_required": "موقع الاستلام مطلوب",
+    "pickup_date_required": "تاريخ الاستلام مطلوب",
+    "dropoff_date_required": "تاريخ الإرجاع مطلوب",
+    "dropoff_date_invalid": "يجب أن يكون تاريخ الإرجاع بعد تاريخ الاستلام",
+    "dropoff_location_required": "موقع الإرجاع مطلوب"
+  },
+
+  "whyChooseUs": {
+    "title": "لماذا تختارنا",
+    "description": "نحن نقدم تجربة تأجير سيارات متميزة مصممة خصيصاً لتلبية احتياجاتك، مع التركيز على الجودة والسلامة والخدمة السلسة.",
+    "modern_car_fleet": "أسطول سيارات حديث",
+    "support_24_per_7": "دعم على مدار الساعة",
+    "support_24_per_7_desc": "فريقنا المتفاني متاح على مدار الساعة لمساعدتك.",
+    "competitive_pricing": "أسعار تنافسية",
+    "competitive_pricing_desc": "استمتع بأفضل أسعار السوق مع شفافية كاملة وبدون رسوم خفية.",
+    "fully_insured": "مؤمن بالكامل",
+    "fully_insured_desc": "قُد براحة بال مع العلم أن جميع سياراتنا مغطاة بالكامل.",
+    "modern_fleet": "أسطول حديث",
+    "modern_fleet_desc": "استمتع بتجربة أحدث موديلات السيارات، المُصانة بدقة من أجل سلامتك."
+  },
+
+  "howItWorks": {
+    "title": "كيف يعمل",
+    "description": "استأجر سيارتك المفضلة في ثلاث خطوات بسيطة. لقد جعلنا العملية سريعة وشفافة وخالية من المتاعب",
+    "choose_location": "اختر الموقع",
+    "choose_location_desc": "ابحث عن أقرب فرع من شبكتنا الواسعة في جميع أنحاء المدينة.",
+    "pickup_date_step": "تاريخ الاستلام",
+    "pickup_date_step_desc": "اختر التاريخ والوقت المفضل لديك مع نظام الجدولة المرن الخاص بنا.",
+    "select_your_car": "اختر سيارتك",
+    "select_your_car_desc": "تصفح أسطولنا الحديث واختر السيارة التي تناسب أسلوبك.",
+    "comfort_pickup": "استلام مريح",
+    "comfort_pickup_desc": "استلم مفاتيحك في الفرع وابدأ رحلتك مع خدمة VIP."
+  },
+  "mostRentedCars": {
+    "title": "السيارات الأكثر إيجاراً",
+    "description": "سيارات فاخرة مختارة بعناية لتناسب احتياجاتك",
+    "book_now": "احجز الآن",
+    "per_day": "ريال / يوم",
+    "all": "الكل",
+    "sedan": "سيدان",
+    "suv": "دفع رباعي",
+    "sport": "رياضية",
+    "luxury": "فاخرة",
+    "electric": "كهربائية",
+    "seats": "مقاعد",
+    "bags": "حقائب",
+    "automatic": "أوتوماتيك",
+    "manual": "يدوي",
+    "petrol": "بنزين",
+    "diesel": "ديزل",
+    "electric_fuel": "كهرباء",
+    "hybrid": "هجين"
+  },
+
+  "footer": {
+    "description": "استمتع بحرية مطلقة على الطريق مع خدمات تأجير السيارات المتميزة لدينا. سيارات عالية الجودة، دعم على مدار الساعة.",
+    "company": "الشركة",
+    "quick_links": "روابط سريعة",
+    "get_in_touch": "تواصل معنا",
+    "all_rights_reserved": "جميع الحقوق محفوظة",
+    "about_us": "من نحن",
+    "our_fleet": "أسطولنا",
+    "services": "الخدمات",
+    "privacy_policy": "سياسة الخصوصية",
+    "rent_a_car": "استأجر سيارة"
+  },
+
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email_required": "البريد الإلكتروني مطلوب",
+    "email_invalid": "صيغة البريد الإلكتروني غير صحيحة",
+    "email_max_length": "البريد الإلكتروني يجب ألا يتجاوز {{param1}} حرف",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_invalid": "كلمة المرور يجب أن تستوفي جميع الشروط",
+    "name_required": "{{param1}} مطلوب",
+    "name_min_length": "{{param1}} يجب أن يكون {{param2}} أحرف على الأقل",
+    "name_max_length": "{{param1}} يجب ألا يتجاوز {{param2}} حرف",
+    "name_invalid": "{{param1}} يجب أن يحتوي على حروف ومسافات فقط",
+    "passwords_not_match": "كلمات المرور غير متطابقة",
+    "terms_required": "يجب الموافقة على الشروط والأحكام",
+    "registration_failed": "البريد الإلكتروني أو كلمة المرور غير صالحة",
+    "otp_incomplete": "يرجى إدخال رمز التحقق المكون من 6 أرقام بالكامل.",
+    "invalid_or_expired_code": "الرمز غير صالح أو منتهي الصلاحية",
+    "branch_name_required": "اسم الفرع مطلوب",
+    "validation_name_max": "الحد الأقصى {{max}} حرفاً",
+    "city_required": "المدينة مطلوبة",
+    "lat_invalid": "خط العرض غير صالح (يجب أن يكون بين −90 و 90)",
+    "lng_invalid": "خط الطول غير صالح (يجب أن يكون بين −180 و 180)"
+  },
+
+  "errors": {
+    "bad_request": "طلب غير صالح. يرجى التحقق من المدخلات",
+    "unauthorized": "انتهت جلستك. يرجى تسجيل الدخول مرة أخرى",
+    "forbidden": "ليس لديك صلاحية للوصول إلى هذا المورد",
+    "not_found": "المورد المطلوب غير موجود",
+    "conflict": "حدث تعارض. يرجى المحاولة مرة أخرى",
+    "validation_failed": "فشل التحقق من البيانات",
+    "validation_failed_with_data": "يرجى تصحيح الأخطاء والمحاولة مرة أخرى",
+    "too_many_requests": "طلبات كثيرة جداً. يرجى الانتظار قليلاً قبل المحاولة مرة أخرى",
+    "server_error": "خطأ في الخادم. تم إخطار فريقنا",
+    "bad_gateway": "بوابة سيئة. يرجى المحاولة لاحقاً",
+    "service_unavailable": "الخدمة غير متاحة مؤقتاً. جارٍ الصيانة",
+    "gateway_timeout": "انتهت مهلة البوابة. يرجى المحاولة مرة أخرى",
+    "client_error": "لم يتم معالجة طلبك. يرجى المحاولة مرة أخرى",
+    "server_error_general": "خطأ في الخادم. يرجى المحاولة لاحقاً",
+    "unexpected_error": "حدث خطأ غير متوقع",
+    "network_error": "تعذر الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت",
+    "timeout_error": "انتهت مهلة الطلب. يرجى التحقق من اتصالك والمحاولة مرة أخرى",
+    "cors_error": "تم حظر الطلب عبر المصادر. يرجى الاتصال بالدعم",
+    "connection_error": "خطأ في الشبكة. يرجى التحقق من اتصالك والمحاولة مرة أخرى",
+    "request_cancelled": "تم إلغاء الطلب",
+    "registerSessionExpired": "يرجى إعادة عملية التسجيل للمتابعة",
+    "resetSessionExpired": "انتهت صلاحية الطلب، يرجى المحاولة مرة أخرى",
+    "reset_code_attempts_exceeded": "تم إدخال رمز التحقق بشكل خاطئ عدة مرات.الرجاء طلب رمز جديد.",
+    "verification_attempts_exceeded": "تم تجاوز عدد محاولات التحقق المسموح بها. يرجى الانتظار قبل طلب رمز جديد."
+  },
+
+  "verify": {
+    "code_sent_to": "تم إرسال رمز التوثيق إلى",
+    "enter_six_digit_code": "أدخل الرمز المكون من 6 أرقام",
+    "verify_button": "تحقق من الحساب",
+    "verifying_button": "جاري التحقق...",
+    "can_resend_after": "يمكنك إعادة الإرسال بعد ",
+    "didnt_receive_code": "لم تستلم الرمز؟",
+    "resend_code": "إعادة إرسال الرمز",
+    "resending_code": "جاري الإرسال...",
+    "digit_label": "رقم",
+    "verification_locked": "التحقق معطّل مؤقتاً",
+    "cooldown_message": "تم تعطيل التحقق مؤقتاً. يمكنك طلب رمز جديد بعد ",
+    "verification_disabled": "التحقق معطّل مؤقتاً",
+    "request_new_code_after_countdown": "يمكنك طلب رمز جديد بعد انتهاء العد التنازلي"
+  },
+
+  "reset_password": {
+    "forgot_password_title": "نسيت كلمة المرور",
+    "forgot_password_description": "أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق",
+    "send_code": "إرسال رمز التحقق",
+    "sending_code": "جاري الإرسال...",
+    "remembered_password": "تذكرت كلمة المرور؟",
+    "back_to_login": "العودة لتسجيل الدخول",
+    "verify_reset_title": "التحقق من رمز إعادة التعيين",
+    "verify_reset_description": "أدخل الرمز المرسل إلى",
+    "verify_code_button": "تحقق من الرمز",
+    "verifying_code": "جاري التحقق...",
+    "reset_password_title": "إعادة تعيين كلمة المرور",
+    "reset_password_description": "أدخل كلمة المرور الجديدة",
+    "new_password": "كلمة المرور الجديدة",
+    "confirm_new_password": "تأكيد كلمة المرور الجديدة",
+    "reset_password_button": "إعادة تعيين كلمة المرور",
+    "resetting_password": "جاري إعادة التعيين...",
+    "password_reset_success": "تم إعادة تعيين كلمة المرور بنجاح",
+    "enter_new_password": "أدخل كلمة المرور الجديدة",
+    "confirm_new_password_placeholder": "تأكيد كلمة المرور الجديدة",
+    "passwords_must_match": "كلمات المرور يجب أن تتطابق",
+    "password_changed_successfully": "تم تغيير كلمة المرور بنجاح!",
+    "changing_password": "جاري تغيير كلمة المرور...",
+    "change_password": "تغيير كلمة المرور"
+  },
+
+  "admin_navbar": {
+    "add_car": "إضافة سيارة",
+    "manage_cars": "إدارة السيارات",
+    "bookings": "الحجوزات",
+    "branches": "الفروع"
+  },
+
+  "branch_header": {
+    "title": "إدارة الأسطول",
+    "subtitle": "الفروع",
+    "description": "إدارة جميع مواقع التأجير",
+    "add_branch": "إضافة فرع"
+  },
+
+  "branch_stats": {
+    "total": "إجمالي الفروع",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+
+  "branch_filter_bar": {
+    "search_placeholder": "البحث عن طريق المدينة...",
+    "search_label": "البحث بالمدينة",
+    "status_label": "الحالة",
+    "status_all": "جميع الحالات",
+    "status_active": "النشطة فقط",
+    "status_inactive": "غير النشطة فقط",
+    "show_label": "عرض",
+    "per_page": "{{count}} في الصفحة"
+  },
+  "branch_card": {
+    "status_active": "نشط",
+    "status_inactive": "غير نشط",
+    "action_view": "عرض",
+    "action_toggle": "تبديل الحالة",
+    "cars_count": "سيارة"
+  },
+  "branch_form": {
+    "title_create": "إضافة فرع جديد",
+    "title_edit": "تعديل الفرع",
+    "section_identity": "معلومات الهوية",
+    "section_location": "تفاصيل الموقع",
+    "section_gps": "إحداثيات GPS",
+    "field_name_en": "الاسم (إنجليزي)",
+    "field_name_ar": "الاسم (عربي)",
+    "field_city_en": "المدينة (إنجليزي)",
+    "field_city_ar": "المدينة (عربي)",
+    "field_latitude": "خط العرض",
+    "field_longitude": "خط الطول",
+    "placeholder_name_en": "مثال: Riyadh Main",
+    "placeholder_name_ar": "مثال: فرع الرياض",
+    "placeholder_city_en": "مثال: Riyadh",
+    "placeholder_city_ar": "مثال: الرياض",
+    "btn_save": "حفظ التغييرات"
+  },
+
+  "branch_view": {
+    "title": "تفاصيل الفرع",
+    "status": "الحالة",
+    "name_en": "الاسم (إنجليزي)",
+    "name_ar": "الاسم (عربي)",
+    "city_en": "المدينة (إنجليزي)",
+    "city_ar": "المدينة (عربي)",
+    "latitude": "خط العرض",
+    "longitude": "خط الطول",
+    "fleet": "الأسطول",
+    "fleet_summary": "{{cars}} سيارة في {{categories}} فئة"
+  },
+
+  "branch_delete_dialog": {
+    "delete_btn_blocked": "لا يمكن الحذف",
+    "delete_confirm_msg": "هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.",
+    "delete_blocked_msg": "لا يمكن حذف {{name}} لأنه يحتوي على {{count}} سيارة مرتبطة به. يرجى إعادة تعيين السيارات أو إزالتها أولاً."
+  },
+
+  "branch_actions": {
+    "create_branch": "إنشاء فرع",
+    "edit_branch": "تعديل بيانات الفرع",
+    "delete_branch": "حذف الفرع"
+  },
+  "branch_empty_state": {
+    "empty_state_title": "لا يوجد فروع بعد.",
+    "empty_state_subtitle": "أبدا بإضافة فرع",
+    "no_results_title": "لم يتم العثور على نتائج",
+    "no_results_subtitle": "جرب تغيير فلاتر البحث أو المدينة للوصول لنتائج أفضل"
+  },
+  "branch_pagination": {
+    "info": "عرض {{start}}–{{end}} من أصل {{total}} فرع"
+  }
+}

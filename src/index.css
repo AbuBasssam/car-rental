@@ -8,7 +8,13 @@
   --spacing: 0.2rem;
 }
 @custom-variant dark (&:where(.dark, .dark *));
+html {
+  background-color: #fef3e2;
+}
 
+html.dark {
+  background-color: #111827;
+}
 /* ============================================
    Custom Design Tokens
    ============================================ */

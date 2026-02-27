@@ -1,0 +1,341 @@
+{
+  "app_name": "Rento",
+  "rento_logo": "Rento Logo",
+  "home": "Home",
+  "fleet": "Fleet",
+  "locations": "Locations",
+  "about": "About",
+  "contact": "Contact",
+  "settings": "Settings",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "clear": "Clear",
+  "edit": "Edit",
+  "close": "Close",
+  "submit": "Submit",
+  "search": "Search",
+  "login": "Login",
+  "logout": "Logout",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "forgot_password": "Forgot Password?",
+  "account_settings": "Account Settings",
+
+  "change_language": "Change Language",
+  "back_to_home": "Back to Home",
+  "enter_your_email": "Enter your email",
+  "enter_your_password": "Enter your password",
+  "premium_drive": "PremiumDrive",
+  "luxury_mobility_experience": "LUXURY MOBILITY EXPERIENCE",
+  "dont_have_account": "Don't have an account yet?",
+  "create_account": "Create Account",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "confirm_password": "Confirm password",
+  "create_password": "Create password",
+  "already_have_account": "Already have an account?",
+  "join_premium_drive": "Join Premium Drive",
+  "create_exclusive_account": "Create your Exclusive Account",
+  "i_agree_to": "I agree to the",
+  "terms_of_service": "Terms of Service",
+  "and": "and",
+  "privacy_policy_link": "Privacy Policy",
+  "password_requirements": "Password Requirements",
+  "password_length": "Between 8 and 16 characters",
+  "password_uppercase": "At least one uppercase letter",
+  "password_lowercase": "At least one lowercase letter",
+  "password_special": "At least one special character",
+  "password_number": "At least one number",
+  "password_strength": "Password Strength",
+  "password_weak": "Weak",
+  "password_medium": "Medium",
+  "password_strong": "Strong",
+  "password_very_strong": "Very Strong",
+  "verifyAccountTitle": "Please Verify Your Account",
+  "code_sent_success": "The code has been sent successfully",
+
+  "languages": { "arabic": "Arabic", "english": "English" },
+  "auth": {
+    "login_title": "Login to your account",
+    "login_button": "Login",
+    "register_title": "Create a new account",
+    "email_placeholder": "Enter your email",
+    "password_placeholder": "Enter your password",
+    "verificationSuccess": "Your account has been verified successfully. You can  log in now."
+  },
+
+  "hero": {
+    "find_your_perfect_ride": "Find Your Perfect Ride",
+    "rent_the_best_quality": "Rent The Best Quality",
+    "cars": "Car's",
+    "with_us": "With Us",
+    "description": "We provide top-notch car rental services with affordable pricing and flexible options. Whether you're going on a trip or need a ride in town - we got you covered.",
+    "book_your_ride": "Book Your Ride",
+    "sell_your_car": "Sell Your Car",
+    "luxury_car": "Luxury Car"
+  },
+
+  "booking": {
+    "pickup_location": "Pickup Location",
+    "pickup_date": "Pickup Date",
+    "return_date": "Return Date",
+    "return_location": "Return Location",
+    "select_branch": "Select Branch",
+    "return_to_different_location": "Return to Different Location",
+    "return_to_same_location": "Return to Pickup Location",
+    "date_format": "dd-MM-yyyy",
+    "today": "Today",
+    "no_locations_found": "No locations found",
+    "pickup_location_required": "Pickup location is required",
+    "pickup_date_required": "Pickup date is required",
+    "dropoff_date_required": "Return date is required",
+    "dropoff_date_invalid": "Return date must be after pickup date",
+    "dropoff_location_required": "Return location is required"
+  },
+
+  "whyChooseUs": {
+    "title": "Why Choose Us",
+    "description": "We provide a premium car rental experience tailored to your needs, focusing on quality, safety, and seamless service.",
+    "modern_car_fleet": "Modern Car Fleet",
+    "support_24_per_7": "24/7 Support",
+    "support_24_per_7_desc": "Our dedicated team is available around the clock to assist you.",
+    "competitive_pricing": "Competitive Pricing",
+    "competitive_pricing_desc": "Enjoy the best market rates with full transparency and no hidden fees.",
+    "fully_insured": "Fully Insured",
+    "fully_insured_desc": "Drive with peace of mind knowing all our vehicles are fully covered.",
+    "modern_fleet": "Modern Fleet",
+    "modern_fleet_desc": "Experience the latest car models, meticulously maintained for your safety."
+  },
+
+  "howItWorks": {
+    "title": "How It Works",
+    "description": "Rent your favorite car in three simple steps. We've made the process fast, transparent, and hassle-free.",
+    "choose_location": "Choose Location",
+    "choose_location_desc": "Find the nearest branch from our extensive network across the city.",
+    "pickup_date_step": "Pick-up Date",
+    "pickup_date_step_desc": "Select your preferred date and time with our flexible scheduling system.",
+    "select_your_car": "Select Your Car",
+    "select_your_car_desc": "Browse our modern fleet and choose the car that fits your style.",
+    "comfort_pickup": "Comfort Pickup",
+    "comfort_pickup_desc": "Receive your keys at the branch and start your journey with VIP service."
+  },
+
+  "mostRentedCars": {
+    "title": "Most Rented Cars",
+    "description": "Premium cars carefully selected to suit your needs",
+    "book_now": "Book Now",
+    "per_day": "SAR / Day",
+    "all": "All",
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "sport": "Sport",
+    "luxury": "Luxury",
+    "electric": "Electric",
+    "seats": "Seats",
+    "bags": "Bags",
+    "automatic": "Automatic",
+    "manual": "Manual",
+    "petrol": "Petrol",
+    "diesel": "Diesel",
+    "electric_fuel": "Electric",
+    "hybrid": "Hybrid"
+  },
+
+  "footer": {
+    "description": "Experience the ultimate freedom on the road with our premium car rental services. Quality vehicles, 24/7 support.",
+    "company": "Company",
+    "quick_links": "Quick Links",
+    "get_in_touch": "Get In Touch",
+    "all_rights_reserved": "All rights reserved",
+    "about_us": "About Us",
+    "our_fleet": "Our Fleet",
+    "services": "Services",
+    "privacy_policy": "Privacy Policy",
+    "rent_a_car": "Rent a Car"
+  },
+
+  "validation": {
+    "required": "This field is required",
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email format",
+    "email_max_length": "Email must not exceed {{param1}} characters",
+    "password_required": "Password is required",
+    "password_invalid": "Password must meet all requirements",
+    "name_required": "{{param1}} is required",
+    "name_min_length": "{{param1}} must be at least {{param2}} characters",
+    "name_max_length": "{{param1}} must not exceed {{param2}} characters",
+    "name_invalid": "{{param1}} must contain only letters and spaces",
+    "passwords_not_match": "Passwords do not match",
+    "terms_required": "You must accept the terms and conditions",
+    "registration_failed": "Invalid email and/or password",
+    "otp_incomplete": "Please enter the complete 6-digit verification code.",
+    "invalid_or_expired_code": "The code is invalid or has expired.",
+    "branch_name_required": "Branch name is required",
+    "validation_name_max": "Maximum {{max}} characters allowed",
+    "city_required": "City is required",
+    "lat_invalid": "Invalid latitude (must be between −90 and 90)",
+    "lng_invalid": "Invalid longitude (must be between −180 and 180)"
+  },
+
+  "errors": {
+    "bad_request": "Invalid request. Please check your input",
+    "unauthorized": "Your session has expired. Please log in again",
+    "forbidden": "You don't have permission to access this resource",
+    "not_found": "The requested resource was not found",
+    "conflict": "A conflict occurred. Please try again",
+    "validation_failed": "Validation failed",
+    "validation_failed_with_data": "Please correct the errors and try again",
+    "too_many_requests": "Too many requests. Please wait a moment before trying again",
+    "server_error": "Server error. Our team has been notified",
+    "bad_gateway": "Bad gateway. Please try again later",
+    "service_unavailable": "Service temporarily unavailable. Maintenance in progress",
+    "gateway_timeout": "Gateway timeout. Please try again",
+    "client_error": "Your request couldn't be processed. Please try again",
+    "server_error_general": "Server error. Please try again later",
+    "unexpected_error": "An unexpected error occurred",
+    "network_error": "Unable to connect to the server. Please check your internet connection",
+    "timeout_error": "Request timed out. Please check your connection and try again",
+    "cors_error": "Cross-origin request blocked. Please contact support",
+    "connection_error": "Network error. Please check your connection and try again",
+    "request_cancelled": "Request was cancelled",
+    "registerSessionExpired": "Please restart the registration process to continue",
+    "resetSessionExpired": "Request expired, please try again",
+    "reset_code_attempts_exceeded": "Maximum verification attempts exceeded. Please request a new code.",
+    "verification_attempts_exceeded": "Too many incorrect verification attempts. Please wait before requesting a new code."
+  },
+
+  "verify": {
+    "code_sent_to": "Verification code sent to",
+    "enter_six_digit_code": "Enter the 6-digit code",
+    "verify_button": "Verify Account",
+    "verifying_button": "Verifying...",
+    "can_resend_after": "You can resend after ",
+    "didnt_receive_code": "Didn't receive the code?",
+    "resend_code": "Resend Code",
+    "resending_code": "Sending...",
+    "digit_label": "Digit",
+    "verification_locked": "Verification Temporarily Locked",
+    "cooldown_message": "verification has been temporarily disabled. You can request a new code after ",
+    "verification_disabled": "Verification Temporarily Disabled",
+    "request_new_code_after_countdown": "You can request a new code after the countdown ends"
+  },
+
+  "reset_password": {
+    "forgot_password_title": "Forgot Password",
+    "forgot_password_description": "Enter your email and we'll send you a verification code",
+    "send_code": "Send Verification Code",
+    "sending_code": "Sending...",
+    "remembered_password": "Remembered your password?",
+    "back_to_login": "Back to Login",
+    "verify_reset_title": "Verify Reset Code",
+    "verify_reset_description": "Enter the code sent to",
+    "verify_code_button": "Verify Code",
+    "verifying_code": "Verifying...",
+    "reset_password_title": "Reset Password",
+    "reset_password_description": "Enter your new password",
+    "new_password": "New Password",
+    "confirm_new_password": "Confirm New Password",
+    "reset_password_button": "Reset Password",
+    "resetting_password": "Resetting...",
+    "password_reset_success": "Password has been reset successfully",
+    "enter_new_password": "Enter your new password",
+    "confirm_new_password_placeholder": "Confirm your new password",
+    "passwords_must_match": "Passwords must match",
+    "password_changed_successfully": "Password has been changed successfully!",
+    "changing_password": "Changing password...",
+    "change_password": "Change Password"
+  },
+
+  "admin_navbar": {
+    "add_car": "Add Car",
+    "manage_cars": "Manage Cars",
+    "bookings": "Bookings",
+    "branches": "Branches"
+  },
+
+  "branch_header": {
+    "title": "Fleet Management",
+    "subtitle": "Branches",
+    "description": "Manage all rental locations",
+    "add_branch": "Add Branch"
+  },
+
+  "branch_stats": {
+    "total": "Total Branches",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+
+  "branch_filter_bar": {
+    "search_placeholder": "Search by city...",
+    "search_label": "Search by city",
+    "status_label": "Status",
+    "status_all": "All Statuses",
+    "status_active": "Active Only",
+    "status_inactive": "Inactive Only",
+    "show_label": "Show",
+    "per_page": "{{count}} per page"
+  },
+
+  "branch_card": {
+    "status_active": "Active",
+    "status_inactive": "Inactive",
+    "action_view": "View",
+    "action_toggle": "Toggle status",
+    "cars_count": "Cars"
+  },
+
+  "branch_form": {
+    "title_create": "Add New Branch",
+    "section_identity": "Identity Information",
+    "section_location": "Location Details",
+    "section_gps": "GPS Coordinates",
+    "field_name_en": "Name (English)",
+    "field_name_ar": "Name (Arabic)",
+    "field_city_en": "City (English)",
+    "field_city_ar": "City (Arabic)",
+    "field_latitude": "Latitude",
+    "field_longitude": "Longitude",
+    "placeholder_name_en": "e.g. Riyadh Main",
+    "placeholder_name_ar": "e.g. Riyadh Branch",
+    "placeholder_city_en": "e.g. Riyadh",
+    "placeholder_city_ar": "e.g. Riyadh",
+    "btn_save": "Save Changes"
+  },
+
+  "branch_view": {
+    "title": "Branch Details",
+    "status": "Status",
+    "name_en": "Name (English)",
+    "name_ar": "Name (Arabic)",
+    "city_en": "City (English)",
+    "city_ar": "City (Arabic)",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "fleet": "Fleet",
+    "fleet_summary": "{{cars}} cars across {{categories}} categories"
+  },
+
+  "branch_delete_dialog": {
+    "delete_btn_blocked": "Cannot Delete",
+    "delete_confirm_msg": "Are you sure you want to delete {{name}}? This action cannot be undone.",
+    "delete_blocked_msg": "Cannot delete {{name}} because it has {{count}} cars assigned to it. Reassign or remove cars first."
+  },
+
+  "branch_actions": {
+    "create_branch": "Create Branch",
+    "edit_branch": "Edit Branch",
+    "delete_branch": "Delete Branch"
+  },
+  "branch_empty_state": {
+    "empty_state_title": "No braches yet.",
+    "empty_state_subtitle": "Start by Adding ones",
+    "no_results_title": "No Results Found",
+    "no_results_subtitle": "Try changing the search filters or city for better results."
+  },
+  "branch_pagination": {
+    "info": "Showing {{start}}–{{end}} of {{total}} branches"
+  }
+}

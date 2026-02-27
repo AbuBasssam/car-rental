@@ -4,7 +4,30 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>car-rental</title>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+
+        // if (window.location.pathname.includes("/login")) {
+        //   document.documentElement.dir = "ltr";
+        //   document.body.dir = "ltr";
+        // }
+
+        const language =
+          localStorage.getItem("language") ||
+          localStorage.getItem("i18nextLng") ||
+          "en";
+
+        const isRTL = language === "ar";
+        document.documentElement.dir = isRTL ? "rtl" : "ltr";
+        document.documentElement.lang = language;
+        document.body.dir = isRTL ? "rtl" : "ltr";
+      })();
+    </script>
+    <title>Rento</title>
   </head>
   <body>
     <div id="root"></div>

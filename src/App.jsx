@@ -1,23 +1,25 @@
-import React from "react";
-import Aos from "aos";
-import "aos/dist/aos.css";
-
 import { useEffect } from "react";
 import AOS from "aos";
+import { ToastContainer } from "react-toastify";
 import "aos/dist/aos.css";
-import HomePage from "./components/homePage.jsx";
+import { Outlet } from "react-router-dom";
+import { defaultToastConfig } from "./config/toastConfig";
+import "react-toastify/dist/ReactToastify.css";
+import "./i18n";
 
 function App() {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // animation duration in ms
-      once: true, // run animation only once
+      duration: 1000,
+      once: true,
     });
   }, []);
+
   return (
-    <>
-      <HomePage />
-    </>
+    <div className="App">
+      <ToastContainer {...defaultToastConfig} />
+      <Outlet />
+    </div>
   );
 }
 
